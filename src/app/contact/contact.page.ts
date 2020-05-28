@@ -15,9 +15,8 @@ export class ContactPage implements OnInit {
   ngOnInit() {
     // Retrieve data from the API
     this.dataService.getAllData().subscribe(data => {
-      console.log(data);
+      this.data = data;
+      console.log(this.data[0]);
     });
-
   }
-  
 }
