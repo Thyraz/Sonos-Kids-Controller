@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Media } from './media';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class MediaService {
 
   constructor(private http: HttpClient) { }
 
   // Get all data from the API
-  getAllData() {
-    return this.http.get('/api/data');
+  getMedia(): Observable<Media[]> {
+    return this.http.get<Media[]>('/api/data');
   }
-
 }

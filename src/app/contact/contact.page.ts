@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // Shoudl be moved in a compoinent that is then displayed in a page like this
-import { DataService } from '../data.service';
+import { MediaService } from '../media.service';
+import { PlayerService } from '../player.service';
+import { Media } from '../media';
 
 @Component({
   selector: 'app-contact',
@@ -8,15 +10,23 @@ import { DataService } from '../data.service';
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
-  data: any = [];
+  media: Media[] = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private mediaService: MediaService,
+    private playerService: PlayerService,
+  ) {}
 
   ngOnInit() {
     // Retrieve data from the API
-    this.dataService.getAllData().subscribe(data => {
-      this.data = data;
-      console.log(this.data[0]);
+    this.mediaService.getMedia().subscribe(media => {
+      this.media = media;
+      console.log(this.media[0]);
+
+
+
+      // Test: Set volume of player after loading data
+      // this.playerService.play();
     });
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "nav-test",
-  "integrations": {},
-  "type": "angular"
+    "name": "sonos-kids-controller",
+    "integrations": {},
+    "type": "angular"
 }

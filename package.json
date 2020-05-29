@@ -1,5 +1,5 @@
 {
-    "name": "nav-test",
+    "name": "sonos-kids-controller",
     "version": "0.0.1",
     "author": "Ionic Framework",
     "homepage": "https://ionicframework.com/",
@@ -25,6 +25,7 @@
         "@ionic/angular": "^5.0.0",
         "axios": "^0.19.2",
         "express": "^4.17.1",
+        "jsonfile": "^6.0.1",
         "rxjs": "~6.5.1",
         "tslib": "^1.10.0",
         "zone.js": "~0.10.2"

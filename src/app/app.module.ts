@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from './data.service';
+import { MediaService } from './media.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { DataService } from './data.service';
     }),
     AppRoutingModule],
   providers: [
-    DataService,
+    MediaService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
