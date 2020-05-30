@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Media } from './media';
 
-
 @Injectable({
   providedIn: 'root'
 })
