@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // Shoudl be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
-import { PlayerService } from '../player.service';
 import { Media } from '../media';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-contact',

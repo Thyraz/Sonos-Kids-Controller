@@ -11,6 +11,10 @@
 
 <ion-content>
     <div id="container">
-        <strong>Contact Page</strong>
+        <ion-slides [options]="slideOptsOne" #slideWithNav (ionSlideDidChange)="SlideDidChange(sliderOne,slideWithNav)">
+            <ion-slide *ngFor="let currentMedia of media">
+                <img src="{{currentMedia.cover}}">
+            </ion-slide>
+        </ion-slides>
     </div>
 </ion-content>
