@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ContactPageRoutingModule } from './contact-routing.module';
+import { MedialistPageRoutingModule } from './medialist-routing.module';
 
-import { ContactPage } from './contact.page';
+import { MedialistPage } from './medialist.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactPageRoutingModule
+    MedialistPageRoutingModule
   ],
-  declarations: [ContactPage]
+  declarations: [MedialistPage]
 })
-export class ContactPageModule {}
+export class MedialistPageModule {}

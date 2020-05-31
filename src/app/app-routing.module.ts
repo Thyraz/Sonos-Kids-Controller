@@ -12,13 +12,9 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'contact',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
-  },
-  {
-    path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
-  },
+    path: 'medialist',
+    loadChildren: () => import('./medialist/medialist.module').then( m => m.MedialistPageModule)
+  }
 ];
 
 @NgModule({

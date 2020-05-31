@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button icon="arrow-back-outline" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Contact
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+
+                <ion-slides [options]="slideOptions" #slider (ionSlideDidChange)="SlideDidChange()">
+                    <ion-slide *ngFor="let currentMedia of media">
+                        <img src="{{currentMedia.cover}}">
+                        <span class="slide-text">{{currentMedia.artist}} - {{currentMedia.title}}</span>
+                    </ion-slide>
+                </ion-slides>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
