@@ -8,12 +8,21 @@ export class PlayerService {
 
   constructor(private http: HttpClient) { }
 
-  play() {
-    // http://sonos-controller.fritz.box:5005/bad/volume/
-    // http://sonos-controller.fritz.box:5005/bad/amazonmusic/now/album:B07C2M88D8
+  playMedia(media: Media) {
+    // TODO: Create abstract MusicService class and subclasses like Amazon, Spotify, Local library, ...
+    // instead of building these URLs here
+    let url: string;
 
-    this.http.get('http://sonos-controller.fritz.box:5005/bad/amazonmusic/now/album:B07C2M88D8').subscribe(response => {
+    switch (media.type) {
+      case 'amazon': {
+        url = 'http://sonos-controller.fritz.box:5005/bad/amazonmusic/now/album:' + media.id;
+        break;
+      }
+    }
+
+    this.http.get(url).subscribe(response => {
       console.log(response);
     });
+
   }
 }

@@ -19,7 +19,7 @@ export class MedialistPage implements OnInit {
     initialSlide: 0,
     slidesPerView: 1,
     autoplay: false,
-    loop: true
+    loop: false
   };
 
   constructor(
@@ -32,10 +32,12 @@ export class MedialistPage implements OnInit {
     this.mediaService.getMedia().subscribe(media => {
       this.media = media;
       console.log(this.media[0]);
-
-      // Test: Set volume of player after loading data
-      // this.playerService.play();
     });
+  }
+
+  coverClicked(clickedMedia: Media) {
+    console.log('Cover clicked: ' + clickedMedia.title);
+    this.playerService.playMedia(clickedMedia);
   }
 
   slideDidChange() {

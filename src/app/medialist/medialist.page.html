@@ -16,7 +16,7 @@
                 <ion-slides [options]="slideOptions" #slider (ionSlideDidChange)="slideDidChange()">
                     <ion-slide *ngFor="let currentMedia of media">
                         <ion-card>
-                            <img src="{{currentMedia.cover}}">
+                            <img (click)="coverClicked(currentMedia)" src="{{currentMedia.cover}}">
                             <ion-card-header>
                                 <ion-card-title>{{currentMedia.artist}}</ion-card-title>
                                 <ion-card-subtitle>{{currentMedia.title}}</ion-card-subtitle>
