@@ -12,6 +12,6 @@ export class MediaService {
 
   // Get all data from the API
   getMedia(): Observable<Media[]> {
-    return this.http.get<Media[]>('/api/data');
+    return this.http.get<Media[]>('http://localhost:8080/api/data');
   }
 }

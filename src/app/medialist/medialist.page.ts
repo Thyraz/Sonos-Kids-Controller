@@ -33,14 +33,20 @@ export class MedialistPage implements OnInit {
       this.media = media;
       console.log(this.media[0]);
 
-
-
       // Test: Set volume of player after loading data
       // this.playerService.play();
     });
   }
 
-  SlideDidChange() {
-    console.log('SliderDidChange');
+  slideDidChange() {
+    console.log('Slide did change');
+  }
+
+  slidePrev() {
+    this.slider.slidePrev();
+  }
+
+  slideNext() {
+    this.slider.slideNext();
   }
 }
