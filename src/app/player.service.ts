@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Media } from './media';
 
+export enum PlayerCmds {
+  PLAY = 'play',
+  PAUSE = 'pause',
+  PLAYPAUSE = 'playpause',
+  PREVIOUS = 'previous',
+  NEXT = 'next'
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,21 +17,35 @@ export class PlayerService {
 
   constructor(private http: HttpClient) { }
 
+  getState() {
+    this.sendRequest('state');
+  }
+
+  sendCmd(cmd: PlayerCmds) {
+    this.sendRequest(cmd);
+  }
+
   playMedia(media: Media) {
-    // TODO: Create abstract MusicService class and subclasses like Amazon, Spotify, Local library, ...
-    // instead of building these URLs here
     let url: string;
 
+    // TODO: Create abstract MusicService class and subclasses like Amazon, Spotify, Local library, ...
+    // instead of building these URLs here
     switch (media.type) {
       case 'amazon': {
-        url = 'http://sonos-controller.fritz.box:5005/bad/amazonmusic/now/album:' + media.id;
+        url = 'amazonmusic/now/album:' + media.id;
         break;
       }
     }
 
-    this.http.get(url).subscribe(response => {
+    this.sendRequest(url);
+  }
+
+  sendRequest(url: string) {
+    // Todo: Read node-http url and room names from config file
+    let baseUrl = 'http://sonos-controller.fritz.box:5005/bad/';
+
+    this.http.get(baseUrl + url).subscribe(response => {
       console.log(response);
     });
-
   }
 }

@@ -3,7 +3,7 @@ import { IonSlides } from '@ionic/angular';
 // Shoudl be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
 import { Media } from '../media';
-import { PlayerService } from '../player.service';
+import { PlayerService, PlayerCmds } from '../player.service';
 
 @Component({
   selector: 'app-medialist',
