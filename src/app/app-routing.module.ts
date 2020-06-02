@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'medialist',
     loadChildren: () => import('./medialist/medialist.module').then( m => m.MedialistPageModule)
+  },
+  {
+    path: 'player',
+    loadChildren: () => import('./player/player.module').then( m => m.PlayerPageModule)
   }
 ];
 

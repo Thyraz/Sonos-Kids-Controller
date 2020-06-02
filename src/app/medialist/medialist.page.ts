@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 // Shoudl be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
 import { Media } from '../media';
@@ -25,6 +26,7 @@ export class MedialistPage implements OnInit {
   constructor(
     private mediaService: MediaService,
     private playerService: PlayerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -36,8 +38,13 @@ export class MedialistPage implements OnInit {
   }
 
   coverClicked(clickedMedia: Media) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        media: clickedMedia
+      }
+    };
     console.log('Cover clicked: ' + clickedMedia.title);
-    this.playerService.playMedia(clickedMedia);
+    this.router.navigate(['/player'], navigationExtras);
   }
 
   slideDidChange() {
