@@ -7,7 +7,9 @@ export enum PlayerCmds {
   PAUSE = 'pause',
   PLAYPAUSE = 'playpause',
   PREVIOUS = 'previous',
-  NEXT = 'next'
+  NEXT = 'next',
+  VOLUMEUP = 'volume/+10',
+  VOLUMEDOWN = 'volume/-10'
 }
 
 @Injectable({
@@ -40,9 +42,9 @@ export class PlayerService {
     this.sendRequest(url);
   }
 
-  sendRequest(url: string) {
+  private sendRequest(url: string) {
     // Todo: Read node-http url and room names from config file
-    let baseUrl = 'http://sonos-controller.fritz.box:5005/bad/';
+    const baseUrl = 'http://sonos-controller.fritz.box:5005/bad/';
 
     this.http.get(baseUrl + url).subscribe(response => {
       console.log(response);
