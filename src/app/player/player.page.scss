@@ -1,0 +1,26 @@
+ion-card {
+    width: 230px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    // max-width: 500px; // cover image size
+}
+
+.small-icon {
+    font-size: 25px;
+}
+
+.large-icon {
+    font-size: 50px !important;
+}
+
+ion-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+}
+
+.player-controls {
+    margin-top: -10px !important;
+    max-width: 190px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
