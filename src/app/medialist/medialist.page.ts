@@ -30,10 +30,8 @@ export class MedialistPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Retrieve data from the API
     this.mediaService.getMedia().subscribe(media => {
       this.media = media;
-      console.log(this.media[0]);
     });
   }
 
@@ -43,12 +41,11 @@ export class MedialistPage implements OnInit {
         media: clickedMedia
       }
     };
-    console.log('Cover clicked: ' + clickedMedia.title);
     this.router.navigate(['/player'], navigationExtras);
   }
 
   slideDidChange() {
-    console.log('Slide did change');
+    // console{}.log('Slide did change');
   }
 
   slidePrev() {

@@ -30,7 +30,6 @@ export class PlayerPage implements OnInit {
 
   ionViewWillEnter() {
     if (this.media) {
-      console.log(this.media.artist + ' - ' + this.media.title);
       this.playerService.playMedia(this.media);
     }
   }
@@ -38,5 +37,4 @@ export class PlayerPage implements OnInit {
   ionViewWillLeave() {
     this.playerService.sendCmd(PlayerCmds.PAUSE);
   }
-
 }
