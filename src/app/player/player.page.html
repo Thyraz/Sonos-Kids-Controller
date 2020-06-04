@@ -24,17 +24,18 @@
         </ion-row>
         <ion-row class="player-controls">
             <ion-col class="ion-text-right">
-                <ion-button size="large" fill="clear">
+                <ion-button (click)="skipPrev()" size="large" fill="clear">
                     <ion-icon slot="icon-only" name="play-back" class="small-icon"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col class="ion-text-center">
-                <ion-button size="large" fill="clear">
-                    <ion-icon slot="icon-only" name="pause-circle" class="large-icon"></ion-icon>
+                <ion-button (click)="playPause()" size="large" fill="clear">
+                    <ion-icon *ngIf="playing" slot="icon-only" name="pause-circle" class="large-icon"></ion-icon>
+                    <ion-icon *ngIf="!playing" slot="icon-only" name="play-circle" class="large-icon"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col>
-                <ion-button size="large" fill="clear" class="ion-text-left">
+                <ion-button (click)="skipNext()" size="large" fill="clear" class="ion-text-left">
                     <ion-icon slot="icon-only" name="play-forward" class="small-icon"></ion-icon>
                 </ion-button>
             </ion-col>

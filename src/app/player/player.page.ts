@@ -12,6 +12,7 @@ import { Media } from '../media';
 export class PlayerPage implements OnInit {
 
   media: Media;
+  playing = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,5 +37,23 @@ export class PlayerPage implements OnInit {
 
   ionViewWillLeave() {
     this.playerService.sendCmd(PlayerCmds.PAUSE);
+  }
+
+  skipPrev() {
+    this.playerService.sendCmd(PlayerCmds.PREVIOUS);
+  }
+
+  skipNext() {
+    this.playerService.sendCmd(PlayerCmds.NEXT);
+  }
+
+  playPause() {
+    if (this.playing) {
+      this.playing = false;
+      this.playerService.sendCmd(PlayerCmds.PAUSE);
+    } else {
+      this.playing = true;
+      this.playerService.sendCmd(PlayerCmds.PLAY);
+    }
   }
 }
