@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map, filter, publishReplay, refCount } from 'rxjs/operators';
 import { Media } from './media';
 
 @Injectable({
@@ -8,32 +9,47 @@ import { Media } from './media';
 })
 export class MediaService {
 
-  media: Media[] = [];
+  private media: Observable<Media[]> = null;
 
   constructor(private http: HttpClient) { }
 
-  // TODO: Request Caching wie hier beschrieben:
-  // https://www.syntaxsuccess.com/viewarticle/caching-with-rxjs-observables-in-angular-2.0
-
   // Get the media data from the server
   getMedia(): Observable<Media[]> {
-    return this.http.get<Media[]>('http://localhost:8200/api/data');
+    // Observable with caching:
+    // publishReplay(1) tells rxjs to cache the last response of the request
+    // refCount() keeps the observable alive until all subscribers unsubscribed
+    // To clear the cache, set 'this.media = null;'
+    if (!this.media) {
+      this.media = this.http.get<Media[]>('http://localhost:8200/api/data').pipe(
+      publishReplay(1),
+      refCount()
+     );
+    }
+
+    return this.media;
   }
 
-  // TODO: Umbauen damit Observable zurück gegeben wird:
-  // https://stackoverflow.com/questions/50809542/return-an-observable-by-mapping-another-observable
+  clearCache() {
+    this.media = null;
+  }
 
-  // colllect all artists
+  // Collect all artists and remove duplicates
   getArtists(): Observable<string[]> {
-    this.getMedia().subscribe()
-
-    const allArtists = this.media.map(media => media.artist);
-    const uniqueArtists = Array.from(new Set(allArtists));
-
-    return uniqueArtists;
+    return this.getMedia().pipe(
+      map((media: Media[]) => {
+        const allArtists = media.map(currentMedia => currentMedia.artist);
+        const uniqueArtists = Array.from(new Set(allArtists)).sort();
+        return uniqueArtists;
+      })
+    );
   }
 
-  getMediaFromArtist(artist: string) {
-    return this.media.filter(media => media.artist == artist);
+  // Collect albums from a given artist
+  getMediaFromArtist(artist: string): Observable<Media[]> {
+    return this.getMedia().pipe(
+      map((media: Media[]) => {
+        return media.filter(currentMedia => currentMedia.artist === artist).sort((a, b) => a.title.localeCompare(b.title));
+      })
+    );
   }
 }
