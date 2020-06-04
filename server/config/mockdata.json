@@ -1,3 +1,9 @@
+// Allow multiple files like these in a folder and merge the arrays to a big one in server.js
+// Then in the client create an array with all artists
+// in the subview show a filtered list of all titles that match the artist name
+// howto read multiple files from folder:
+// https://stackoverflow.com/questions/52680107/node-js-output-content-from-multiple-json-files-into-console
+
 [{
         "artist": "Super Wings",
         "title": "Feuer im Wald",
