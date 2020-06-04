@@ -3,6 +3,10 @@
 // in the subview show a filtered list of all titles that match the artist name
 // howto read multiple files from folder:
 // https://stackoverflow.com/questions/52680107/node-js-output-content-from-multiple-json-files-into-console
+// For the artist images create an artist-images.json in a different folder with objects just artist and image
+
+// If an artist has only one title, open player directly instead of the albums subview
+// also use the album cover instead of looking for an artist image
 
 [{
         "artist": "Super Wings",
