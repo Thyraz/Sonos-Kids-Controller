@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, filter, publishReplay, refCount } from 'rxjs/operators';
 import { Media } from './media';
+import { Artist } from './artist';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class MediaService {
     // refCount() keeps the observable alive until all subscribers unsubscribed
     // To clear the cache, set 'this.media = null;'
     if (!this.media) {
-      this.media = this.http.get<Media[]>('http://localhost:8200/api/data').pipe(
+      this.media = this.http.get<Media[]>('../api/data').pipe(
       publishReplay(1),
       refCount()
      );
@@ -32,6 +33,8 @@ export class MediaService {
   clearCache() {
     this.media = null;
   }
+
+  // TODO: CREATE ARTIST OBJECTS WITH NAME AND ALBUMCOUNT
 
   // Collect all artists and remove duplicates
   getArtists(): Observable<string[]> {
