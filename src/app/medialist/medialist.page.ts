@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
-// Shoudl be moved in a compoinent that is then displayed in a page like this
+// Should be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
 import { Media } from '../media';
-import { PlayerService, PlayerCmds } from '../player.service';
 
 @Component({
   selector: 'app-medialist',
@@ -25,7 +24,6 @@ export class MedialistPage implements OnInit {
 
   constructor(
     private mediaService: MediaService,
-    private playerService: PlayerService,
     private router: Router
   ) {}
 

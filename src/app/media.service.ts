@@ -34,24 +34,35 @@ export class MediaService {
     this.media = null;
   }
 
-  // TODO: CREATE ARTIST OBJECTS WITH NAME AND ALBUMCOUNT
-
-  // Collect all artists and remove duplicates
-  getArtists(): Observable<string[]> {
+  // Get all artists
+  getArtists(): Observable<Artist[]> {
     return this.getMedia().pipe(
       map((media: Media[]) => {
-        const allArtists = media.map(currentMedia => currentMedia.artist);
-        const uniqueArtists = Array.from(new Set(allArtists)).sort();
-        return uniqueArtists;
+        // Create temporary object with artist as key and albumCount as value
+        const albumCounts = media.reduce((tempCounts, currentMedia) => {
+          tempCounts[currentMedia.artist] = (tempCounts[currentMedia.artist] || 0) + 1;
+          return tempCounts;
+        }, {});
+
+        // Build Array of Artist objects sorted by Artist name
+        const artists: Artist[] = Object.keys(albumCounts).sort().map(currentName => {
+          const artist: Artist = {
+            name: currentName,
+            albumCount: albumCounts[currentName]
+          };
+          return artist;
+        });
+
+        return artists;
       })
     );
   }
 
   // Collect albums from a given artist
-  getMediaFromArtist(artist: string): Observable<Media[]> {
+  getMediaFromArtist(artist: Artist): Observable<Media[]> {
     return this.getMedia().pipe(
       map((media: Media[]) => {
-        return media.filter(currentMedia => currentMedia.artist === artist).sort((a, b) => a.title.localeCompare(b.title));
+        return media.filter(currentMedia => currentMedia.artist === artist.name).sort((a, b) => a.title.localeCompare(b.title));
       })
     );
   }
