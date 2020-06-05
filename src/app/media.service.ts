@@ -22,9 +22,9 @@ export class MediaService {
     // To clear the cache, set 'this.media = null;'
     if (!this.media) {
       this.media = this.http.get<Media[]>('../api/data').pipe(
-      publishReplay(1),
-      refCount()
-     );
+        publishReplay(1),
+        refCount()
+      );
     }
 
     return this.media;
@@ -38,17 +38,24 @@ export class MediaService {
   getArtists(): Observable<Artist[]> {
     return this.getMedia().pipe(
       map((media: Media[]) => {
-        // Create temporary object with artist as key and albumCount as value
-        const albumCounts = media.reduce((tempCounts, currentMedia) => {
+        // Create temporary object with artists as keys and albumCounts as values
+        const mediaCounts = media.reduce((tempCounts, currentMedia) => {
           tempCounts[currentMedia.artist] = (tempCounts[currentMedia.artist] || 0) + 1;
           return tempCounts;
         }, {});
 
+        // Create temporary object with artists as keys and covers (first media cover) as values
+        const covers = media.sort((a, b) => a.title <= b.title ? -1 : 1).reduce((tempCovers, currentMedia) => {
+            if (!tempCovers[currentMedia.artist]) { tempCovers[currentMedia.artist] = currentMedia.cover; }
+            return tempCovers;
+        }, {});
+
         // Build Array of Artist objects sorted by Artist name
-        const artists: Artist[] = Object.keys(albumCounts).sort().map(currentName => {
+        const artists: Artist[] = Object.keys(mediaCounts).sort().map(currentName => {
           const artist: Artist = {
             name: currentName,
-            albumCount: albumCounts[currentName]
+            albumCount: mediaCounts[currentName],
+            cover: covers[currentName]
           };
           return artist;
         });
