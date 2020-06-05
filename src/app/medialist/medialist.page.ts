@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 // Should be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
 import { Media } from '../media';
+import { Artist } from '../artist';
 
 @Component({
   selector: 'app-medialist',
@@ -13,6 +14,7 @@ import { Media } from '../media';
 export class MedialistPage implements OnInit {
   @ViewChild('slider', { static: false }) slider: IonSlides;
 
+  artist: Artist;
   media: Media[] = [];
 
   slideOptions = {
@@ -23,12 +25,19 @@ export class MedialistPage implements OnInit {
   };
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private mediaService: MediaService,
-    private router: Router
-  ) {}
+  ) {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.artist = this.router.getCurrentNavigation().extras.state.artist;
+      }
+    });
+  }
 
   ngOnInit() {
-    this.mediaService.getMedia().subscribe(media => {
+    this.mediaService.getMediaFromArtist(this.artist).subscribe(media => {
       this.media = media;
     });
   }
