@@ -11,3 +11,36 @@ ion-card {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+ion-row.title-card {
+    margin-top: 10px;
+    ion-card {
+        height: 56px;
+    }
+}
+
+ion-row.stack-three {
+    margin-top: 30px;
+    ion-card {
+        width: 210px;
+        height: 210px;
+        img {
+            opacity: 0.1;
+        }
+    }
+}
+
+ion-row.stack-two {
+    margin-top: -235px;
+    ion-card {
+        width: 220px;
+        height: 220px;
+        img {
+            opacity: 0.4;
+        }
+    }
+}
+
+ion-row.stack-one {
+    margin-top: -245px;
+}
