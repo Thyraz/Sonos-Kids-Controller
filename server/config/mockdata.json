@@ -18,5 +18,33 @@
         "cover": "https://images-na.ssl-images-amazon.com/images/I/712qciQ%2BRoL._SL1500_.jpg",
         "type": "amazon",
         "id": "B07C2M88D8"
+    },
+    {
+        "artist": "Was Ist Was Junior",
+        "title": "Dinosaurier",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music118/v4/f8/20/67/f820674e-e0b0-c84c-9e91-e333564c0558/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B01N29I7UT"
+    },
+    {
+        "artist": "Was Ist Was Junior",
+        "title": "Ritterburg",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/ea/f2/16/eaf216a3-2b65-8ae9-4cee-831a09ad19eb/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B01N5MHNT0"
+    },
+    {
+        "artist": "Was Ist Was Junior",
+        "title": "Flughafen",
+        "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music128/v4/6c/c9/64/6cc96495-6321-fa06-309b-fd0ba84f2972/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B01MSEJ10W"
+    },
+    {
+        "artist": "Der kleine Rabe Socke",
+        "title": "Der kleine Rabe Socke",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music113/v4/db/40/d2/db40d266-4da9-a37a-cce8-a932a957f88a/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B0844Y5M5G"
     }
 ]

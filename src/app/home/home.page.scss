@@ -1,4 +1,13 @@
 ion-card {
     width: 230px;
-    // max-width: 500px; // cover image size
+    margin: 0 auto !important;
+}
+
+.quadratic-card {
+    height: 230px;
+}
+
+.truncate-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

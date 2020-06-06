@@ -1,21 +1,5 @@
-<!-- <ion-header>
-    <ion-toolbar color="light">
-        <ion-title>
-            Categories
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content>
-    <div id="container">
-        <ion-button color="primary" [routerLink]="'/medialist'" routerDirection="forward">Media List</ion-button>
-    </div>
-</ion-content> -->
 <ion-header>
     <ion-toolbar color="light">
-        <ion-buttons slot="start">
-            <ion-back-button icon="arrow-back-outline" defaultHref="/home"></ion-back-button>
-        </ion-buttons>
         <ion-title>
             Artists
         </ion-title>
@@ -23,21 +7,44 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col size="12">
-                <ion-slides [options]="slideOptions" #slider (ionSlideDidChange)="slideDidChange()">
-                    <ion-slide *ngFor="let currentArtist of artists">
-                        <ion-card>
+
+    <ion-slides [options]="slideOptions" #slider (ionSlideDidChange)="slideDidChange()">
+        <ion-slide *ngFor="let currentArtist of artists">
+            <ion-grid>
+                <ion-row style="margin-top: 30px;">
+                    <ion-col size="12">
+                        <ion-card class="quadratic-card" style="width:210px; height:210px;">
+                            <img (click)="coverClicked(currentArtist)" src="{{currentArtist.cover}}" style="opacity: 0.1;">
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: -235px;">
+                    <ion-col size="12">
+                        <ion-card class="quadratic-card" style="width:220px; height:220px;">
+                            <img (click)="coverClicked(currentArtist)" src="{{currentArtist.cover}}" style="opacity: 0.4;">
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: -245px;">
+                    <ion-col size="12">
+                        <ion-card class="quadratic-card">
                             <img (click)="coverClicked(currentArtist)" src="{{currentArtist.cover}}">
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 10px;;">
+                    <ion-col size="12">
+                        <ion-card style="height: 56px">
                             <ion-card-header>
-                                <ion-card-title>{{currentArtist.name}}</ion-card-title>
+                                <ion-card-title class="ion-text-nowrap truncate-text">{{currentArtist.name}}</ion-card-title>
                             </ion-card-header>
                         </ion-card>
-                    </ion-slide>
-                </ion-slides>
-            </ion-col>
-        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+    <ion-grid>
         <ion-row>
             <ion-col class="ion-text-end" size="6">
                 <ion-button (click)="slidePrev()">

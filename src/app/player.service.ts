@@ -42,6 +42,10 @@ export class PlayerService {
     this.sendRequest(url);
   }
 
+  say(media: Media) {
+    
+  }
+
   private sendRequest(url: string) {
     // Todo: Read node-http url and room names from config file
     const baseUrl = 'http://sonos-controller.fritz.box:5005/bad/';

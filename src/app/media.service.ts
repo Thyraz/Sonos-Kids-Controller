@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, filter, publishReplay, refCount } from 'rxjs/operators';
+import { map, publishReplay, refCount } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 import { Media } from './media';
 import { Artist } from './artist';
 
@@ -21,7 +22,9 @@ export class MediaService {
     // refCount() keeps the observable alive until all subscribers unsubscribed
     // To clear the cache, set 'this.media = null;'
     if (!this.media) {
-      this.media = this.http.get<Media[]>('../api/data').pipe(
+      const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
+
+      this.media = this.http.get<Media[]>(url).pipe(
         publishReplay(1),
         refCount()
       );
