@@ -39,6 +39,14 @@ export class PlayerPage implements OnInit {
     this.playerService.sendCmd(PlayerCmds.PAUSE);
   }
 
+  volUp() {
+    this.playerService.sendCmd(PlayerCmds.VOLUMEUP);
+  }
+
+  volDown() {
+    this.playerService.sendCmd(PlayerCmds.VOLUMEDOWN);
+  }
+
   skipPrev() {
     this.playerService.sendCmd(PlayerCmds.PREVIOUS);
   }

@@ -3,8 +3,16 @@
         <ion-buttons slot="start">
             <ion-back-button icon="arrow-back-outline" defaultHref="/medialist"></ion-back-button>
         </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="volDown()">
+                <ion-icon slot="icon-only" name="volume-low-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="volUp()">
+                <ion-icon slot="icon-only" name="volume-high-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>
-            Currently Playing
+            Playing
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -30,8 +38,8 @@
             </ion-col>
             <ion-col class="ion-text-center">
                 <ion-button (click)="playPause()" size="large" fill="clear">
-                    <ion-icon *ngIf="playing" slot="icon-only" name="pause-circle" class="large-icon"></ion-icon>
-                    <ion-icon *ngIf="!playing" slot="icon-only" name="play-circle" class="large-icon"></ion-icon>
+                    <ion-icon *ngIf="playing" slot="icon-only" name="pause" class="large-icon"></ion-icon>
+                    <ion-icon *ngIf="!playing" slot="icon-only" name="play" class="large-icon"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col>
