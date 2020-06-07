@@ -37,6 +37,10 @@ export class PlayerService {
         url = 'amazonmusic/now/album:' + media.id;
         break;
       }
+      case 'library': {
+        url = 'musicsearch/library/album/' + media.id;
+        break;
+      }
     }
 
     this.sendRequest(url);

@@ -46,5 +46,33 @@
         "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music113/v4/db/40/d2/db40d266-4da9-a37a-cce8-a932a957f88a/source/600x600bb.jpg",
         "type": "amazon",
         "id": "B0844Y5M5G"
+    },
+    {
+        "artist": "Wieso Weshalb Warum",
+        "title": "Alles über den Zirkus",
+        "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/2d/de/82/2dde8265-6723-9156-8e30-897228d5f567/source/600x600bb.jpg",
+        "type": "library",
+        "id": "Alles+über+den+Zirkus"
+    },
+    {
+        "artist": "Wieso Weshalb Warum",
+        "title": "Alles über Dinosaurier",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music123/v4/2b/a1/92/2ba19296-e984-5abb-f2b8-4cd800dc3ace/rm_image.jpg/600x600bb.jpg",
+        "type": "library",
+        "id": "Alles+über+Dinosaurier"
+    },
+    {
+        "artist": "Wieso Weshalb Warum",
+        "title": "Alles über die Polizei",
+        "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music123/v4/b7/6c/d8/b76cd83c-029c-f19b-a500-6d61db1a7699/rm_image.jpg/600x600bb.jpg",
+        "type": "library",
+        "id": "Alles+über+die+Polizei"
+    },
+    {
+        "artist": "Wieso Weshalb Warum",
+        "title": "Alles über Flugzeuge",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music123/v4/84/e3/19/84e319ad-303c-ee07-5f6b-fab43fed1d70/rm_image.jpg/600x600bb.jpg",
+        "type": "library",
+        "id": "Alles+über+Flugzeuge"
     }
 ]
