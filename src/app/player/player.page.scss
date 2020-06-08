@@ -5,6 +5,11 @@ ion-card {
     // max-width: 500px; // cover image size
 }
 
+.truncate-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .small-icon {
     font-size: 25px;
 }
