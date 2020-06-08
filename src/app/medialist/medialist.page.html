@@ -16,9 +16,9 @@
                 <ion-slide *ngFor="let currentMedia of media">
                     <ion-col size="12">
                         <ion-card>
-                            <img (click)="coverClicked(currentMedia)" src="{{currentMedia.cover}}">
+                            <img (click)="coverClicked(currentMedia)" draggable="false" src="{{currentMedia.cover}}">
                             <ion-card-header>
-                                <ion-card-title class="ion-text-nowrap truncate-text">{{currentMedia.title}}</ion-card-title>
+                                <ion-card-title (click)="mediaNameClicked(currentMedia)" class="ion-text-nowrap truncate-text">{{currentMedia.title}}</ion-card-title>
                             </ion-card-header>
                         </ion-card>
                     </ion-col>

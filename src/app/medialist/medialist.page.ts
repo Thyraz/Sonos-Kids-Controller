@@ -3,6 +3,7 @@ import { IonSlides } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 // Should be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
+import { PlayerService } from '../player.service';
 import { Media } from '../media';
 import { Artist } from '../artist';
 
@@ -28,6 +29,7 @@ export class MedialistPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private mediaService: MediaService,
+    private playerService: PlayerService
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -49,6 +51,10 @@ export class MedialistPage implements OnInit {
       }
     };
     this.router.navigate(['/player'], navigationExtras);
+  }
+
+  mediaNameClicked(clickedMedia: Media) {
+    this.playerService.say(clickedMedia.title);
   }
 
   slideDidChange() {
