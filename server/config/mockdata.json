@@ -74,5 +74,40 @@
         "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music123/v4/84/e3/19/84e319ad-303c-ee07-5f6b-fab43fed1d70/rm_image.jpg/600x600bb.jpg",
         "type": "library",
         "id": "Alles+über+Flugzeuge"
+    },
+    {
+        "artist": "Eule",
+        "title": "Eule findet den Beat",
+        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/19/b4/71/19b471f2-b628-1359-7ae1-508fdae2ea39/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B00IX1SE3I"
+    },
+    {
+        "artist": "Bibi und Tina",
+        "title": "Das Fohlen",
+        "cover": "https://is2-ssl.mzstatic.com/image/thumb/Music41/v4/a8/13/d0/a813d0e6-215f-d0d2-63c2-854eda83ca55/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B01LDAQL9E"
+    },
+    {
+        "artist": "Paw Patrol",
+        "title": "Rocky will nicht baden",
+        "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music113/v4/5b/ed/2a/5bed2aa9-0b3e-68c2-6765-314355f9926e/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B086R5FQRG"
+    },
+    {
+        "artist": "Pumuckl",
+        "title": "Spuk in der Werkstatt",
+        "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music118/v4/f8/f1/ff/f8f1ff49-ce19-88d4-81a0-257b03141b24/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B078T8G83Y"
+    },
+    {
+        "artist": "Feuerwehrmann Sam",
+        "title": "Der Neue Held von nebenan",
+        "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music111/v4/f7/01/51/f70151a7-e0c7-6979-756d-816b97d1e09c/source/600x600bb.jpg",
+        "type": "amazon",
+        "id": "B0725HY13S"
     }
 ]
