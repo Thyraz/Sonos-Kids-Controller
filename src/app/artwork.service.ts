@@ -22,7 +22,7 @@ export class ArtworkService {
       });
     } else {
       const url = 'https://itunes.apple.com/search?entity=album&country=de&term=' + media.artist + ' ' + media.title;
-      artwork =  this.http.get(url).pipe(
+      artwork =  this.http.jsonp(url, 'callback').pipe(
         map((response: ArtworkResponse) => {
           if ('results' in response && response.results.length > 0 && 'artworkUrl100' in response.results[0]) {
             const newUrl = response.results[0].artworkUrl100.replace('100x100', '500x500');

@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MediaService } from './media.service';
 
 @NgModule({
@@ -17,11 +17,13 @@ import { MediaService } from './media.service';
   entryComponents: [],
   imports: [
     BrowserModule,
-    HttpClientModule,
     IonicModule.forRoot({
       mode: 'md'
     }),
-    AppRoutingModule],
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientJsonpModule
+  ],
   providers: [
     MediaService,
     StatusBar,
