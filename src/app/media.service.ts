@@ -53,12 +53,19 @@ export class MediaService {
             return tempCovers;
         }, {});
 
+        // Create temporary object with artists as keys and first media as values
+        const coverMedia = media.sort((a, b) => a.title <= b.title ? -1 : 1).reduce((tempMedia, currentMedia) => {
+          if (!tempMedia[currentMedia.artist]) { tempMedia[currentMedia.artist] = currentMedia; }
+          return tempMedia;
+      }, {});
+
         // Build Array of Artist objects sorted by Artist name
         const artists: Artist[] = Object.keys(mediaCounts).sort().map(currentName => {
           const artist: Artist = {
             name: currentName,
             albumCount: mediaCounts[currentName],
-            cover: covers[currentName]
+            cover: covers[currentName],
+            coverMedia: coverMedia[currentName]
           };
           return artist;
         });

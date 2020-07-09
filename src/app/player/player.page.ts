@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { ArtworkService } from '../artwork.service';
 import { PlayerService, PlayerCmds } from '../player.service';
 import { Media } from '../media';
 
@@ -12,11 +13,13 @@ import { Media } from '../media';
 export class PlayerPage implements OnInit {
 
   media: Media;
+  cover = '';
   playing = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private artworkService: ArtworkService,
     private playerService: PlayerService
   ) {
     this.route.queryParams.subscribe(params => {
@@ -27,6 +30,9 @@ export class PlayerPage implements OnInit {
   }
 
   ngOnInit() {
+    this.artworkService.getArtwork(this.media).subscribe(url => {
+      this.cover = url;
+    });
   }
 
   ionViewWillEnter() {
