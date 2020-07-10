@@ -41,6 +41,13 @@ export class PlayerService {
         url = 'musicsearch/library/album/' + media.id;
         break;
       }
+      case 'spotify': {
+        // http://sonos-controller.fritz.box:5005/bad/musicsearch/spotify/album/folge%201%20das%20fohlen
+        if (!media.id) {
+          url = 'musicsearch/spotify/album/artist:"' + media.artist + '" album:"' + media.title + '"';
+        }
+        break;
+      }
     }
 
     this.sendRequest(url);
