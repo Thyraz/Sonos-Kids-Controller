@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
 
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 1,
+    slidesPerView: 3,
     autoplay: false,
     loop: false
   };
