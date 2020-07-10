@@ -4,6 +4,10 @@ ion-card {
     // max-width: 500px; // cover image size
 }
 
+ion-row.media-card {
+    padding-bottom: 30px;
+}
+
 .truncate-text {
     overflow: hidden;
     text-overflow: ellipsis;

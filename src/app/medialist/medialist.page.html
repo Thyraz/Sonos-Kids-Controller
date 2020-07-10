@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-slides [options]="slideOptions" #slider (ionSlideDidChange)="slideDidChange()">
+    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlideDidChange)="slideDidChange()">
         <ion-slide *ngFor="let currentMedia of media">
             <ion-grid>
-                <ion-row>
+                <ion-row class="media-card">
                     <ion-col size="12">
                         <ion-card>
                             <img (click)="coverClicked(currentMedia)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentMedia.title]}}">
