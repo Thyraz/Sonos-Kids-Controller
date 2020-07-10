@@ -107,5 +107,106 @@
         "cover": "https://is3-ssl.mzstatic.com/image/thumb/Music111/v4/f7/01/51/f70151a7-e0c7-6979-756d-816b97d1e09c/source/600x600bb.jpg",
         "type": "amazon",
         "id": "B0725HY13S"
+    },
+
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 1: Hexen gibt es doch",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 2: Hexerei in der Schule",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 3: Die Zauberlimonade",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 4: Der Bankräuber",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 5: Ein verhexter Urlaub",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 6: Die Kuh im Schlafzimmer",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 7: heilt den Bürgermeister",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 8: Die Schloßgespenster",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 9: verliebt sich",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 10: Bibis neue Freundin",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 11: Der Schulausflug",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 12: hat Geburtstag",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 13: Ein verhexter Sonntag",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 14: in Amerika",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 15: Die schwarzen Vier",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 16: Das Schulfest",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 17: Der kleine Hexer",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 18: Auf dem Hexenberg",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 19: Das Sportfest",
+        "type": "spotify"
+    },
+    {
+        "artist": "Bibi Blocksberg",
+        "title": "Folge 20: Papa ist weg",
+        "type": "spotify"
     }
 ]
