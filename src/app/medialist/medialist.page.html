@@ -1,10 +1,10 @@
 <ion-header>
-    <ion-toolbar color="light">
+    <ion-toolbar color="tertiary">
         <ion-buttons slot="start">
             <ion-back-button icon="arrow-back-outline" defaultHref="/home"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Media List
+            {{artist.name}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -27,15 +27,15 @@
         </ion-slide>
     </ion-slides>
 
-    <ion-grid>
+    <ion-grid class="button-container">
         <ion-row>
             <ion-col class="ion-text-end" size="6">
-                <ion-button (click)="slidePrev()">
+                <ion-button color="warning" size="large" (click)="slidePrev()">
                     <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col size="6">
-                <ion-button (click)="slideNext()">
+                <ion-button color="warning" size="large" (click)="slideNext()">
                     <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
             </ion-col>

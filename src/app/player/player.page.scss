@@ -1,8 +1,14 @@
+ion-back-button {
+    --min-height: 64px;
+    --min-width: 64px;
+    --icon-font-size: 30px;
+}
+
 ion-card {
-    width: 230px;
+    width: 350px;
+    height: 350px;
     margin-left: auto !important;
     margin-right: auto !important;
-    // max-width: 500px; // cover image size
 }
 
 .truncate-text {

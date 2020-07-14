@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="light">
+    <ion-toolbar color="tertiary">
         <ion-title>
             Artists
         </ion-title>
@@ -10,23 +10,9 @@
     <ion-slides [options]="slideOptions" pager="true" #slider (ionSlideDidChange)="slideDidChange()">
         <ion-slide *ngFor="let currentArtist of artists">
             <ion-grid>
-                <ion-row class="stack-three">
+                <ion-row>
                     <ion-col size="12">
-                        <ion-card class="quadratic-card">
-                            <img (click)="coverClicked(currentArtist)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentArtist.name]}}">
-                        </ion-card>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="stack-two">
-                    <ion-col size="12">
-                        <ion-card class="quadratic-card">
-                            <img (click)="coverClicked(currentArtist)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentArtist.name]}}">
-                        </ion-card>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="stack-one">
-                    <ion-col size="12">
-                        <ion-card class="quadratic-card">
+                        <ion-card class="circle-card">
                             <img (click)="coverClicked(currentArtist)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentArtist.name]}}">
                         </ion-card>
                     </ion-col>
@@ -43,15 +29,16 @@
             </ion-grid>
         </ion-slide>
     </ion-slides>
-    <ion-grid>
+
+    <ion-grid class="button-container">
         <ion-row>
             <ion-col class="ion-text-end" size="6">
-                <ion-button (click)="slidePrev()">
+                <ion-button color="warning" size="large" (click)="slidePrev()">
                     <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col size="6">
-                <ion-button (click)="slideNext()">
+                <ion-button color="warning" size="large" (click)="slideNext()">
                     <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
                 </ion-button>
             </ion-col>

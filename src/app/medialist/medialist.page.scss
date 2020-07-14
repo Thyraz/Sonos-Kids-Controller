@@ -1,14 +1,32 @@
+ion-back-button {
+    --min-height: 64px;
+    --min-width: 64px;
+    --icon-font-size: 30px;
+}
+
 ion-card {
     width: 230px;
     margin: 0 auto !important;
-    // max-width: 500px; // cover image size
+    --background: #262626;
 }
 
 ion-row.media-card {
-    padding-bottom: 30px;
+    padding-top: 5px;
+    padding-bottom: 25px;
 }
 
 .truncate-text {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.button-container {
+    margin-top: -15px;
+    ion-button {
+        --padding-start: 50px;
+        --padding-end: 50px;
+        --border-radius: 6px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }

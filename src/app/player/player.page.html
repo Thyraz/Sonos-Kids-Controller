@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="light">
+    <ion-toolbar color="tertiary">
         <ion-buttons slot="start">
             <ion-back-button icon="arrow-back-outline" defaultHref="/medialist"></ion-back-button>
         </ion-buttons>
@@ -12,7 +12,7 @@
             </ion-button>
         </ion-buttons>
         <ion-title>
-            Playing
+            {{media.title}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -20,31 +20,33 @@
 <ion-content>
     <ion-grid>
         <ion-row>
-            <ion-col size="12" class="ion-text-center">
+            <ion-col size="6">
                 <ion-card>
-                    <img src="{{this.cover}} " draggable="false">
-                    <ion-card-header>
-                        <ion-card-title class="ion-text-nowrap truncate-text">{{media.title}}</ion-card-title>
-                    </ion-card-header>
+                    <img src="{{this.cover}} " draggable="false" style="-moz-user-select: none;" ondragstart="return false;">
                 </ion-card>
             </ion-col>
-        </ion-row>
-        <ion-row class="player-controls">
-            <ion-col class="ion-text-right">
-                <ion-button (click)="skipPrev()" size="large" fill="clear">
-                    <ion-icon slot="icon-only" name="play-back" class="small-icon"></ion-icon>
-                </ion-button>
-            </ion-col>
-            <ion-col class="ion-text-center">
-                <ion-button (click)="playPause()" size="large" fill="clear">
-                    <ion-icon *ngIf="playing" slot="icon-only" name="pause" class="large-icon"></ion-icon>
-                    <ion-icon *ngIf="!playing" slot="icon-only" name="play" class="large-icon"></ion-icon>
-                </ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button (click)="skipNext()" size="large" fill="clear" class="ion-text-left">
-                    <ion-icon slot="icon-only" name="play-forward" class="small-icon"></ion-icon>
-                </ion-button>
+
+            <ion-col size="6">
+                <ion-grid>
+                    <ion-row class="player-controls">
+                        <ion-col class="ion-text-right">
+                            <ion-button (click)="skipPrev()" size="large" fill="clear">
+                                <ion-icon slot="icon-only" name="play-back" class="small-icon"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col class="ion-text-center">
+                            <ion-button (click)="playPause()" size="large" fill="clear">
+                                <ion-icon *ngIf="playing" slot="icon-only" name="pause" class="large-icon"></ion-icon>
+                                <ion-icon *ngIf="!playing" slot="icon-only" name="play" class="large-icon"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button (click)="skipNext()" size="large" fill="clear" class="ion-text-left">
+                                <ion-icon slot="icon-only" name="play-forward" class="small-icon"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </ion-col>
         </ion-row>
     </ion-grid>
