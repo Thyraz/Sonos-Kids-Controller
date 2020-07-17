@@ -4,11 +4,19 @@ ion-back-button {
     --icon-font-size: 30px;
 }
 
-ion-card {
+.cover-card {
     width: 350px;
     height: 350px;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.play-controls {
+    margin-top: 80px;
+}
+
+.volume-controls {
+    margin-top: 80px;
 }
 
 .truncate-text {
@@ -17,21 +25,17 @@ ion-card {
 }
 
 .small-icon {
-    font-size: 25px;
-}
-
-.large-icon {
-    font-size: 35px !important;
+    font-size: 30px !important;
 }
 
 ion-button {
-    --padding-start: 8px;
-    --padding-end: 8px;
+    --padding-start: 35px;
+    --padding-end: 35px;
+    --padding-top: 35px;
+    --padding-bottom: 35px;
+    font-size: 30px !important;
 }
 
-.player-controls {
-    margin-top: -10px !important;
-    max-width: 190px;
-    margin-left: auto !important;
-    margin-right: auto !important;
+.volume-button {
+    --background: #262626;
 }
