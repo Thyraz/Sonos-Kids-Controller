@@ -1,8 +1,15 @@
-export interface ArtworkResponseObject {
-    artworkUrl100: string;
+export interface ArtworkResponseImage {
+    height: number;
+    url: string;
+}
+
+export interface ArtworkResponseItem {
+    images: ArtworkResponseImage[];
 }
 
 export interface ArtworkResponse {
-    resultCount: number;
-    results: ArtworkResponseObject[];
+    albums: {
+        total: number;
+        items: ArtworkResponseItem[];
+    };
 }
