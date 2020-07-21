@@ -14,6 +14,7 @@ declare const require: any;
 export class ArtworkService {
 
   spotifyApi: any;
+  refreshingToken = false;
 
   constructor(private http: HttpClient) {
     const SpotifyWebApi = require('../../src/app/spotify-web-api.js');
@@ -33,9 +34,15 @@ export class ArtworkService {
         retryWhen(errors => {
           return errors.pipe(
             flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
-            tap(_ => this.refreshToken()),
-            delay(100),
-            take(50)
+            tap(_ => {
+              if (!this.refreshingToken) {
+                this.refreshToken();
+                this.refreshingToken = true;
+                console.log('401 Authorization error. Refreshing token');
+              }
+            }),
+            delay(500),
+            take(10)
           );
         }),
         map((response: ArtworkResponse) => {
@@ -48,9 +55,10 @@ export class ArtworkService {
             &&
             'images' in response.albums.items[0]
             &&
+            response.albums.items[0].images.length > 0
+            &&
             'url' in response.albums.items[0].images[0]
           ) {
-            console.log(response.albums.items[0].images[0].height + ' ' + response.albums.items[0].images[0].url);
             return response.albums.items[0].images[0].url;
           } else {
             // Return default "Missing Cover" image path instead of empty string?
@@ -69,6 +77,7 @@ export class ArtworkService {
     this.http.get(tokenUrl, {responseType: 'text'}).subscribe(token => {
       console.log('Token:' + token);
       this.spotifyApi.setAccessToken(token);
+      this.refreshingToken = false;
     });
   }
 }
