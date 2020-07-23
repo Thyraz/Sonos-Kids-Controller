@@ -1,10 +1,11 @@
 ion-back-button {
-    --min-height: 64px;
-    --min-width: 64px;
+    --min-height: 70px;
+    --min-width: 120px;
     --icon-font-size: 30px;
 }
 
 .cover-card {
+    margin-top: 20px;
     width: 350px;
     height: 350px;
     margin-left: auto !important;
@@ -12,7 +13,12 @@ ion-back-button {
 }
 
 .play-controls {
-    margin-top: 80px;
+    margin-top: 90px;
+}
+
+.indicator-button {
+    opacity: 0.35;
+    pointer-events: none;
 }
 
 .volume-controls {

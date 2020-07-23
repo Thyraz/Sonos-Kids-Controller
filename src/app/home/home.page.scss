@@ -3,21 +3,21 @@ ion-card {
 }
 
 .circle-card {
-    width: 220px;
-    height: 220px;
-    border-radius: 115px;
+    width: 240px;
+    height: 240px;
+    border-radius: 120px;
     border: 6px solid var(--ion-color-dark);
-    margin-top: 8px;
+    margin-top: 18px;
 }
 
 .title-card {
-    margin-top: 5px;
+    margin-top: 20px;
     ion-card {
-        width: 230px;
+        width: 200px;
         height: 56px;
         --background: #262626;
     }
-    padding-bottom: 25px;
+    padding-bottom: 35px;
 }
 
 .truncate-text {

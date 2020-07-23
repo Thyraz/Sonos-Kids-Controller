@@ -1,6 +1,6 @@
 ion-back-button {
-    --min-height: 64px;
-    --min-width: 64px;
+    --min-height: 70px;
+    --min-width: 120px;
     --icon-font-size: 30px;
 }
 
@@ -10,9 +10,13 @@ ion-card {
     --background: #262626;
 }
 
+ion-card-title {
+    padding-bottom: 5px;
+}
+
 ion-row.media-card {
-    padding-top: 5px;
-    padding-bottom: 25px;
+    padding-top: 35px;
+    padding-bottom: 42px;
 }
 
 .truncate-text {
