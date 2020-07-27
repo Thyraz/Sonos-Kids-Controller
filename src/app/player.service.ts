@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Media } from './media';
+import { environment } from '../environments/environment';
 
 export enum PlayerCmds {
   PLAY = 'play',
@@ -60,7 +61,8 @@ export class PlayerService {
 
   private sendRequest(url: string) {
     // Todo: Read node-http url and room names from config file
-    const baseUrl = 'http://sonos-controller.fritz.box:5005/laurin/';
+    const room = (environment.production) ? 'laurin' : 'bad';
+    const baseUrl = 'http://sonos-controller.fritz.box:5005/' + room + '/';
 
     console.log(baseUrl + url);
 
