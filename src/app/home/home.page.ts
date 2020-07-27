@@ -5,6 +5,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { MediaService } from '../media.service';
 import { ArtworkService } from '../artwork.service';
 import { PlayerService } from '../player.service';
+import { ActivityIndicatorService } from '../activity-indicator.service';
 import { Artist } from '../artist';
 import { Media } from '../media';
 import { Observable, observable } from 'rxjs';
@@ -36,6 +37,7 @@ export class HomePage implements OnInit {
     private mediaService: MediaService,
     private artworkService: ArtworkService,
     private playerService: PlayerService,
+    private activityIndicatorService: ActivityIndicatorService,
     private router: Router
   ) {}
 
@@ -51,13 +53,21 @@ export class HomePage implements OnInit {
     });
   }
 
+  ionViewDidLeave() {
+    this.activityIndicatorService.hide();
+  }
+
   coverClicked(clickedArtist: Artist) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        artist: clickedArtist
-      }
-    };
-    this.router.navigate(['/medialist'], navigationExtras);
+    this.activityIndicatorService.show();
+
+    setTimeout(() => {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          artist: clickedArtist
+        }
+      };
+      this.router.navigate(['/medialist'], navigationExtras);
+    }, 50);
   }
 
   artistNameClicked(clickedArtist: Artist) {
