@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-slides [options]="slideOptions" pager="true" #slider (ionSlideDidChange)="slideDidChange()">
+    <ion-slides [options]="slideOptions" scrollbar="true" #slider (ionSlideDidChange)="slideDidChange()">
         <ion-slide *ngFor="let currentArtist of artists">
             <ion-grid>
                 <ion-row>
