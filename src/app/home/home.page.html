@@ -19,9 +19,9 @@
                 </ion-row>
                 <ion-row class="title-card">
                     <ion-col size="12">
-                        <ion-card>
+                        <ion-card (click)="artistNameClicked(currentArtist)">
                             <ion-card-header>
-                                <ion-card-title (click)="artistNameClicked(currentArtist)" class="ion-text-nowrap truncate-text">{{currentArtist.name}}</ion-card-title>
+                                <ion-card-title class="ion-text-nowrap truncate-text">{{currentArtist.name}}</ion-card-title>
                             </ion-card-header>
                         </ion-card>
                     </ion-col>
