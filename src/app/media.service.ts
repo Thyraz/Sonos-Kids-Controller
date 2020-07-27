@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, publishReplay, refCount } from 'rxjs/operators';
+import { Observable, from, of, iif, defer } from 'rxjs';
+import { map, publishReplay, refCount, mergeMap, tap, toArray, mergeAll, switchMap, flatMap } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { SpotifyService } from './spotify.service';
 import { Media } from './media';
 import { Artist } from './artist';
 
@@ -13,7 +14,10 @@ export class MediaService {
 
   private media: Observable<Media[]> = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private spotifyService: SpotifyService,
+  ) { }
 
   // Get the media data from the server
   getMedia(): Observable<Media[]> {
@@ -25,7 +29,19 @@ export class MediaService {
       const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
 
       this.media = this.http.get<Media[]>(url).pipe(
-        publishReplay(1),
+        mergeMap(items => from(items)), // parallel calls for each item
+        map((item, item2) => // check if current item is a single album or a query for multiple items
+          iif(
+            () => (item.query && item.query.length > 0) ? true : false,
+            this.spotifyService.getAlbumsForQuery(item.query),
+            of([item]) // return single albums also as array, so we always have the same data type
+          ),
+        ),
+        mergeMap(items => from(items)), // seperate arrays to single observables
+        mergeAll(), // merge everything together
+        toArray(), // convert to array
+        tap(console.log),
+        publishReplay(1), // cache result
         refCount()
       );
     }
@@ -79,7 +95,12 @@ export class MediaService {
   getMediaFromArtist(artist: Artist): Observable<Media[]> {
     return this.getMedia().pipe(
       map((media: Media[]) => {
-        return media.filter(currentMedia => currentMedia.artist === artist.name).sort((a, b) => a.title.localeCompare(b.title));
+        return media
+          .filter(currentMedia => currentMedia.artist === artist.name)
+          .sort((a, b) => a.title.localeCompare(b.title, undefined, {
+            numeric: true,
+            sensitivity: 'base'
+          }));
       })
     );
   }

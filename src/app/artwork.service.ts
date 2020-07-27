@@ -9,7 +9,7 @@ import { SpotifyService } from './spotify.service';
 export class ArtworkService {
 
   constructor(
-      private spotifyService: SpotifyService,
+      private spotifyService: SpotifyService
   ) { }
 
   getArtwork(media: Media): Observable<string> {

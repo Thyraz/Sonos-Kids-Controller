@@ -3,8 +3,14 @@ export interface ArtworkResponseImage {
     url: string;
 }
 
+export interface ArtworkResponseArtist {
+    name: string;
+}
+
 export interface ArtworkResponseItem {
     images: ArtworkResponseImage[];
+    name: string;
+    artists: ArtworkResponseArtist[];
 }
 
 export interface ArtworkResponse {
