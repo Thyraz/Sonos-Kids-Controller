@@ -50,6 +50,7 @@ export class HomePage implements OnInit {
           this.covers[artist.name] = url;
         });
       });
+      this.slider.update();
     });
   }
 
