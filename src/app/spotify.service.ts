@@ -56,7 +56,7 @@ export class SpotifyService {
         }),
         map((response: ArtworkResponse) => {
           return response.albums.items.map(item => {
-            const media: Media = { artist: item.artists[0].name, title: item.name, type: 'spotify'};
+            const media: Media = { artist: item.artists[0].name, title: item.name, cover: item.images[0].url, type: 'spotify'};
             return media;
           });
         })
