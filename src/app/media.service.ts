@@ -40,7 +40,6 @@ export class MediaService {
         mergeMap(items => from(items)), // seperate arrays to single observables
         mergeAll(), // merge everything together
         toArray(), // convert to array
-        tap(console.log),
         publishReplay(1), // cache result
         refCount()
       );
