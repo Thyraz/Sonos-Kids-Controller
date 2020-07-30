@@ -15,7 +15,7 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 // Configuration
-const dataFile = './server/config/mockdata.json'
+const dataFile = './server/config/data.json'
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
