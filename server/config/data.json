@@ -32,13 +32,6 @@
         "id": "Alles+über+Flugzeuge"
     },
     {
-        "artist": "Eule",
-        "title": "Eule findet den Beat",
-        "cover": "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/19/b4/71/19b471f2-b628-1359-7ae1-508fdae2ea39/source/600x600bb.jpg",
-        "type": "amazon",
-        "id": "B00IX1SE3I"
-    },
-    {
         "query": "artist:PAW Patrol",
         "type": "spotify"
     },
