@@ -33,10 +33,6 @@ try {
 }
 
 // Routes
-app.get('/api', (req, res) => {
-    res.send('api works');
-});
-
 app.get('/api/data', (req, res) => {
     if (data) {
         res.status(200).json(data);
@@ -63,6 +59,10 @@ app.get('/api/token', (req, res) => {
             res.status(500).send(err.message);
         }
     );
+});
+app.get('/api/sonos', (req, res) => {
+    // Send server address and port of the node-sonos-http-api instance to the client
+    res.status(200).send(config['node-sonos-http-api']);
 });
 
 // Catch all other routes and return the index file from Ionic app

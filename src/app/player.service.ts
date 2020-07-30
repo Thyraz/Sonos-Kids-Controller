@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Media } from './media';
+import { SonosApiConfig } from './sonos-api'
 import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
+import { publishReplay, refCount } from 'rxjs/operators';
 
 export enum PlayerCmds {
   PLAY = 'play',
@@ -18,7 +21,25 @@ export enum PlayerCmds {
 })
 export class PlayerService {
 
-  constructor(private http: HttpClient) { }
+  private config: Observable<SonosApiConfig> = null;
+
+  constructor(private http: HttpClient) {}
+
+  getConfig() {
+    // Observable with caching:
+    // publishReplay(1) tells rxjs to cache the last response of the request
+    // refCount() keeps the observable alive until all subscribers unsubscribed
+    if (!this.config) {
+      const url = (environment.production) ? '../api/sonos' : 'http://localhost:8200/api/sonos';
+
+      this.config = this.http.get<SonosApiConfig>(url).pipe(
+        publishReplay(1), // cache result
+        refCount()
+      );
+    }
+
+    return this.config;
+  }
 
   getState() {
     this.sendRequest('state');
@@ -31,8 +52,6 @@ export class PlayerService {
   playMedia(media: Media) {
     let url: string;
 
-    // TODO: Create abstract MusicService class and subclasses like Amazon, Spotify, Local library, ...
-    // instead of building these URLs here
     switch (media.type) {
       case 'amazon': {
         url = 'amazonmusic/now/album:' + media.id;
@@ -43,7 +62,6 @@ export class PlayerService {
         break;
       }
       case 'spotify': {
-        // http://sonos-controller.fritz.box:5005/bad/musicsearch/spotify/album/folge%201%20das%20fohlen
         if (!media.id) {
           url = 'musicsearch/spotify/album/artist:"' + media.artist + '" album:"' + media.title + '"';
         }
@@ -59,13 +77,10 @@ export class PlayerService {
     this.sendRequest(url);
   }
 
-  private sendRequest(url: string) {
-    // Todo: Read node-http url and room names from config file
-    const room = (environment.production) ? 'laurin' : 'bad';
-    const baseUrl = 'http://sonos-controller.fritz.box:5005/' + room + '/';
-
-    console.log(baseUrl + url);
-
-    this.http.get(baseUrl + url).subscribe();
+  private sendRequest(url: string) { 
+    this.getConfig().subscribe(config => {
+      const baseUrl = 'http://' + config.server + ':' + config.port + '/' + config.rooms[0] + '/';
+      this.http.get(baseUrl + url).subscribe();
+    });
   }
 }
