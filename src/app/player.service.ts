@@ -77,7 +77,7 @@ export class PlayerService {
     this.sendRequest(url);
   }
 
-  private sendRequest(url: string) { 
+  private sendRequest(url: string) {
     this.getConfig().subscribe(config => {
       const baseUrl = 'http://' + config.server + ':' + config.port + '/' + config.rooms[0] + '/';
       this.http.get(baseUrl + url).subscribe();
