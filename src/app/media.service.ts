@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, from, of, iif, defer } from 'rxjs';
+import { Observable, from, of, iif, defer, EmptyError, EMPTY } from 'rxjs';
 import { map, publishReplay, refCount, mergeMap, tap, toArray, mergeAll, switchMap, flatMap } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { SpotifyService } from './spotify.service';
@@ -18,6 +18,10 @@ export class MediaService {
     private http: HttpClient,
     private spotifyService: SpotifyService,
   ) { }
+
+  getRawMedia(): Observable<Media[]> {
+    return EMPTY;
+  }
 
   // Get the media data from the server
   getMedia(): Observable<Media[]> {
