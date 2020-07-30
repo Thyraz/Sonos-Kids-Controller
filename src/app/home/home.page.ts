@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
-// Should be moved in a compoinent that is then displayed in a page like this
 import { MediaService } from '../media.service';
 import { ArtworkService } from '../artwork.service';
 import { PlayerService } from '../player.service';
 import { ActivityIndicatorService } from '../activity-indicator.service';
 import { Artist } from '../artist';
-import { Media } from '../media';
-import { Observable, observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
