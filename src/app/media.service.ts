@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, from, of, iif, defer, EmptyError, EMPTY } from 'rxjs';
-import { map, publishReplay, refCount, mergeMap, tap, toArray, mergeAll, switchMap, flatMap } from 'rxjs/operators';
+import { Observable, from, of, iif, Subscriber } from 'rxjs';
+import { map, publishReplay, refCount, mergeMap, tap, toArray, mergeAll } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { SpotifyService } from './spotify.service';
 import { Media } from './media';
@@ -14,13 +14,30 @@ export class MediaService {
 
   private media: Observable<Media[]> = null;
 
+  private rawMedia: Observable<Media[]> = null;
+  private rawMediaSubscriber: Subscriber<unknown> = null;
+
   constructor(
     private http: HttpClient,
     private spotifyService: SpotifyService,
   ) { }
 
   getRawMedia(): Observable<Media[]> {
-    return EMPTY;
+    this.rawMedia = new Observable(observer => {
+      this.rawMediaSubscriber = observer;
+      this.updateRawMedia();
+
+      return {unsubscribe() {}};
+    });
+
+    return this.rawMedia;
+  }
+
+  private updateRawMedia() {
+    const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
+    this.http.get<Media[]>(url).subscribe(media => {
+        this.rawMediaSubscriber?.next(media);
+    });
   }
 
   // Get the media data from the server
@@ -34,7 +51,7 @@ export class MediaService {
 
       this.media = this.http.get<Media[]>(url).pipe(
         mergeMap(items => from(items)), // parallel calls for each item
-        map((item, item2) => // check if current item is a single album or a query for multiple items
+        map((item) => // check if current item is a single album or a query for multiple items
           iif(
             () => (item.query && item.query.length > 0) ? true : false,
             this.spotifyService.getAlbumsForQuery(item.query),
@@ -106,5 +123,9 @@ export class MediaService {
           }));
       })
     );
+  }
+
+  deleteRawMediaAtIndex(index: number) {
+    this.updateRawMedia();
   }
 }

@@ -58,3 +58,19 @@ br {
 ion-toolbar {
     --min-height: 70px;
 }
+
+.alert {
+    --backdrop-opacity: 0.5;
+    --background: #2c2c2c;
+    --width: 400px;
+    --min-width: 400px;
+    --max-width: 400px;
+}
+
+.alert-button {
+    font-size: 18px !important;
+}
+
+.alert-message {
+    font-size: 18px !important;
+}

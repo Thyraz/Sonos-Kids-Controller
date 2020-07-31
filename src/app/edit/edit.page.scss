@@ -1,0 +1,33 @@
+ion-item {
+    --border-color: #2e2e2e;
+    --inner-padding-top: 10px;
+    --inner-padding-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.transparent {
+    opacity: 0.65;
+}
+
+.vertical-center-content {
+    display: flex;
+    align-items: center;
+}
+
+.round {
+    width: 34px;
+    height: 34px;
+    --border-radius: 50%;
+    --vertical-align: middle;
+    --padding-start: 4px;
+    --padding-end: 4px;
+}
+
+.larger {
+    font-size: 20px;
+}
