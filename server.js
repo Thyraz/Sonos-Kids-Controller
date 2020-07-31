@@ -22,18 +22,19 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'www'))); // Static path to compiled Ionic app
 
-// Models
-var data;
-var jsonError;
-try {
-    data = jsonfile.readFileSync(dataFile);
-} catch (error) {
-    jsonError = error.message;
-    console.log(error);
-}
 
 // Routes
 app.get('/api/data', (req, res) => {
+    var data;
+    var jsonError;
+
+    try {
+        data = jsonfile.readFileSync(dataFile);
+    } catch (error) {
+        jsonError = error.message;
+        console.log(error);
+    }
+
     if (data) {
         res.status(200).json(data);
     } else {
