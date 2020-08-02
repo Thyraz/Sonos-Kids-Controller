@@ -110,5 +110,13 @@
     {
         "query": "artist: Pippi Langstrumpf album:\"Pippi im Taka-Tuka-Land\"",
         "type": "spotify"
+    },
+    {
+        "query": "artist: Max Kruse album: Urmel",
+        "type": "spotify"
+    },
+    {
+        "query": "artist: \"Jan & Henry\"",
+        "type": "spotify"
     }
 ]
