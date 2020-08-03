@@ -33,13 +33,120 @@ ion-item {
     bottom: 0;
     right: 0;
     z-index: 9999;
+    background-color: rgba(220, 220, 220, 1.0);
 }
 
+// Onscreen Keyboard
 .simple-keyboard {
-    max-width: 850px;
+    max-width: 800px;
 }
 
 .hg-button {
-    height: 30px !important;
+    // height: 30px !important;
     color: var(--ion-color-light);
+}
+
+.simple-keyboard.hg-theme-default {
+    font-family: inherit !important;
+}
+
+.simple-keyboard.hg-theme-ios {
+    width: 700px;
+    margin: auto;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-row .hg-button {
+    flex-grow: 1;
+    cursor: pointer;
+    max-width: initial;
+}
+
+.simple-keyboard.hg-theme-ios .hg-row {
+    display: flex;
+}
+
+.simple-keyboard.hg-theme-ios .hg-row:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.simple-keyboard.hg-theme-ios .hg-row .hg-button:not(:last-child) {
+    margin-right: 5px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shift {
+    max-width: 123px;
+    min-width: 123px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shiftactivated {
+    max-width: 123px;
+    min-width: 123px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-bksp {
+    max-width: 126px;
+    min-width: 126px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default {
+    background-color: rgba(220, 220, 220, 1.0);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default.hg-layout-custom {
+    background-color: #e5e5e5;
+    padding: 5px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button {
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0;
+    background: white;
+    border-bottom: 1px solid #b5b5b5;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    font-weight: 400;
+    font-size: 18px;
+    max-width: 45px;
+    min-width: 45px;
+    height: 45px;
+    min-height: 45px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button:active,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button:focus {
+    background: #e4e4e4;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-functionBtn {
+    background-color: #adb5bb;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-space,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shift,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button.hg-button-shiftactivated {
+    background-color: #ffffff;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button-space {
+    max-width: 448px;
+    min-width: 448px;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button-enter {
+    max-width: 110px;
+    min-width: 110px;
+    background-color: #356feb !important;
+    color: white;
+}
+
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button-altright,
+.simple-keyboard.hg-theme-ios.hg-theme-default .hg-button-back {
+    min-width: 80px;
+    max-width: 80px;
 }

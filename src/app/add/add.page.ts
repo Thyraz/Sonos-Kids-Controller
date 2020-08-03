@@ -30,9 +30,41 @@ export class AddPage implements OnInit, AfterViewInit {
         this.selectedInputElem.value = input;
       },
       onKeyPress: button => {
-        if (button === '{shift}' || button === '{lock}') {
-          this.handleShift();
-        }
+        this.handleLayoutChange(button);
+      },
+      theme: 'hg-theme-default hg-theme-ios',
+      layout: {
+        default: [
+          'q w e r t z u i o p ü',
+          'a s d f g h j k l ö ä',
+          '{shift} y x c v b n m {bksp}',
+          '{alt} {space} . {enter}'
+        ],
+        shift: [
+          'Q W E R T Z U I O P Ü',
+          'A S D F G H J K L Ö Ä',
+          '{shiftactivated} Y X C V B N M {bksp}',
+          '{alt} {space} . {enter}'
+        ],
+        alt: [
+          '1 2 3 4 5 6 7 8 9 0 =',
+          `% @ # $ & * / ( ) ' "`,
+          '{shift} , - + ; : ! ? {bksp}',
+          '{default} {space} . {enter}'
+        ]
+      },
+      display: {
+        '{alt}': '123',
+        '{smileys}': '\uD83D\uDE03',
+        '{shift}': '⇧',
+        '{shiftactivated}': '⇧',
+        '{enter}': '⮐ ',
+        '{bksp}': '⌫',
+        '{altright}': '123',
+        '{downkeyboard}': '🞃',
+        '{space}': ' ',
+        '{default}': 'ABC',
+        '{back}': '⇦'
       }
     });
 
@@ -51,13 +83,35 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.setInput(event.target.value, event.target.name);
   }
 
-  handleShift() {
+  handleLayoutChange(button) {
     const currentLayout = this.keyboard.options.layoutName;
-    const shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
+    let layout: string;
 
-    this.keyboard.setOptions({
-      layoutName: shiftToggle
-    });
+    switch (button) {
+      case '{shift}':
+      case '{shiftactivated}':
+      case '{default}':
+        layout = currentLayout === 'default' ? 'shift' : 'default';
+        break;
+
+      case '{alt}':
+      case '{altright}':
+        layout = currentLayout === 'alt' ? 'default' : 'alt';
+        break;
+
+      case '{smileys}':
+        layout = currentLayout === 'smileys' ? 'default' : 'smileys';
+        break;
+
+      default:
+        break;
+    }
+
+    if (layout) {
+      this.keyboard.setOptions({
+        layoutName: layout
+      });
+    }
   }
 
   segmentChanged(event: any) {
@@ -67,5 +121,4 @@ export class AddPage implements OnInit, AfterViewInit {
   submit(form) {
 
   }
-
 }
