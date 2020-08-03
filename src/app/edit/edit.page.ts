@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { MediaService } from '../media.service';
 import { Media } from '../media';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit',
@@ -14,7 +15,8 @@ export class EditPage implements OnInit {
 
   constructor(
     private mediaService: MediaService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,5 +50,9 @@ export class EditPage implements OnInit {
 
     await alert.present();
   }  
+
+  addButtonPressed() {
+    this.router.navigate(['/add']);
+  }
 
 }

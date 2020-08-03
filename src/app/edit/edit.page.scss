@@ -1,3 +1,16 @@
+ion-toolbar {
+    ion-back-button {
+        --min-height: 70px;
+        --min-width: 120px;
+        --icon-font-size: 30px;
+    }
+    ion-button {
+        height: 70px !important;
+        width: 70px !important;
+        font-size: 20px !important;
+    }
+}
+
 ion-item {
     --border-color: #2e2e2e;
     --inner-padding-top: 10px;

@@ -1,6 +1,14 @@
 <ion-header>
     <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button icon="arrow-back-outline" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
         <ion-title>Edit Library</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="addButtonPressed()">
+                <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

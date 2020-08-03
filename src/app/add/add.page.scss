@@ -1,0 +1,32 @@
+ion-toolbar {
+    ion-back-button {
+        --min-height: 70px;
+        --min-width: 120px;
+        --icon-font-size: 30px;
+    }
+    ion-button {
+        height: 70px !important;
+        width: 70px !important;
+        font-size: 20px !important;
+    }
+    ion-segment-button {
+        font-size: 18px;
+        --indicator-color: red !important;
+    }
+}
+
+ion-item {
+    font-size: 18px;
+}
+
+.top {
+    padding-bottom: 75px;
+}
+
+.bottom {
+    position: fixed;
+    left: 5px;
+    bottom: 10px;
+    right: 5px;
+    z-index: 9999;
+}
