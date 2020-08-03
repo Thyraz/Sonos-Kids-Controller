@@ -27,16 +27,16 @@
                         <ion-col size="12">
                             <div class="top">
                                 <ion-item>
-                                    <ion-input name="artist" type="text" placeholder="Album Artist" ngModel></ion-input>
+                                    <ion-input name="artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input name="title" type="text" placeholder="Album Title" ngModel></ion-input>
+                                    <ion-input name="title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input name="id" type="text" placeholder="Album Unique ID" ngModel></ion-input>
+                                    <ion-input name="id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input name="query" type="text" placeholder="Search Query" ngModel></ion-input>
+                                    <ion-input name="query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block">Add</ion-button>
@@ -50,7 +50,6 @@
         </div>
     </div>
     <div class="bottom">
-        <input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" />
         <div class="simple-keyboard"></div>
     </div>
 </ion-content>

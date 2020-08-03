@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { MediaService } from '../media.service';
-import Keyboard from "simple-keyboard";
+import Keyboard from 'simple-keyboard';
 
 @Component({
   selector: 'app-add',
@@ -11,11 +11,13 @@ import Keyboard from "simple-keyboard";
     '../../../node_modules/simple-keyboard/build/css/index.css'
   ],
 })
-export class AddPage implements OnInit {
+export class AddPage implements OnInit, AfterViewInit {
 
-  source: string = "spotify";
+  source = 'spotify';
+
   keyboard: Keyboard;
-  value="";
+  value = '';
+  selectedInputElem: any;
 
   constructor() { }
 
@@ -24,39 +26,41 @@ export class AddPage implements OnInit {
 
   ngAfterViewInit() {
     this.keyboard = new Keyboard({
-      onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button)
+      onChange: input => {
+        this.selectedInputElem.value = input;
+      },
+      onKeyPress: button => {
+        if (button === '{shift}' || button === '{lock}') {
+          this.handleShift();
+        }
+      }
+    });
+
+    this.selectedInputElem = document.querySelector('ion-input:first-child');
+  }
+
+  focusChanged(event: any) {
+    this.selectedInputElem = event.target;
+
+    this.keyboard.setOptions({
+      inputName: event.target.name
     });
   }
 
-  onChange = (input: string) => {
-    this.value = input;
-    console.log("Input changed", input);
-  };
+  inputChanged(event: any) {
+    this.keyboard.setInput(event.target.value, event.target.name);
+  }
 
-  onKeyPress = (button: string) => {
-    console.log("Button pressed", button);
-
-    /**
-     * If you want to handle the shift and caps lock buttons
-     */
-    if (button === "{shift}" || button === "{lock}") this.handleShift();
-  };
-
-  onInputChange = (event: any) => {
-    this.keyboard.setInput(event.target.value);
-  };
-
-  handleShift = () => {
-    let currentLayout = this.keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+  handleShift() {
+    const currentLayout = this.keyboard.options.layoutName;
+    const shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
 
     this.keyboard.setOptions({
       layoutName: shiftToggle
     });
-  };
+  }
 
-  segmentChanged(event) {
+  segmentChanged(event: any) {
     this.source = event.detail.value;
   }
 
