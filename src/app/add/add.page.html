@@ -38,9 +38,9 @@
                                 <ion-item>
                                     <ion-input name="query" type="text" placeholder="Search Query" ngModel></ion-input>
                                 </ion-item>
-                            </div>
-                            <div class="bottom">
-                                <ion-button size="large" type="submit" expand="block">Add</ion-button>
+                                <div class="add-button">
+                                    <ion-button size="large" type="submit" expand="block">Add</ion-button>
+                                </div>
                             </div>
                         </ion-col>
                     </ion-row>
@@ -48,5 +48,9 @@
             </form>
 
         </div>
+    </div>
+    <div class="bottom">
+        <input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" />
+        <div class="simple-keyboard"></div>
     </div>
 </ion-content>

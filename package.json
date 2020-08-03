@@ -28,6 +28,7 @@
         "express": "^4.17.1",
         "jsonfile": "^6.0.1",
         "rxjs": "~6.5.1",
+        "simple-keyboard": "^2.29.86",
         "spotify-web-api-js": "^1.4.0",
         "spotify-web-api-node": "^4.0.0",
         "tslib": "^1.10.0",
