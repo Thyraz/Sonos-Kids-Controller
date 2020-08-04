@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
 
   artists: Artist[] = [];
   covers = {};
+  activityIndicatorVisible = false;
 
   slideOptions = {
     initialSlide: 0,
@@ -52,11 +53,15 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidLeave() {
-    this.activityIndicatorService.hide();
+    if (this.activityIndicatorVisible) {
+      this.activityIndicatorService.hide();
+      this.activityIndicatorVisible = false
+    }
   }
 
   coverClicked(clickedArtist: Artist) {
     this.activityIndicatorService.show();
+    this.activityIndicatorVisible = true;
 
     setTimeout(() => {
       const navigationExtras: NavigationExtras = {
@@ -82,5 +87,9 @@ export class HomePage implements OnInit {
 
   slideNext() {
     this.slider.slideNext();
+  }
+
+  editButtonPressed() {
+    this.router.navigate(['/edit']);
   }
 }
