@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
 import { MediaService } from '../media.service';
 import Keyboard from 'simple-keyboard';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-add',
@@ -14,7 +15,6 @@ import Keyboard from 'simple-keyboard';
 export class AddPage implements OnInit, AfterViewInit {
 
   source = 'spotify';
-
   keyboard: Keyboard;
   selectedInputElem: any;
 
@@ -118,6 +118,13 @@ export class AddPage implements OnInit, AfterViewInit {
   }
 
   submit(form) {
+    console.log(form);
 
+    form.reset();
+    
+    this.keyboard.clearInput('artist');
+    this.keyboard.clearInput('title');
+    this.keyboard.clearInput('id');
+    this.keyboard.clearInput('query');
   }
 }
