@@ -20,24 +20,34 @@
             1
         </div>
 
-        <div *ngSwitchCase="'spotify'">
+        <div *ngSwitchCase="'spotify'" class="top">
             <form #form="ngForm" (ngSubmit)="submit(form)">
                 <ion-grid>
                     <ion-row>
-                        <ion-col size="12">
-                            <div class="top">
+                        <ion-col size="6">
+                            <div>
                                 <ion-item>
                                     <ion-input name="artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input name="title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
                                 <ion-item>
                                     <ion-input name="id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input name="query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block">Add</ion-button>
                                 </div>
