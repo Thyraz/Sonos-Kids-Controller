@@ -21,7 +21,7 @@
         </div>
 
         <div *ngSwitchCase="'spotify'" class="top">
-            <form #form="ngForm" (ngSubmit)="submit(form)">
+            <form #spotifyForm="ngForm" (ngSubmit)="submit(spotifyForm, 'spotify')">
                 <ion-grid>
                     <ion-row>
                         <ion-col size="6">

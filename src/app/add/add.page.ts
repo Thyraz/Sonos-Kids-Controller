@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
 import { MediaService } from '../media.service';
+import { Media } from '../media';
 import Keyboard from 'simple-keyboard';
-import { IonInput } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +19,9 @@ export class AddPage implements OnInit, AfterViewInit {
   keyboard: Keyboard;
   selectedInputElem: any;
 
-  constructor() { }
+  constructor(
+    private mediaService: MediaService
+  ) { }
 
   ngOnInit() {
   }
@@ -114,8 +117,19 @@ export class AddPage implements OnInit, AfterViewInit {
     this.source = event.detail.value;
   }
 
-  submit(form) {
-    console.log(form);
+  submit(form: NgForm, type: string) {
+    let media: Media;
+
+    if (type === 'spotify') {
+      media = {
+        artist: form.form.value.artist,
+        title: form.form.value.title,
+        query: form.form.value.query,
+        type
+      };
+    }
+
+    this.mediaService.addRawMedia(media);
 
     form.reset();
 

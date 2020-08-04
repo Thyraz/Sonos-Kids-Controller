@@ -126,6 +126,21 @@ export class MediaService {
   }
 
   deleteRawMediaAtIndex(index: number) {
-    this.updateRawMedia();
+    const url = (environment.production) ? '../api/delete' : 'http://localhost:8200/api/delete';
+    const body = {
+      index
+    };
+
+    this.http.post(url, body).subscribe(response => {
+      this.updateRawMedia();
+    });
+  }
+
+  addRawMedia(media: Media) {
+    const url = (environment.production) ? '../api/add' : 'http://localhost:8200/api/add';
+
+    this.http.post(url, media).subscribe(response => {
+      this.updateRawMedia();
+    });
   }
 }

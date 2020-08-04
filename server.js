@@ -42,6 +42,16 @@ app.get('/api/data', (req, res) => {
     }
 });
 
+app.post('/api/add', (req, res) => {
+    console.log(req.body);
+    res.status(200).send();
+});
+
+app.post('/api/delete', (req, res) => {
+    console.log(req.body);
+    res.status(200).send();
+});
+
 app.get('/api/token', (req, res) => {
     // Retrieve an access token from Spotify
     spotifyApi.clientCredentialsGrant().then(
@@ -61,6 +71,7 @@ app.get('/api/token', (req, res) => {
         }
     );
 });
+
 app.get('/api/sonos', (req, res) => {
     // Send server address and port of the node-sonos-http-api instance to the client
     res.status(200).send(config['node-sonos-http-api']);
