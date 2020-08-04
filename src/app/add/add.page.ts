@@ -92,16 +92,13 @@ export class AddPage implements OnInit, AfterViewInit {
       case '{default}':
         layout = currentLayout === 'default' ? 'shift' : 'default';
         break;
-
       case '{alt}':
       case '{altright}':
         layout = currentLayout === 'alt' ? 'default' : 'alt';
         break;
-
       case '{smileys}':
         layout = currentLayout === 'smileys' ? 'default' : 'smileys';
         break;
-
       default:
         break;
     }
@@ -121,7 +118,7 @@ export class AddPage implements OnInit, AfterViewInit {
     console.log(form);
 
     form.reset();
-    
+
     this.keyboard.clearInput('artist');
     this.keyboard.clearInput('title');
     this.keyboard.clearInput('id');
