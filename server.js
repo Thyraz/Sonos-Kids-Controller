@@ -56,9 +56,6 @@ app.get('/api/token', (req, res) => {
     // Retrieve an access token from Spotify
     spotifyApi.clientCredentialsGrant().then(
         function(data) {
-            console.log('The Spotify access token expires in ' + data.body['expires_in']);
-            console.log('The Spotify access token is ' + data.body['access_token']);
-
             res.status(200).send(data.body['access_token']);
         },
         function(err) {
