@@ -46,6 +46,7 @@ export class MedialistPage implements OnInit {
   }
 
   ngOnInit() {
+    // Subscribe
     this.mediaService.getMediaFromArtist(this.artist).subscribe(media => {
       this.media = media;
 
@@ -55,6 +56,9 @@ export class MedialistPage implements OnInit {
         });
       });
     });
+
+    // Retreive data through subscription above
+    this.mediaService.publishCachedMedia();
   }
 
   coverClicked(clickedMedia: Media) {

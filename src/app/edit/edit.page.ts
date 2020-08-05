@@ -23,10 +23,14 @@ export class EditPage implements OnInit {
     this.refreshMedia();
   }
 
+  ionViewWillLeave() {
+    this.mediaService.updateMedia();
+  }
+
   refreshMedia() {
     this.mediaService.getRawMedia().subscribe(media => {
       this.media = media;
-      console.log("Received new media list");
+      console.log('Received new media list');
     });
   }
 

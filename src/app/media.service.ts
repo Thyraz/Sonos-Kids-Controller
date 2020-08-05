@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, from, of, iif, Subscriber } from 'rxjs';
+import { Observable, from, of, iif, Subscriber, Subject } from 'rxjs';
 import { map, publishReplay, refCount, mergeMap, tap, toArray, mergeAll } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { SpotifyService } from './spotify.service';
@@ -12,7 +12,10 @@ import { Artist } from './artist';
 })
 export class MediaService {
 
-  private media: Observable<Media[]> = null;
+  private media: Media[] = null;
+
+  private mediaObservable: Observable<Media[]> = null;
+  private mediaSubject = new Subject<Media[]>();
 
   private rawMedia: Observable<Media[]> = null;
   private rawMediaSubscriber: Subscriber<unknown> = null;
@@ -33,49 +36,55 @@ export class MediaService {
     return this.rawMedia;
   }
 
-  private updateRawMedia() {
+  updateRawMedia() {
     const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
     this.http.get<Media[]>(url).subscribe(media => {
         this.rawMediaSubscriber?.next(media);
     });
   }
 
+  getMediaObservable(): Subject<Media[]> {
+    return this.mediaSubject;
+  }
+
   // Get the media data from the server
-  getMedia(): Observable<Media[]> {
-    // Observable with caching:
-    // publishReplay(1) tells rxjs to cache the last response of the request
-    // refCount() keeps the observable alive until all subscribers unsubscribed
-    // To clear the cache, set 'this.media = null;'
-    if (!this.media) {
-      const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
+  updateMedia() {
+    const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
 
-      this.media = this.http.get<Media[]>(url).pipe(
-        mergeMap(items => from(items)), // parallel calls for each item
-        map((item) => // check if current item is a single album or a query for multiple items
-          iif(
-            () => (item.query && item.query.length > 0) ? true : false,
-            this.spotifyService.getAlbumsForQuery(item.query),
-            of([item]) // return single albums also as array, so we always have the same data type
-          ),
+    this.http.get<Media[]>(url).pipe(
+      mergeMap(items => from(items)), // parallel calls for each item
+      map((item) => // check if current item is a single album or a query for multiple items
+        iif(
+          () => (item.query && item.query.length > 0) ? true : false,
+          this.spotifyService.getAlbumsForQuery(item.query),
+          of([item]) // return single albums also as array, so we always have the same data type
         ),
-        mergeMap(items => from(items)), // seperate arrays to single observables
-        mergeAll(), // merge everything together
-        toArray(), // convert to array
-        publishReplay(1), // cache result
-        refCount()
-      );
-    }
+      ),
+      mergeMap(items => from(items)), // seperate arrays to single observables
+      mergeAll(), // merge everything together
+      toArray() // convert to array
+    ).subscribe(media => {
+      this.media = media;
+      this.mediaSubject.next(media);
+    });
+  }
 
-    return this.media;
+  // Publish cached media or get new data if no chached media is available
+  publishCachedMedia() {
+    if (this.media) {
+      this.mediaSubject.next(this.media);
+    } else {
+      this.updateMedia();
+    }
   }
 
   clearCache() {
-    this.media = null;
+    this.mediaObservable = null;
   }
 
   // Get all artists
   getArtists(): Observable<Artist[]> {
-    return this.getMedia().pipe(
+    return this.getMediaObservable().pipe(
       map((media: Media[]) => {
         // Create temporary object with artists as keys and albumCounts as values
         const mediaCounts = media.reduce((tempCounts, currentMedia) => {
@@ -113,7 +122,7 @@ export class MediaService {
 
   // Collect albums from a given artist
   getMediaFromArtist(artist: Artist): Observable<Media[]> {
-    return this.getMedia().pipe(
+    return this.getMediaObservable().pipe(
       map((media: Media[]) => {
         return media
           .filter(currentMedia => currentMedia.artist === artist.name)

@@ -40,6 +40,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Subscribe
     this.mediaService.getArtists().subscribe(artists => {
       this.artists = artists;
 
@@ -50,12 +51,15 @@ export class HomePage implements OnInit {
       });
       this.slider.update();
     });
+
+    // Retreive data through subscription above
+    this.mediaService.publishCachedMedia();
   }
 
   ionViewDidLeave() {
     if (this.activityIndicatorVisible) {
       this.activityIndicatorService.hide();
-      this.activityIndicatorVisible = false
+      this.activityIndicatorVisible = false;
     }
   }
 
