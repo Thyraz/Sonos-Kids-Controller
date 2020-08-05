@@ -30,5 +30,6 @@ npm-debug.log*
 /plugins
 /www
 
+server/config/data.json
 config.json
-data.json
+
