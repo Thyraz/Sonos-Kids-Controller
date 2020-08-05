@@ -89,7 +89,6 @@ export class AddPage implements OnInit, AfterViewInit {
 
   inputChanged(event: any) {
     this.keyboard.setInput(event.target.value, event.target.name);
-    console.log('Changed');
     this.validate();
   }
 
