@@ -2,11 +2,8 @@ import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, NgModul
 import { MediaService } from '../media.service';
 import { Media } from '../media';
 import Keyboard from 'simple-keyboard';
-import { NgForm, FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
-@NgModule({
-  imports: [ReactiveFormsModule, FormsModule]
-})
 
 @Component({
   selector: 'app-add',
