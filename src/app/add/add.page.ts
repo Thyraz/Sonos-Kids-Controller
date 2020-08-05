@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, NgModule } from '@angular/core';
 import { MediaService } from '../media.service';
 import { Media } from '../media';
 import Keyboard from 'simple-keyboard';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule,ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [ReactiveFormsModule, FormsModule]
+})
 
 @Component({
   selector: 'app-add',
@@ -11,13 +15,14 @@ import { NgForm } from '@angular/forms';
   styleUrls: [
     './add.page.scss',
     '../../../node_modules/simple-keyboard/build/css/index.css'
-  ],
+  ]
 })
 export class AddPage implements OnInit, AfterViewInit {
 
   source = 'spotify';
   keyboard: Keyboard;
   selectedInputElem: any;
+  valid = false;
 
   constructor(
     private mediaService: MediaService
@@ -30,6 +35,7 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard = new Keyboard({
       onChange: input => {
         this.selectedInputElem.value = input;
+        this.validate();
       },
       onKeyPress: button => {
         this.handleLayoutChange(button);
@@ -83,6 +89,8 @@ export class AddPage implements OnInit, AfterViewInit {
 
   inputChanged(event: any) {
     this.keyboard.setInput(event.target.value, event.target.name);
+    console.log('Changed');
+    this.validate();
   }
 
   handleLayoutChange(button) {
@@ -118,15 +126,15 @@ export class AddPage implements OnInit, AfterViewInit {
   }
 
   submit(form: NgForm, type: string) {
-    let media: Media;
+    let media: Media = {
+      type
+    };
 
     if (type === 'spotify') {
-      media = {
-        artist: form.form.value.artist,
-        title: form.form.value.title,
-        query: form.form.value.query,
-        type
-      };
+      if (form.form.value.artist?.length) media['artist'] = form.form.value.artist;
+      if (form.form.value.title?.length) media['title'] = form.form.value.title;
+      if (form.form.value.query?.length) media['query'] = form.form.value.query;
+      if (form.form.value.id?.length) media['id'] = form.form.value.id;
     }
 
     this.mediaService.addRawMedia(media);
@@ -137,5 +145,20 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('title');
     this.keyboard.clearInput('id');
     this.keyboard.clearInput('query');
+  }
+
+  validate() {
+    const artist = this.keyboard.getInput('artist');
+    const title = this.keyboard.getInput('title');
+    const id = this.keyboard.getInput('id');
+    const query = this.keyboard.getInput('query');
+
+    this.valid = (
+      (title?.length && artist?.length && !(query?.length) && !(id?.length))
+      ||
+      (query?.length && !(title?.length) && !(id?.length))
+      ||
+      (id?.length && !(title?.length) && !(query?.length))
+    )
   }
 }

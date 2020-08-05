@@ -27,20 +27,20 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)"></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input name="title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)"></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)"></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input name="query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)"></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -49,7 +49,7 @@
                         <ion-col size="12">
                             <div>
                                 <div class="add-button">
-                                    <ion-button size="large" type="submit" expand="block">Add</ion-button>
+                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
                                 </div>
                             </div>
                         </ion-col>
