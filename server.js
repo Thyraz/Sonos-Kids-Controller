@@ -44,8 +44,15 @@ app.post('/api/add', (req, res) => {
 });
 
 app.post('/api/delete', (req, res) => {
-    console.log(req.body);
-    res.status(200).send();
+    jsonfile.readFile(dataFile, (error, data) => {
+        if (error) data = [];
+        data.splice(req.body.index, 1);
+
+        jsonfile.writeFile(dataFile, data, { spaces: 4 }, (error) => {
+            if (error) throw err;
+            res.status(200).send();
+        });
+    });
 });
 
 app.get('/api/token', (req, res) => {
