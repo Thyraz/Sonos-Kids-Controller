@@ -25,26 +25,23 @@ app.use(express.static(path.join(__dirname, 'www'))); // Static path to compiled
 
 // Routes
 app.get('/api/data', (req, res) => {
-    var data;
-    var jsonError;
-
-    try {
-        data = jsonfile.readFileSync(dataFile);
-    } catch (error) {
-        jsonError = error.message;
-        console.log(error);
-    }
-
-    if (data) {
-        res.status(200).json(data);
-    } else {
-        res.status(500).send(jsonError);
-    }
+    jsonfile.readFile(dataFile, (error, data) => {
+        if (error) data = [];
+        res.json(data);
+    });
 });
 
 app.post('/api/add', (req, res) => {
-    console.log(req.body);
-    res.status(200).send();
+    jsonfile.readFile(dataFile, (error, data) => {
+        if (error) data = [];
+
+        console.log(req.body);
+
+        data.push(req.body);
+        console.log(data);
+
+        res.status(200).send();
+    });
 });
 
 app.post('/api/delete', (req, res) => {
