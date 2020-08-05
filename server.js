@@ -34,13 +34,12 @@ app.get('/api/data', (req, res) => {
 app.post('/api/add', (req, res) => {
     jsonfile.readFile(dataFile, (error, data) => {
         if (error) data = [];
-
-        console.log(req.body);
-
         data.push(req.body);
-        console.log(data);
 
-        res.status(200).send();
+        jsonfile.writeFile(dataFile, data, { spaces: 4 }, (error) => {
+            if (error) throw err;
+            res.status(200).send();
+        });
     });
 });
 

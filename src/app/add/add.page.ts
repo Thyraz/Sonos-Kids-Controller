@@ -144,6 +144,8 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('title');
     this.keyboard.clearInput('id');
     this.keyboard.clearInput('query');
+
+    this.validate();
   }
 
   validate() {
