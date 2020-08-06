@@ -119,44 +119,63 @@ export class AddPage implements OnInit, AfterViewInit {
 
   segmentChanged(event: any) {
     this.source = event.detail.value;
+    this.validate();
   }
 
-  submit(form: NgForm, type: string) {
+  submit(form: NgForm) {
     let media: Media = {
-      type
+      type: this.source
     };
 
-    if (type === 'spotify') {
-      if (form.form.value.artist?.length) media['artist'] = form.form.value.artist;
-      if (form.form.value.title?.length) media['title'] = form.form.value.title;
-      if (form.form.value.query?.length) media['query'] = form.form.value.query;
-      if (form.form.value.id?.length) media['id'] = form.form.value.id;
+    if (this.source === 'spotify') {
+      if (form.form.value.spotify_artist?.length) media['artist'] = form.form.value.spotify_artist;
+      if (form.form.value.spotify_title?.length) media['title'] = form.form.value.spotify_title;
+      if (form.form.value.spotify_query?.length) media['query'] = form.form.value.spotify_query;
+      if (form.form.value.spotify_id?.length) media['id'] = form.form.value.spotify_id;
+
+    } else if (this.source === 'library') {
+      if (form.form.value.library_artist?.length) media['artist'] = form.form.value.library_artist;
+      if (form.form.value.library_title?.length) media['title'] = form.form.value.library_title;
+      if (form.form.value.library_cover?.length) media['cover'] = form.form.value.library_cover;
     }
 
     this.mediaService.addRawMedia(media);
 
     form.reset();
 
-    this.keyboard.clearInput('artist');
-    this.keyboard.clearInput('title');
-    this.keyboard.clearInput('id');
-    this.keyboard.clearInput('query');
+    this.keyboard.clearInput('spotify_artist');
+    this.keyboard.clearInput('spotify_title');
+    this.keyboard.clearInput('spotify_id');
+    this.keyboard.clearInput('spotify_query');
+
+    this.keyboard.clearInput('library_artist');
+    this.keyboard.clearInput('library_title');
+    this.keyboard.clearInput('library_cover');
 
     this.validate();
   }
 
   validate() {
-    const artist = this.keyboard.getInput('artist');
-    const title = this.keyboard.getInput('title');
-    const id = this.keyboard.getInput('id');
-    const query = this.keyboard.getInput('query');
+    if (this.source === 'spotify') {
+      const artist = this.keyboard.getInput('spotify_artist');
+      const title = this.keyboard.getInput('spotify_title');
+      const id = this.keyboard.getInput('spotify_id');
+      const query = this.keyboard.getInput('spotify_query');
 
-    this.valid = (
-      (title?.length && artist?.length && !(query?.length) && !(id?.length))
-      ||
-      (query?.length && !(title?.length) && !(id?.length))
-      ||
-      (id?.length && !(title?.length) && !(query?.length))
-    )
+      this.valid = (
+        (title?.length && artist?.length && !(query?.length) && !(id?.length))
+        ||
+        (query?.length && !(title?.length) && !(id?.length))
+        ||
+        (id?.length && !(title?.length) && !(query?.length))
+      )
+    } else if (this.source === 'library') {
+      const artist = this.keyboard.getInput('library_artist');
+      const title = this.keyboard.getInput('library_title');
+
+      this.valid = (
+        title?.length > 0 && artist?.length > 0
+      )
+    }
   }
 }

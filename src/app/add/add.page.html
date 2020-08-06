@@ -4,8 +4,8 @@
             <ion-back-button icon="arrow-back-outline" defaultHref="/edit"></ion-back-button>
         </ion-buttons>
         <ion-segment value="{{this.source}}" (ionChange)="segmentChanged($event)">
-            <ion-segment-button value="local">
-                <ion-label>Local</ion-label>
+            <ion-segment-button value="library">
+                <ion-label>Local Library</ion-label>
             </ion-segment-button>
             <ion-segment-button value="spotify">
                 <ion-label>Streaming</ion-label>
@@ -16,31 +16,30 @@
 
 <ion-content>
     <div [ngSwitch]="source">
-        <div *ngSwitchCase="'local'">
-
-        </div>
-
-        <div *ngSwitchCase="'spotify'" class="top">
-            <form #spotifyForm="ngForm" (ngSubmit)="submit(spotifyForm, 'spotify')">
+        <div *ngSwitchCase="'library'" class="top">
+            <form #libraryForm="ngForm" (ngSubmit)="submit(libraryForm)">
                 <ion-grid>
                     <ion-row>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-input name="title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="library_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="library_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <div>
                                 <ion-item>
-                                    <ion-input name="query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="library_cover" type="text" placeholder="Cover artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -56,9 +55,59 @@
                     </ion-row>
                 </ion-grid>
             </form>
+        </div>
 
+        <div *ngSwitchCase="'spotify'" class="top">
+            <form #spotifyForm="ngForm" (ngSubmit)="submit(spotifyForm)">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="spotify_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="spotify_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="spotify_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="spotify_query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col size="12">
+                            <div>
+                                <div class="add-button">
+                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
         </div>
     </div>
+
     <div class="bottom">
         <div class="simple-keyboard"></div>
     </div>
