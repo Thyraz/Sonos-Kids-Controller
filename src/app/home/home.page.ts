@@ -18,6 +18,8 @@ export class HomePage implements OnInit {
   artists: Artist[] = [];
   covers = {};
   activityIndicatorVisible = false;
+  editButtonclickCount = 0;
+  editClickTimer = 0;
 
   slideOptions = {
     initialSlide: 0,
@@ -94,6 +96,17 @@ export class HomePage implements OnInit {
   }
 
   editButtonPressed() {
-    this.router.navigate(['/edit']);
+    window.clearTimeout(this.editClickTimer);
+
+    if (this.editButtonclickCount < 9) {
+      this.editButtonclickCount++;
+      
+      this.editClickTimer = window.setTimeout(() => {
+        this.editButtonclickCount = 0;
+      }, 500);
+    } else {
+      this.router.navigate(['/edit']);
+      this.editButtonclickCount = 0;
+    }
   }
 }
