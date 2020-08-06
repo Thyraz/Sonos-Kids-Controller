@@ -13,35 +13,52 @@ import { Artist } from './artist';
 export class MediaService {
 
   private media: Media[] = null;
-
-  private mediaObservable: Observable<Media[]> = null;
   private mediaSubject = new Subject<Media[]>();
 
-  private rawMedia: Observable<Media[]> = null;
-  private rawMediaSubscriber: Subscriber<unknown> = null;
+  private rawMediaSubject = new Subject<Media[]>();
 
   constructor(
     private http: HttpClient,
     private spotifyService: SpotifyService,
   ) { }
 
-  getRawMedia(): Observable<Media[]> {
-    this.rawMedia = new Observable(observer => {
-      this.rawMediaSubscriber = observer;
-      this.updateRawMedia();
+  // --------------------------------------------
+  // Handling of RAW media entries from data.json
+  // --------------------------------------------
 
-      return {unsubscribe() {}};
-    });
-
-    return this.rawMedia;
+  getRawMediaObservable(): Subject<Media[]> {
+    return this.rawMediaSubject;
   }
 
   updateRawMedia() {
     const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
     this.http.get<Media[]>(url).subscribe(media => {
-        this.rawMediaSubscriber?.next(media);
+        this.rawMediaSubject.next(media);
     });
   }
+
+  deleteRawMediaAtIndex(index: number) {
+    const url = (environment.production) ? '../api/delete' : 'http://localhost:8200/api/delete';
+    const body = {
+      index
+    };
+
+    this.http.post(url, body).subscribe(response => {
+      this.updateRawMedia();
+    });
+  }
+
+  addRawMedia(media: Media) {
+    const url = (environment.production) ? '../api/add' : 'http://localhost:8200/api/add';
+
+    this.http.post(url, media).subscribe(response => {
+      this.updateRawMedia();
+    });
+  }
+
+  // ------------------------------------------------------------------------------
+  // Handling of ready-to-use media (Queries expanded to single artists and albums)
+  // ------------------------------------------------------------------------------
 
   getMediaObservable(): Subject<Media[]> {
     return this.mediaSubject;
@@ -76,10 +93,6 @@ export class MediaService {
     } else {
       this.updateMedia();
     }
-  }
-
-  clearCache() {
-    this.mediaObservable = null;
   }
 
   // Get all artists
@@ -132,24 +145,5 @@ export class MediaService {
           }));
       })
     );
-  }
-
-  deleteRawMediaAtIndex(index: number) {
-    const url = (environment.production) ? '../api/delete' : 'http://localhost:8200/api/delete';
-    const body = {
-      index
-    };
-
-    this.http.post(url, body).subscribe(response => {
-      this.updateRawMedia();
-    });
-  }
-
-  addRawMedia(media: Media) {
-    const url = (environment.production) ? '../api/add' : 'http://localhost:8200/api/add';
-
-    this.http.post(url, media).subscribe(response => {
-      this.updateRawMedia();
-    });
   }
 }

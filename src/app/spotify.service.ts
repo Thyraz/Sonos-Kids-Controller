@@ -30,7 +30,6 @@ export class SpotifyService {
             if (!this.refreshingToken) {
               this.refreshToken();
               this.refreshingToken = true;
-              console.log('401 Authorization error. Refreshing token');
             }
           }),
           delay(500),
@@ -47,7 +46,6 @@ export class SpotifyService {
               if (!this.refreshingToken) {
                 this.refreshToken();
                 this.refreshingToken = true;
-                console.log('401 Authorization error. Refreshing token');
               }
             }),
             delay(500),
@@ -77,7 +75,6 @@ export class SpotifyService {
             if (!this.refreshingToken) {
               this.refreshToken();
               this.refreshingToken = true;
-              console.log('401 Authorization error. Refreshing token');
             }
           }),
           delay(500),
@@ -113,7 +110,6 @@ export class SpotifyService {
     const tokenUrl = (environment.production) ? '../api/token' : 'http://localhost:8200/api/token';
 
     this.http.get(tokenUrl, {responseType: 'text'}).subscribe(token => {
-      console.log('Token:' + token);
       this.spotifyApi.setAccessToken(token);
       this.refreshingToken = false;
     });

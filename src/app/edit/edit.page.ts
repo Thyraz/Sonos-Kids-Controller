@@ -20,18 +20,17 @@ export class EditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshMedia();
+    // Subscribe
+    this.mediaService.getRawMediaObservable().subscribe(media => {
+      this.media = media;
+    });
+
+    // Retreive data through subscription above
+    this.mediaService.updateRawMedia();
   }
 
   ionViewWillLeave() {
     this.mediaService.updateMedia();
-  }
-
-  refreshMedia() {
-    this.mediaService.getRawMedia().subscribe(media => {
-      this.media = media;
-      console.log('Received new media list');
-    });
   }
 
   async deleteButtonPressed(index: number) {
@@ -58,5 +57,4 @@ export class EditPage implements OnInit {
   addButtonPressed() {
     this.router.navigate(['/add']);
   }
-
 }
