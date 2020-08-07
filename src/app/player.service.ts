@@ -62,7 +62,9 @@ export class PlayerService {
         break;
       }
       case 'spotify': {
-        if (!media.id) {
+        if (media.id) {
+          url = 'spotify/now/spotify:album:' + media.id;
+        } else {
           url = 'musicsearch/spotify/album/artist:"' + media.artist + '" album:"' + media.title + '"';
         }
         break;
