@@ -54,7 +54,7 @@ export class SpotifyService {
         }),
         map((response: ArtworkResponse) => {
           return response.albums.items.map(item => {
-            const media: Media = { artist: item.artists[0].name, title: item.name, cover: item.images[0].url, type: 'spotify'};
+            const media: Media = { id: item.id, artist: item.artists[0].name, title: item.name, cover: item.images[0].url, type: 'spotify'};
             return media;
           });
         })
@@ -66,6 +66,8 @@ export class SpotifyService {
     return albums;
   }
 
+  // Only used for single "artist + title" entries with "type: spotify" in the database.
+  // Artwork for spotify search queries are already fetched together with the initial searchAlbums request 
   getAlbumArtwork(artist: string, title: string): Observable<string> {
     const artwork = defer(() => this.spotifyApi.searchAlbums('album:' + title + ' artist:' + artist, { market: 'DE' })).pipe(
       retryWhen(errors => {

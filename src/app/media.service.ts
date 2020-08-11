@@ -56,9 +56,9 @@ export class MediaService {
     });
   }
 
-  // ------------------------------------------------------------------------------
-  // Handling of ready-to-use media (Queries expanded to single artists and albums)
-  // ------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+  // Handling of displayed media (Queries from RAW media expanded to single artists and albums)
+  // ------------------------------------------------------------------------------------------
 
   getMediaObservable(): Subject<Media[]> {
     return this.mediaSubject;
@@ -73,7 +73,16 @@ export class MediaService {
       map((item) => // check if current item is a single album or a query for multiple items
         iif(
           () => (item.query && item.query.length > 0) ? true : false,
-          this.spotifyService.getAlbumsForQuery(item.query),
+          this.spotifyService.getAlbumsForQuery(item.query).pipe(
+            map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
+              if (item.artist?.length > 0) {
+                items.forEach(currentItem => {
+                  currentItem.artist = item.artist;
+                });
+              } 
+              return items;
+            })
+          ),
           of([item]) // return single albums also as array, so we always have the same data type
         ),
       ),

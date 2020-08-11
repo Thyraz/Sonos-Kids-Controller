@@ -62,7 +62,8 @@ export class PlayerService {
         break;
       }
       case 'spotify': {
-        if (media.id) {
+        // Prefer media.id, as the user can overwrite the artist name with a user-defined string when using an id
+        if (media.id) { 
           url = 'spotify/now/spotify:album:' + media.id;
         } else {
           url = 'musicsearch/spotify/album/artist:"' + media.artist + '" album:"' + media.title + '"';

@@ -10,6 +10,7 @@ export interface ArtworkResponseArtist {
 export interface ArtworkResponseItem {
     images: ArtworkResponseImage[];
     name: string;
+    id: string;
     artists: ArtworkResponseArtist[];
 }
 
