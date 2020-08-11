@@ -82,24 +82,7 @@ export class SpotifyService {
         );
       }),
       map((response: ArtworkResponse) => {
-        if (
-          'albums' in response
-          &&
-          'items' in response.albums
-          &&
-          response.albums.items.length > 0
-          &&
-          'images' in response.albums.items[0]
-          &&
-          response.albums.items[0].images.length > 0
-          &&
-          'url' in response.albums.items[0].images[0]
-        ) {
-          return response.albums.items[0].images[0].url;
-        } else {
-          // Return default "Missing Cover" image path instead of empty string?
-          return '';
-        }
+        return response?.albums?.items?.[0]?.images?.[0]?.url || '';
       })
     );
 
