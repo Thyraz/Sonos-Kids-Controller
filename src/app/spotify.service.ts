@@ -3,7 +3,7 @@ import { Observable, defer, throwError, of, range } from 'rxjs';
 import { retryWhen, flatMap, tap, delay, take, map, mergeMap, mergeAll, toArray } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ArtworkResponse } from './artwork';
+import { SpotifyAlbumsResponse } from './spotify';
 import { Media } from './media';
 
 declare const require: any;
@@ -36,7 +36,7 @@ export class SpotifyService {
           take(10)
         );
       }),
-      map((response: ArtworkResponse) => response.albums.total),
+      map((response: SpotifyAlbumsResponse) => response.albums.total),
       mergeMap(count => range(0, Math.ceil(count / 50))),
       mergeMap(multiplier => defer(() => this.spotifyApi.searchAlbums(query, { limit: 50, offset: 50 * multiplier, market: 'DE' })).pipe(
         retryWhen(errors => {
@@ -52,7 +52,7 @@ export class SpotifyService {
             take(10)
           );
         }),
-        map((response: ArtworkResponse) => {
+        map((response: SpotifyAlbumsResponse) => {
           return response.albums.items.map(item => {
             const media: Media = { id: item.id, artist: item.artists[0].name, title: item.name, cover: item.images[0].url, type: 'spotify'};
             return media;
@@ -83,7 +83,7 @@ export class SpotifyService {
           take(10)
         );
       }),
-      map((response: ArtworkResponse) => {
+      map((response: SpotifyAlbumsResponse) => {
         return response?.albums?.items?.[0]?.images?.[0]?.url || '';
       })
     );
