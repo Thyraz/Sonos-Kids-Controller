@@ -251,7 +251,7 @@ And Chromium as a browser:
 sudo apt-get install --no-install-recommends chromium-browser
 ```
 
-You can now install node-sonos-http-api and Sonos-Kids-Controller on the Pi if you don't want to run it on a different server.
+You can now install node-sonos-http-api and Sonos-Kids-Controller on the Pi (as described in the previous chapters) if you don't want to run it on a different server.
 Depending on where the services are running edit the automatic startup of Openbox and Chromium in _/etc/xdg/openbox/autostart_ 
 
 
