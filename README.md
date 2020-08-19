@@ -2,13 +2,12 @@
 
 ## Content
 [About Sonos-Kids-Controller](#about-sonos-kids-controller)\
-[Hardware](#hardware)\
 [Dependencies](#dependencies)\
 [Usage](#usage)\
 [Configuration](#configuration)\
 [Adding Content](#adding-content)\
-[Autostart](#autostart)
-
+[Autostart](#autostart)\
+[Hardware Player](#hardware-player)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
 
@@ -34,18 +33,8 @@ The software consists of 2 parts:
 * The server component, running in an node express environment. Handles the album library and serves the client component to the browser
 *  The client component, developed in Ionic/angular, which can be run in the browser
 
-## Hardware
-While you can simply run this software on any server supported by node.js and open it in the browser of your choice (as long as it isn't IE or Edge), the typical use case will be a small box powered by an Raspberry Pi and a capacitive touch screen.
-
-I recommend a 5" touch screen with a resolution of 800x480, as you otherwise might have to edit the layout of the software.
-
-Here's a list of what I bought for my player:
-* bla
-* bla
-* bla
-
 ## Dependencies
-This software uses [node-sonos-http-api](https://github.com/jishi/node-sonos-http-api) to control your Sonos hardware. So you need to have it running somewhere, for example on the same system as this software.\
+This software uses [node-sonos-http-api](https://github.com/jishi/node-sonos-http-api) to control your Sonos hardware. __So you need to have it running somewhere, for example on the same system as this software__.\
 This doesn't have to be the Pi itself, but should be possible too (if it can handle everything performance-wise without any lags).
 
 ## Usage
@@ -145,6 +134,149 @@ artist:"Super Wings"
 More details on Spotify web API search querys:
 https://developer.spotify.com/documentation/web-api/reference/search/search/#writing-a-query---guidelines
 
-
 ## Autostart
+I use pm2 as process manager for node.js projects.
+So both services (node-sonos-http-api and Sonos-Kids-Controller) are startet on boot time in this case
 
+```
+sudo npm install pm2 -g
+```
+Then build a startup script for pm2 (don't run with sudo):
+```
+pm2 startup
+```
+after that pm2 should show you a command that has to be run as sudo to finish install the startup scripts.
+Copy and paste it into the terminal and execute it.
+
+then in the directory of node-sonos-http-api:
+```
+pm2 start server.js
+pm2 save
+```
+
+again in the directory of Sonos-Kids-Controller:
+```
+pm2 start server.js
+pm2 save
+```
+
+After a reboot, enter `pm2 list` in the terminal and you should see that the 2 services are running. 
+
+
+## Hardware Player
+While you can simply run this software on any server supported by node.js and open it in the browser of your choice (as long as it isn't IE or Edge), the typical use case will be a small box powered by an Raspberry Pi and a capacitive touch screen.
+
+I recommend a 5" touch screen with a resolution of 800x480, as you otherwise might have to edit the layout of the software.
+
+### Part List:
+
+Here's a list of what I bought for my player:
+* [Raspberry Pi 3b](https://www.amazon.de/gp/product/B01CD5VC92/)
+* [Micro SD card](#https://www.amazon.de/gp/product/B073JWXGNT/)
+* [Power Supply](https://www.amazon.de/gp/product/B07NW9NXGF/)
+* [Capacitive 5 inch touchscreen](https://www.amazon.de/gp/product/B07YCBWRQP/)
+* [Flat HDMI cable](https://www.amazon.de/gp/product/B07R9RXWM5/)
+* [Tilted micro USB cable](https://www.amazon.de/gp/product/B01N26RAL6/)\
+(use a cutter knive to remove some of the isolation of the tilted connector to save some more height)
+* [Small kitchen storage box as case](https://www.amazon.de/gp/product/B0841PZZ2C/)
+* The bottom part of a raspberry case where you can tighten the raspberry without the need to drill holes in the backside of the case like [this one](https://www.amazon.de/schwarz-Gehäuse-Raspberry-neueste-Kühlkörper/dp/B00ZHG7AP0/)
+* Tesa Powerstrips to fix the raspberry inside the jukebox
+
+### Front Cover Cutout:
+
+As first step, choose the position of the cutout for the touchscreen in the wooden front cover.
+Pay attention how far the HDMI and USB connectors stick out of the touch screen.
+Because of that you won't be able to center the touchscreen vertically in the front cover.
+
+After that I drilled 4 holes in each edge of the cutout.
+Then I used a fredsaw to remove the part between the holes.
+Keep the cutout a little bit smaller than the touchscreen, as working with a fredsaw might not be that precise.
+
+Now the hard part begins:\
+Tweak the shape of the cutout with a rasp until the touchscreen fits in tightly.
+This might take a while and I recommend to hold the touchscreen and the cover in front of each other toward a light source from time to time, to see where you need to remove more of the wood.
+
+When the touchscreen fits into the cutout, use sand paper to smooth the surface. I started with grain size 80 and ended with 300.
+If you want an uniform look, use the finer grained sandpaper also on the front surface of the wood and apply some wood oil everywhere for a consitant looking finish.
+
+### Assembly:
+Cut off the connector of the power supply, and drill a hole for the cable in the back of the case.
+Stick the cable through the hole and solder the connector back on.
+
+Assemble the Pi in the bottom part of the raspberry case and use the Powerstrips to attach it inside the box.
+
+If the touchscreen isn't sitting tight enough in the cutout, use SHORT screws to attach it to the front cover.
+Maybe predrill the holes, so the wood won't crack.
+
+Connect the cables, insert the microSD card and you're done.
+The wooden front cover should stick firmly if you press it onto the backside. I didn't need any screws to hold it in place.
+If you need to open it again, push a knive between the front cover and the backside and use it as lever. 
+
+### Kiosk Mode Installation
+
+Use raspbian light (currently Buster is the latest stable version as I write this readme) as we don't want to install the default desktop environment.
+
+a) because we don't need it
+b) because our Ionic/Angular app will stress the Pi enough, so we want to avoid too much running services and RAM usage.
+
+edit the config.txt in the boot partition and add the following lines at the end to configure the display:
+```
+max_usb_current = 1 
+Hdmi_group = 2 
+Hdmi_mode = 87 
+Hdmi_cvt 800 480 60 6 0 0 0 
+```
+After the initial boot process, start `raspi-config` and configure:
+* Localisation options and keyboard layout
+* Configure Wifi
+* Enable SSH if you wish to be able to log into the box remotely
+* Disable HDMI overscan in the advanced option
+* Change user password for pi
+* In _Boot Options_ Select 'Desktop/CLI' and then 'Console Autologin' for automatic login of the user pi
+
+Now reboot the Pi. If everything worked, you should be logged into the terminal session without having to enter you password at the end the boot process.
+
+Update all preinstalled packages:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+Now we install Openbox as a lightweight window manager:
+```
+sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox
+```
+And Chromium as a browser:
+```
+sudo apt-get install --no-install-recommends chromium-browser
+```
+
+Now configure Openbox by replacing the content of _/etc/xdg/openbox/autostart_ 
+
+```
+# Disable screen saver / power management
+xset s off
+xset s noblank
+xset -dpms
+
+# Start Chromium
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+chromium-browser --disable-infobars --kiosk 'http://url-to-sonos-kids-controller:8200'
+```
+
+Now Chromium should display our web app when Openbox is started.
+The last thing to do is to start the X server automatically when the Pi is powered on.
+As we already have automatic login in the terminal session,
+we can use __.bash_profile__ for starting X.
+Append the following line to the file:
+```
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
+```
+This starts X when the user logged into the first system terminal (which is the one autologin uses).
+
+Restart the pi to see if everything works.
+
+If you see a bubble in Chromium after some time, about Chromium not beeing up to date, use this workaround from [StackOverflow](https://stackoverflow.com/questions/58993181/disable-chromium-can-not-update-chromium-window-notification) and execute the following command:
+```
+sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHROMIUM_FLAGS=\"\$\{CHROMIUM_FLAGS\} --check-for-update-interval=31536000\" | sudo tee /etc/chromium-browser/customizations/01-disable-update-check
+```
