@@ -31,7 +31,7 @@ But you can also add albums from the local Sonos library (in case an album isn't
 
 The software consists of 2 parts:
 * The server component, running in an node express environment. Handles the album library and serves the client component to the browser
-*  The client component, developed in Ionic/angular, which can be run in the browser
+*  The client component, developed in Ionic/Angular, which can be opened in a browser
 
 ## Dependencies
 This software uses [node-sonos-http-api](https://github.com/jishi/node-sonos-http-api) to control your Sonos hardware. __So you need to have it running somewhere, for example on the same system as this software__.\
@@ -104,9 +104,9 @@ The spotify section is only needed when you want to use Spotify Premium as sourc
 The id and the secret are the same values as entered in the node-sonos-http-api configuration as described [here.](https://github.com/jishi/node-sonos-http-api#note-for-spotify-users)
 
 ## Adding Content
-There's a hidden button on the right side of the top navigation bar.
+There's a hidden button in the root view on the right side of the top navigation bar.
 If you click there, you should see an overlay lighting up.
-Click this button quickly 10 times to get in the library editor.
+Click this button quickly 10 times to open the library editor.
 
 Then click the "+" button on the top right to add a new entry.
 
@@ -117,12 +117,12 @@ A good source for album artworks is the iTunes Artwork Finder: https://bendodson
 
 ### Spotify Premium:
 * Enter artist and album name to add a single album
-* Add a query instead to search for multiple albums
-* Album artwork will automatically retreived from Spotify
+* Add a query instead, to search for multiple albums
+* Album artwork will be automatically retreived from Spotify
 
 Examples for query strings:
 ```
-artist: Max Kruse album: Urmel
+artist:Max Kruse album:Urmel
 
 artist:Grüffelo
 
@@ -179,7 +179,7 @@ Here's a list of what I bought for my player:
 * [Tilted micro USB cable](https://www.amazon.de/gp/product/B01N26RAL6/)\
 (use a cutter knive to remove some of the isolation of the tilted connector to save some more height)
 * [Small kitchen storage box as case](https://www.amazon.de/gp/product/B0841PZZ2C/)
-* The bottom part of a raspberry case where you can tighten the raspberry without the need to drill holes in the backside of the case like [this one](https://www.amazon.de/schwarz-Gehäuse-Raspberry-neueste-Kühlkörper/dp/B00ZHG7AP0/)
+* The bottom part of a raspberry case like [this one](https://www.amazon.de/schwarz-Gehäuse-Raspberry-neueste-Kühlkörper/dp/B00ZHG7AP0/) where you can tighten the raspberry without the need to drill holes in the backside of the jukebox
 * Tesa Powerstrips to fix the raspberry inside the jukebox
 
 ### Front Cover Cutout:
@@ -197,7 +197,7 @@ Tweak the shape of the cutout with a rasp until the touchscreen fits in tightly.
 This might take a while and I recommend to hold the touchscreen and the cover in front of each other toward a light source from time to time, to see where you need to remove more of the wood.
 
 When the touchscreen fits into the cutout, use sand paper to smooth the surface. I started with grain size 80 and ended with 300.
-If you want an uniform look, use the finer grained sandpaper also on the front surface of the wood and apply some wood oil everywhere for a consitant looking finish.
+If you want an uniform look, use the finer grained sandpaper also on the front surface of the wood and apply some wood oil everywhere for a consistant looking finish.
 
 ### Assembly:
 Cut off the connector of the power supply, and drill a hole for the cable in the back of the case.
@@ -205,7 +205,7 @@ Stick the cable through the hole and solder the connector back on.
 
 Assemble the Pi in the bottom part of the raspberry case and use the Powerstrips to attach it inside the box.
 
-If the touchscreen isn't sitting tight enough in the cutout, use SHORT screws to attach it to the front cover.
+If the touchscreen isn't sitting tight enough in the cutout, use __short__ screws to attach it to the front cover.
 Maybe predrill the holes, so the wood won't crack.
 
 Connect the cables, insert the microSD card and you're done.
@@ -216,7 +216,7 @@ If you need to open it again, push a knive between the front cover and the backs
 
 Use raspbian light (currently Buster is the latest stable version as I write this readme) as we don't want to install the default desktop environment.
 
-a) because we don't need it
+a) because we don't need it\
 b) because our Ionic/Angular app will stress the Pi enough, so we want to avoid too much running services and RAM usage.
 
 edit the config.txt in the boot partition and add the following lines at the end to configure the display:
