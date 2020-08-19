@@ -240,6 +240,7 @@ Update all preinstalled packages:
 ```
 sudo apt-get update
 sudo apt-get upgrade
+
 ```
 Now we install Openbox as a lightweight window manager:
 ```
@@ -250,7 +251,9 @@ And Chromium as a browser:
 sudo apt-get install --no-install-recommends chromium-browser
 ```
 
-Now configure Openbox by replacing the content of _/etc/xdg/openbox/autostart_ 
+You can now install node-sonos-http-api and Sonos-Kids-Controller on the Pi if you don't want to run it on a different server.
+Depending on where the services are running edit the automatic startup of Openbox and Chromium in _/etc/xdg/openbox/autostart_ 
+
 
 ```
 # Disable screen saver / power management
