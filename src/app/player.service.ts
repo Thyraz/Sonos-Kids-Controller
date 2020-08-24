@@ -58,6 +58,9 @@ export class PlayerService {
         break;
       }
       case 'library': {
+        if (!media.id) {
+          media.id = media.title;
+        }
         url = 'musicsearch/library/album/' + media.id;
         break;
       }
