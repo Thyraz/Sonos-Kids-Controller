@@ -7,6 +7,7 @@
 [Configuration](#configuration)\
 [Adding Content](#adding-content)\
 [Autostart](#autostart)\
+[Update](#update)\
 [Hardware Player](#hardware-player)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
@@ -162,6 +163,23 @@ pm2 save
 
 After a reboot, enter `pm2 list` in the terminal and you should see that the 2 services are running. 
 
+## Update
+Updating to a newer Sonos-Kids-Controller version works similar to the initial installation.
+Execute these commands, starting from the parent directory of you current _Sonos-Kids-Controller-master_ installation:
+```
+wget https://github.com/Thyraz/Sonos-Kids-Controller/archive/master.zip
+
+unzip master.zip
+
+rm master.zip 
+
+cd Sonos-Kids-Controller-master
+
+npm install
+
+ionic build --prod
+
+```
 
 ## Hardware Player
 While you can simply run this software on any server supported by node.js and open it in the browser of your choice (as long as it isn't IE or Edge), the typical use case will be a small box powered by an Raspberry Pi and a capacitive touch screen.
