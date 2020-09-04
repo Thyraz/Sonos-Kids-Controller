@@ -54,22 +54,22 @@ export class PlayerService {
 
     switch (media.type) {
       case 'amazon': {
-        url = 'amazonmusic/now/album:' + media.id;
+        url = 'amazonmusic/now/album:' + encodeURIComponent(media.id);
         break;
       }
       case 'library': {
         if (!media.id) {
           media.id = media.title;
         }
-        url = 'musicsearch/library/album/' + media.id;
+        url = 'musicsearch/library/album/' + encodeURIComponent(media.artist) + ' ' + encodeURIComponent(media.id);
         break;
       }
       case 'spotify': {
         // Prefer media.id, as the user can overwrite the artist name with a user-defined string when using an id
         if (media.id) { 
-          url = 'spotify/now/spotify:album:' + media.id;
+          url = 'spotify/now/spotify:album:' + encodeURIComponent(media.id);
         } else {
-          url = 'musicsearch/spotify/album/artist:"' + media.artist + '" album:"' + media.title + '"';
+          url = 'musicsearch/spotify/album/artist:"' + encodeURIComponent(media.artist) + '" album:"' + encodeURIComponent(media.title) + '"';
         }
         break;
       }
@@ -79,7 +79,7 @@ export class PlayerService {
   }
 
   say(text: string) {
-    const url = 'say/' + text + '/de-de';
+    const url = 'say/' + encodeURIComponent(text) + '/de-de';
     this.sendRequest(url);
   }
 
