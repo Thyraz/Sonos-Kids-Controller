@@ -35,13 +35,13 @@ The software consists of 2 parts:
 *  The client component, developed in Ionic/Angular, which can be opened in a browser
 
 ## Dependencies
-This software uses [node-sonos-http-api](https://github.com/jishi/node-sonos-http-api) to control your Sonos hardware. __So you need to have it running somewhere, for example on the same system as this software__.\
+This software uses [node-sonos-http-api](https://github.com/Thyraz/node-sonos-http-api) to control your Sonos hardware. __So you need to have it running somewhere, for example on the same system as this software__.\
 This doesn't have to be the Pi itself, but should be possible too (if it can handle everything performance-wise without any lags).
 
 ## Usage
 Ensure that you have Node.js and npm installed.
-Also install [node-sonos-http-api](https://github.com/jishi/node-sonos-http-api) as described in the readme of the software. 
-If you plan on using Spotify, follow the instructions [here.](https://github.com/jishi/node-sonos-http-api#note-for-spotify-users)
+Also install [node-sonos-http-api](https://github.com/Thyraz/node-sonos-http-api) as described in the readme of the software. 
+If you plan on using Spotify, follow the instructions [here.](https://github.com/Thyraz/node-sonos-http-api#note-for-spotify-users)
 
 Then install this software from Github:
 ```
@@ -102,7 +102,7 @@ The rooms are the Sonos room names that you want to be allowed as target.
 Room selection isn't implemented yet, so only the first room will be used at the moment.
 
 The spotify section is only needed when you want to use Spotify Premium as source.
-The id and the secret are the same values as entered in the node-sonos-http-api configuration as described [here.](https://github.com/jishi/node-sonos-http-api#note-for-spotify-users)
+The id and the secret are the same values as entered in the node-sonos-http-api configuration as described [here.](https://github.com/Thyraz/node-sonos-http-api#note-for-spotify-users)
 
 ## Adding Content
 There's a hidden button in the root view on the right side of the top navigation bar.
