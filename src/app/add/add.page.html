@@ -10,6 +10,12 @@
             <ion-segment-button value="spotify">
                 <ion-label>Spotify</ion-label>
             </ion-segment-button>
+            <ion-segment-button value="amazonmusic">
+                <ion-label>Amazon</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="applemusic">
+                <ion-label>Apple</ion-label>
+            </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
 </ion-header>
@@ -39,7 +45,7 @@
                         <ion-col size="12">
                             <div>
                                 <ion-item>
-                                    <ion-input name="library_cover" type="text" placeholder="Cover artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input name="library_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -94,6 +100,102 @@
                         </ion-col>
                     </ion-row>
 
+                    <ion-row>
+                        <ion-col size="12">
+                            <div>
+                                <div class="add-button">
+                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </div>
+
+        <div *ngSwitchCase="'amazonmusic'" class="top">
+            <form #libraryForm="ngForm" (ngSubmit)="submit(libraryForm)">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="amazonmusic_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="amazonmusic_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="amazonmusic_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="amazonmusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <div>
+                                <div class="add-button">
+                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </div>
+
+        <div *ngSwitchCase="'applemusic'" class="top">
+            <form #libraryForm="ngForm" (ngSubmit)="submit(libraryForm)">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="applemusic_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="applemusic_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="applemusic_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input name="applemusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
                     <ion-row>
                         <ion-col size="12">
                             <div>

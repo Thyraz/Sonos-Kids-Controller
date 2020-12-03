@@ -15,13 +15,13 @@ export class ArtworkService {
   getArtwork(media: Media): Observable<string> {
     let artwork: Observable<string>;
 
-    if (media.cover) {
+    if (media.type === 'spotify' && !media.cover) {
+      artwork = this.spotifyService.getAlbumArtwork(media.artist, media.title);
+    } else {
       artwork = new Observable((observer) => {
         // observable execution
         observer.next(media.cover);
       });
-    } else {
-      artwork = this.spotifyService.getAlbumArtwork(media.artist, media.title);
     }
 
     return artwork;

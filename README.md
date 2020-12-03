@@ -28,7 +28,7 @@ This software can be used to create a touch-based Sonos controller for your kids
 
 The recommended use case is in combination with Spotify Premium, as it's web API allows you to add albums using artist and album name instead of cryptic album-IDs. It's also possible to add multiple albums with a single search query (e.g. all albums from a sepcific artist).
 
-But you can also add albums from the local Sonos library (in case an album isn't available in your favorite streaming service), or from Amazon Music Unlimited by specifiying the corresponding album IDs. See the music services section about how to retrieve these IDs.
+But you can also add albums from the local Sonos library (in case an album isn't available in your favorite streaming service), from Apple Music or from Amazon Music Unlimited by specifiying the corresponding album IDs. See the music services section about how to retrieve these IDs.
 
 The software consists of 2 parts:
 * The server component, running in an node express environment. Handles the album library and serves the client component to the browser
@@ -134,6 +134,20 @@ artist:"Super Wings"
 
 More details on Spotify web API search querys:
 https://developer.spotify.com/documentation/web-api/reference/search/search/#writing-a-query---guidelines
+
+### Apple Music or Amazon Music Unlimited:
+* Enter artist name and album name as they should be displayed in the UI.
+* Enter the album ID which can be discovered as described here: https://github.com/jishi/node-sonos-http-api#spotify-apple-music-and-amazon-music-experimental
+* Enter an artwork link for an artwork image (remember, you can open the UI on any browser, so you can use a desktop pc or an mobile phone to add items to the library and use copy and paste for artwork links.)
+A good source for album artworks is the iTunes Artwork Finder: https://bendodson.com/projects/itunes-artwork-finder/
+
+Pro Tip:
+As Amazon and Apple don't provide a full public API to search for content like Spotify does, adding AlbumIDs and artwork links through the UI might be time consuming and complicated.
+you can also edit the library by editing _server/config/data.json_ (created after you added the first content through the UI).
+The structure should be self-explaining.
+Just be sure to shutdown Sonos-Kids-Controller before editing the file, as the software might otherwise overwrite your changes with an in-memory copy of the data.
+Also a backup of the file might be a good idea, as the software might overwrite the file with an empty library on startup, when you have some syntax errors in your edits, preventing the data from loading.
+
 
 ## Autostart
 I use pm2 as process manager for node.js projects.

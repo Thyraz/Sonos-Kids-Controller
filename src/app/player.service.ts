@@ -53,7 +53,11 @@ export class PlayerService {
     let url: string;
 
     switch (media.type) {
-      case 'amazon': {
+      case 'applemusic': {
+        url = 'applemusic/now/album:' + encodeURIComponent(media.id);
+        break;
+      }
+      case 'amazonmusic': {
         url = 'amazonmusic/now/album:' + encodeURIComponent(media.id);
         break;
       }
