@@ -65,7 +65,7 @@ export class PlayerService {
         if (!media.id) {
           media.id = media.title;
         }
-        url = 'musicsearch/library/album/' + encodeURIComponent(media.artist) + ' ' + encodeURIComponent(media.id);
+        url = 'musicsearch/library/album/' + encodeURIComponent(media.id);
         break;
       }
       case 'spotify': {
