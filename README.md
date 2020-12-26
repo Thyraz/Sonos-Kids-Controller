@@ -194,6 +194,13 @@ npm install
 ionic build --prod
 
 ```
+If you run into out of memory erros during the build process, try to set a memory limit manually:
+
+```
+export NODE_OPTIONS=--max-old-space-size=3072
+
+ionic build --prod
+```
 
 ## Hardware Player
 While you can simply run this software on any server supported by node.js and open it in the browser of your choice (as long as it isn't IE or Edge), the typical use case will be a small box powered by an Raspberry Pi and a capacitive touch screen.
