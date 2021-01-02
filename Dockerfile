@@ -1,6 +1,6 @@
 FROM node:15-alpine
 # debug could not get uid/gid error.
-RUN npm config set unsafe-perm true
+#RUN npm config set unsafe-perm true
 RUN npm install -g @ionic/cli
 RUN wget https://github.com/Thyraz/Sonos-Kids-Controller/archive/master.zip
 RUN unzip master.zip
