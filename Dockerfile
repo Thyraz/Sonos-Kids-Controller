@@ -19,5 +19,8 @@ VOLUME /sonos-kids-controller/server/config
 ## Expose service on port 8200
 EXPOSE 8200
 
+## Do not run as root user
+USER node
+
 ## Start 
 CMD npm start
