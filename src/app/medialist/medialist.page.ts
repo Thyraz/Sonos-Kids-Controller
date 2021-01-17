@@ -71,7 +71,11 @@ export class MedialistPage implements OnInit {
   }
 
   mediaNameClicked(clickedMedia: Media) {
-    this.playerService.say(clickedMedia.title);
+    this.playerService.getConfig().subscribe(config => {
+	    if (config.ttsEnable) {
+  	    this.playerService.say(clickedMedia.title);
+  	  }
+    });    
   }
 
   slideDidChange() {
