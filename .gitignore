@@ -32,4 +32,4 @@ npm-debug.log*
 
 server/config/data.json
 config.json
-
+Dockerfile
