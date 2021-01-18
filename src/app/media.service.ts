@@ -74,16 +74,15 @@ export class MediaService {
         iif(
           () => (item.query && item.query.length > 0) ? true : false,
           this.spotifyService.getAlbumsForQuery(item.query).pipe(
-            map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
-              if (item.artist?.length > 0) {
-                items.forEach(currentItem => {
-                  currentItem.artist = item.artist;
-                });
-              } 
+            map(items => {
               return items;
             })
           ),
-          of([item]) // return single albums also as array, so we always have the same data type
+          iif(
+            () => (item.id && item.id.length > 0) ? true : false,
+			 of(this.spotifyService.getAlbumsForIDs(item.id)),
+            of([item]) // return single albums also as array, so we always have the same data type
+		  )
         ),
       ),
       mergeMap(items => from(items)), // seperate arrays to single observables
