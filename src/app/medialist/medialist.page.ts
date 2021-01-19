@@ -20,8 +20,10 @@ export class MedialistPage implements OnInit {
   covers = {};
 
   slideOptions = {
+	direction: 'vertical',
     initialSlide: 0,
-    slidesPerView: 3,
+    slidesPerView: 4,
+	slidesPerColumn: 2,
     autoplay: false,
     loop: false,
     freeMode: true,
