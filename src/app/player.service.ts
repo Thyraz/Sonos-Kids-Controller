@@ -84,8 +84,10 @@ export class PlayerService {
   }
 
   say(text: string) {
-    const url = 'say/' + encodeURIComponent(text) + '/de-de';
-    this.sendRequest(url);
+	  this.getConfig().subscribe(config => {
+      const url = 'say/' + encodeURIComponent(text) + '/' + config.ttsLanguage +'/' + config.ttsVolume + '/';
+      this.sendRequest(url);
+  	});
   }
 
   private sendRequest(url: string) {
