@@ -83,7 +83,11 @@ export class MediaService {
               return items;
             })
           ),
-          of([item]) // return single albums also as array, so we always have the same data type
+          iif(
+            () => (item.id && item.id.length > 0) ? true : false,
+            of(this.spotifyService.getAlbumsForIDs(item.id)),
+            of([item]) // return single albums also as array, so we always have the same data type
+          )
         ),
       ),
       mergeMap(items => from(items)), // seperate arrays to single observables
