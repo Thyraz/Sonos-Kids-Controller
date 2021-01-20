@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Media } from './media';
-import { SonosApiConfig } from './sonos-api'
+import { SonosApiConfig } from './sonos-api';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { publishReplay, refCount } from 'rxjs/operators';
@@ -84,8 +84,15 @@ export class PlayerService {
   }
 
   say(text: string) {
-    const url = 'say/' + encodeURIComponent(text) + '/de-de';
-    this.sendRequest(url);
+	  this.getConfig().subscribe(config => {
+      let url = 'say/' + encodeURIComponent(text) + '/' + ((config.tts?.language?.length > 0) ? config.tts.language : 'de-de');
+
+      if (config.tts?.volume?.length > 0) {
+        url += '/' + config.tts.volume;
+      }
+
+      this.sendRequest(url);
+  	});
   }
 
   private sendRequest(url: string) {

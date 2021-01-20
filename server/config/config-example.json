@@ -5,7 +5,12 @@
         "rooms": [
             "Livingroom",
             "Kitchen"
-        ]
+        ],
+        "tts": {
+            "enabled": true,
+            "language": "de-de",
+            "volume": "40"
+        }
     },
     "spotify": {
         "clientId": "your_id",
