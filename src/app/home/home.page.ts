@@ -81,7 +81,7 @@ export class HomePage implements OnInit {
 
   artistNameClicked(clickedArtist: Artist) {
     this.playerService.getConfig().subscribe(config => {
-  	  if (config.ttsEnable) {
+  	  if (config.tts == null || config.tts.enabled == true) {
 	      this.playerService.say(clickedArtist.name);
 	    }
     });

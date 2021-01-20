@@ -6,9 +6,11 @@
             "Livingroom",
             "Kitchen"
         ],
-        "ttsEnable": true,
-        "ttsLanguage": "de-de",
-        "ttsVolume": "60"
+        "tts": {
+            "enabled": true,
+            "language": "de-de",
+            "volume": "40"
+        }
     },
     "spotify": {
         "clientId": "your_id",
