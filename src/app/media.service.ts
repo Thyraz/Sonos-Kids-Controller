@@ -84,8 +84,18 @@ export class MediaService {
             })
           ),
           iif(
-            () => (item.id && item.id.length > 0) ? true : false,
-            of(this.spotifyService.getAlbumsForIDs(item.id)),
+            () => (item.type == 'spotify' && item.id && item.id.length > 0) ? true : false,
+            this.spotifyService.getAlbumForID(item.id).pipe(
+              map(currentItem => {  // If the user entered an user-defined artist or album name in addition to an id, overwrite values from spotify
+                if (item.artist?.length > 0) {
+                  currentItem.artist = item.artist;
+                }
+                if (item.title?.length > 0) {
+                  currentItem.title = item.title;
+                }
+                return [currentItem];
+              })
+            ),
             of([item]) // return single albums also as array, so we always have the same data type
           )
         ),

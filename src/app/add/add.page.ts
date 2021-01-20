@@ -189,7 +189,7 @@ export class AddPage implements OnInit, AfterViewInit {
         ||
         (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0))
         ||
-        (id?.length > 0 && !(title?.length > 0) && !(query?.length > 0))
+        (id?.length > 0 && !(query?.length > 0))
       );
     } else if (this.source === 'library') {
       const artist = this.keyboard.getInput('library_artist');

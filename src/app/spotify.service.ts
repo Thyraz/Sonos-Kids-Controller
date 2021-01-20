@@ -3,8 +3,7 @@ import { Observable, defer, throwError, of, range } from 'rxjs';
 import { retryWhen, flatMap, tap, delay, take, map, mergeMap, mergeAll, toArray } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { SpotifyAlbumsResponse } from './spotify';
-import { SpotifyAlbumsResponseItem } from './spotify';
+import { SpotifyAlbumsResponse, SpotifyAlbumsResponseItem } from './spotify';
 import { Media } from './media';
 
 declare const require: any;
@@ -68,7 +67,7 @@ export class SpotifyService {
   }
   
   // Only used for Unique ID entries with "type: spotify" in the database.
-  getAlbumsForIDs(id: string): Observable<Media> {
+  getAlbumForID(id: string): Observable<Media> {
     const album = defer(() => this.spotifyApi.getAlbum(id, { limit: 1, offset: 0, market: 'DE' })).pipe(
       retryWhen(errors => {
         return errors.pipe(
@@ -90,6 +89,7 @@ export class SpotifyService {
     );
     return album;
   }
+
   // Only used for single "artist + title" entries with "type: spotify" in the database.
   // Artwork for spotify search queries are already fetched together with the initial searchAlbums request 
   getAlbumArtwork(artist: string, title: string): Observable<string> {
