@@ -8,7 +8,9 @@
 [Adding Content](#adding-content)\
 [Autostart](#autostart)\
 [Update](#update)\
-[Hardware Player](#hardware-player)
+[Hardware Player](#hardware-player)\
+[Docker](#docker)
+
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
 
@@ -323,3 +325,56 @@ If you see a bubble in Chromium after some time, about Chromium not beeing up to
 ```
 sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHROMIUM_FLAGS=\"\$\{CHROMIUM_FLAGS\} --check-for-update-interval=31536000\" | sudo tee /etc/chromium-browser/customizations/01-disable-update-check
 ```
+
+## Docker
+An easy and fast way to deploy Sonos-Kids-Controller is using docker. Using docker avoids the compilation on small hardware. This repository contains a Dockerfile to build a container image. 
+
+The Dockerfile for node-sonos-http-api is here: https://github.com/chrisns/docker-node-sonos-http-api
+
+Prebuild images are available on Dockerhub:
+* [sonos-kids-controller](https://hub.docker.com/repository/docker/stepman0/sonos-kids-controller)  (**todo: change to Thyraz's repo after merging**)
+* [node-sonos-http-api](https://hub.docker.com/r/chrisns/docker-node-sonos-http-api/)
+
+To use Sonos-Kids-Controller via Docker an a Raspberry Pi, the following steps are necessary:
+1. Setup Raspberry Pi with Raspbian
+2. Install Docker:
+    ```
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh get-docker.sh
+    sudo usermod -aG docker pi
+    ```
+3. Install docker-compose:
+    ```
+    sudo apt-get install -y libffi-dev libssl-dev
+    sudo apt-get install -y python3 python3-pip
+    sudo pip3 -v install docker-compose
+    ```
+4. Create a docker-compose.yml:
+```
+version: "3"
+
+services:
+  api:
+    image: "chrisns/docker-node-sonos-http-api"
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./api/settings:/app/settings
+      - ./api/clips:/app/static/clips
+      - ./api/cache:/app/cache
+      - ./api/presets:/app/presets
+
+  controller:
+    image: "stepman0/sonos-kids-controller"
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8200:8200
+    volumes:
+      - ./controller/config:/sonos-kids-controller/server/config/
+```
+5. Place the config files for the api (settings.json) in subdirectory ./api/settings and for the controller (config.json) in subdirectory ./controller/config
+6. Start with `docker-compose up -d`
+7. Setup local chromium (see instructions above)
+
+ToDo: Add Chromium Kiosk in docker container.
