@@ -10,16 +10,14 @@ export class ActivityIndicatorService {
     public loadingController: LoadingController
   ) { }
 
-  show() {
-    this.loadingController.create({
+  create(): Promise<HTMLIonLoadingElement> {
+    return this.loadingController.create({
       mode: 'ios',
       spinner: 'circles'
-    }).then((res) => {
-      res.present();
     });
   }
 
-  hide() {
+  dismiss() {
     this.loadingController.dismiss();
   }
 }

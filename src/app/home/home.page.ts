@@ -60,23 +60,23 @@ export class HomePage implements OnInit {
 
   ionViewDidLeave() {
     if (this.activityIndicatorVisible) {
-      this.activityIndicatorService.hide();
+      this.activityIndicatorService.dismiss();
       this.activityIndicatorVisible = false;
     }
   }
 
   coverClicked(clickedArtist: Artist) {
-    this.activityIndicatorService.show();
-    this.activityIndicatorVisible = true;
-
-    setTimeout(() => {
-      const navigationExtras: NavigationExtras = {
-        state: {
-          artist: clickedArtist
-        }
-      };
-      this.router.navigate(['/medialist'], navigationExtras);
-    }, 50);
+    this.activityIndicatorService.create().then(indicator => {
+      this.activityIndicatorVisible = true;
+      indicator.present().then(() => {
+        const navigationExtras: NavigationExtras = {
+          state: {
+            artist: clickedArtist
+          }
+        };
+        this.router.navigate(['/medialist'], navigationExtras);
+      });
+    });
   }
 
   artistNameClicked(clickedArtist: Artist) {
