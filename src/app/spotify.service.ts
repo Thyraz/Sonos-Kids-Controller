@@ -65,7 +65,7 @@ export class SpotifyService {
 
     return albums;
   }
-  
+
   // Only used for Unique ID entries with "type: spotify" in the database.
   getAlbumForID(id: string): Observable<Media> {
     const album = defer(() => this.spotifyApi.getAlbum(id, { limit: 1, offset: 0, market: 'DE' })).pipe(
@@ -84,14 +84,14 @@ export class SpotifyService {
       }),
       map((response: SpotifyAlbumsResponseItem) => {
         const media: Media = { id: response.id, artist: response.artists[0].name, title: response.name, cover: response.images[0].url, type: 'spotify'};
-            return media;
+        return media;
       })
     );
     return album;
   }
 
   // Only used for single "artist + title" entries with "type: spotify" in the database.
-  // Artwork for spotify search queries are already fetched together with the initial searchAlbums request 
+  // Artwork for spotify search queries are already fetched together with the initial searchAlbums request
   getAlbumArtwork(artist: string, title: string): Observable<string> {
     const artwork = defer(() => this.spotifyApi.searchAlbums('album:' + title + ' artist:' + artist, { market: 'DE' })).pipe(
       retryWhen(errors => {

@@ -128,27 +128,27 @@ export class AddPage implements OnInit, AfterViewInit {
     };
 
     if (this.source === 'spotify') {
-      if (form.form.value.spotify_artist?.length) { media['artist'] = form.form.value.spotify_artist; }
-      if (form.form.value.spotify_title?.length) { media['title'] = form.form.value.spotify_title; }
-      if (form.form.value.spotify_query?.length) { media['query'] = form.form.value.spotify_query; }
-      if (form.form.value.spotify_id?.length) { media['id'] = form.form.value.spotify_id; }
+      if (form.form.value.spotify_artist?.length) { media.artist = form.form.value.spotify_artist; }
+      if (form.form.value.spotify_title?.length) { media.title = form.form.value.spotify_title; }
+      if (form.form.value.spotify_query?.length) { media.query = form.form.value.spotify_query; }
+      if (form.form.value.spotify_id?.length) { media.id = form.form.value.spotify_id; }
 
     } else if (this.source === 'library') {
-      if (form.form.value.library_artist?.length) { media['artist'] = form.form.value.library_artist; }
-      if (form.form.value.library_title?.length) { media['title'] = form.form.value.library_title; }
-      if (form.form.value.library_cover?.length) { media['cover'] = form.form.value.library_cover; }
+      if (form.form.value.library_artist?.length) { media.artist = form.form.value.library_artist; }
+      if (form.form.value.library_title?.length) { media.title = form.form.value.library_title; }
+      if (form.form.value.library_cover?.length) { media.cover = form.form.value.library_cover; }
 
     } else if (this.source === 'amazonmusic') {
-      if (form.form.value.amazonmusic_artist?.length) { media['artist'] = form.form.value.amazonmusic_artist; }
-      if (form.form.value.amazonmusic_title?.length) { media['title'] = form.form.value.amazonmusic_title; }
-      if (form.form.value.amazonmusic_cover?.length) { media['cover'] = form.form.value.amazonmusic_cover; }
-      if (form.form.value.amazonmusic_id?.length) { media['id'] = form.form.value.amazonmusic_id; }
+      if (form.form.value.amazonmusic_artist?.length) { media.artist = form.form.value.amazonmusic_artist; }
+      if (form.form.value.amazonmusic_title?.length) { media.title = form.form.value.amazonmusic_title; }
+      if (form.form.value.amazonmusic_cover?.length) { media.cover = form.form.value.amazonmusic_cover; }
+      if (form.form.value.amazonmusic_id?.length) { media.id = form.form.value.amazonmusic_id; }
 
     } else if (this.source === 'applemusic') {
-      if (form.form.value.applemusic_artist?.length) { media['artist'] = form.form.value.applemusic_artist; }
-      if (form.form.value.applemusic_title?.length) { media['title'] = form.form.value.applemusic_title; }
-      if (form.form.value.applemusic_cover?.length) { media['cover'] = form.form.value.applemusic_cover; }
-      if (form.form.value.applemusic_id?.length) { media['id'] = form.form.value.applemusic_id; }
+      if (form.form.value.applemusic_artist?.length) { media.artist = form.form.value.applemusic_artist; }
+      if (form.form.value.applemusic_title?.length) { media.title = form.form.value.applemusic_title; }
+      if (form.form.value.applemusic_cover?.length) { media.cover = form.form.value.applemusic_cover; }
+      if (form.form.value.applemusic_id?.length) { media.id = form.form.value.applemusic_id; }
     }
 
     this.mediaService.addRawMedia(media);

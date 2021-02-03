@@ -71,7 +71,7 @@ export class PlayerService {
       }
       case 'spotify': {
         // Prefer media.id, as the user can overwrite the artist name with a user-defined string when using an id
-        if (media.id) { 
+        if (media.id) {
           url = 'spotify/now/spotify:album:' + encodeURIComponent(media.id);
         } else {
           url = 'musicsearch/spotify/album/artist:"' + encodeURIComponent(media.artist) + '" album:"' + encodeURIComponent(media.title) + '"';
@@ -84,7 +84,7 @@ export class PlayerService {
   }
 
   say(text: string) {
-	  this.getConfig().subscribe(config => {
+    this.getConfig().subscribe(config => {
       let url = 'say/' + encodeURIComponent(text) + '/' + ((config.tts?.language?.length > 0) ? config.tts.language : 'de-de');
 
       if (config.tts?.volume?.length > 0) {
@@ -92,7 +92,7 @@ export class PlayerService {
       }
 
       this.sendRequest(url);
-  	});
+    });
   }
 
   private sendRequest(url: string) {

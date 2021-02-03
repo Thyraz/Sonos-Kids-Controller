@@ -79,14 +79,14 @@ export class MediaService {
                 items.forEach(currentItem => {
                   currentItem.artist = item.artist;
                 });
-              } 
+              }
               return items;
             })
           ),
           iif(
-            () => (item.type == 'spotify' && item.id && item.id.length > 0) ? true : false,
+            () => (item.type === 'spotify' && item.id && item.id.length > 0) ? true : false,
             this.spotifyService.getAlbumForID(item.id).pipe(
-              map(currentItem => {  // If the user entered an user-defined artist or album name in addition to an id, overwrite values from spotify
+              map(currentItem => {  // If the user entered an user-defined artist or album name, overwrite values from spotify
                 if (item.artist?.length > 0) {
                   currentItem.artist = item.artist;
                 }

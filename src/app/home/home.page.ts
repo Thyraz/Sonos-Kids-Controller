@@ -81,9 +81,9 @@ export class HomePage implements OnInit {
 
   artistNameClicked(clickedArtist: Artist) {
     this.playerService.getConfig().subscribe(config => {
-  	  if (config.tts == null || config.tts.enabled == true) {
-	      this.playerService.say(clickedArtist.name);
-	    }
+      if (config.tts == null || config.tts.enabled === true) {
+        this.playerService.say(clickedArtist.name);
+      }
     });
   }
 
@@ -104,7 +104,7 @@ export class HomePage implements OnInit {
 
     if (this.editButtonclickCount < 9) {
       this.editButtonclickCount++;
-      
+
       this.editClickTimer = window.setTimeout(() => {
         this.editButtonclickCount = 0;
       }, 500);

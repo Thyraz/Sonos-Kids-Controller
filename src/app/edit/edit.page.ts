@@ -52,7 +52,7 @@ export class EditPage implements OnInit {
     });
 
     await alert.present();
-  }  
+  }
 
   addButtonPressed() {
     this.router.navigate(['/add']);
