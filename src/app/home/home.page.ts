@@ -6,6 +6,7 @@ import { ArtworkService } from '../artwork.service';
 import { PlayerService } from '../player.service';
 import { ActivityIndicatorService } from '../activity-indicator.service';
 import { Artist } from '../artist';
+import { Media } from '../media';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,10 @@ import { Artist } from '../artist';
 export class HomePage implements OnInit {
   @ViewChild('slider', { static: false }) slider: IonSlides;
 
+  category =  'audiobook';
+
   artists: Artist[] = [];
+  media: Media[] = [];
   covers = {};
   activityIndicatorVisible = false;
   editButtonclickCount = 0;
@@ -65,6 +69,11 @@ export class HomePage implements OnInit {
       this.activityIndicatorService.dismiss();
       this.activityIndicatorVisible = false;
     }
+  }
+
+  categoryChanged(event: any) {
+    this.category = event.detail.value;
+    console.log('Category changed to ' + this.category);
   }
 
   coverClicked(clickedArtist: Artist) {

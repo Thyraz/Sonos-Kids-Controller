@@ -1,8 +1,25 @@
 <ion-header>
     <ion-toolbar color="light">
-        <ion-title>
-            Artists
-        </ion-title>
+        <ion-buttons slot="start">
+            <ion-button disabled="true">
+                <ion-icon slot="icon-only" name=""></ion-icon>
+                <!-- Dummy button to center ion-segment -->
+            </ion-button>
+        </ion-buttons>
+        <ion-segment value="{{this.category}}" (ionChange)="categoryChanged($event)">
+            <ion-segment-button value="audiobook">
+                <ion-icon name="book-outline"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="music">
+                <ion-icon name="musical-notes-outline"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="playlist">
+                <ion-icon name="document-text-outline"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="radio">
+                <ion-icon name="radio-outline"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>
         <ion-buttons slot="end">
             <ion-button (click)="editButtonPressed()">
                 <ion-icon slot="icon-only" name=""></ion-icon>
