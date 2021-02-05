@@ -19,7 +19,6 @@ export class ArtworkService {
       artwork = this.spotifyService.getAlbumArtwork(media.artist, media.title);
     } else {
       artwork = new Observable((observer) => {
-        // observable execution
         observer.next(media.cover);
       });
     }

@@ -42,6 +42,8 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.mediaService.setCategory('audiobook');
+
     // Subscribe
     this.mediaService.getArtists().subscribe(artists => {
       this.artists = artists;

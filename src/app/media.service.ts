@@ -12,6 +12,8 @@ import { Artist } from './artist';
 })
 export class MediaService {
 
+  private category = 'audiobook';
+
   private media: Media[] = null;
   private mediaSubject = new Subject<Media[]>();
 
@@ -69,11 +71,16 @@ export class MediaService {
     const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
 
     this.http.get<Media[]>(url).pipe(
+      map(items => { // Filter to get only items for the chosen category
+        items.forEach(item => item.category = (item.category === undefined) ? 'audiobook' : item.category); // default category
+        items = items.filter(item => item.category === this.category);
+        return items;
+      }),
       mergeMap(items => from(items)), // parallel calls for each item
       map((item) => // check if current item is a single album or a query for multiple items
         iif(
           () => (item.query && item.query.length > 0) ? true : false,
-          this.spotifyService.getAlbumsForQuery(item.query).pipe(
+          this.spotifyService.getMediaByQuery(item.query, item.category).pipe(
             map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
               if (item.artist?.length > 0) {
                 items.forEach(currentItem => {
@@ -85,7 +92,7 @@ export class MediaService {
           ),
           iif(
             () => (item.type === 'spotify' && item.id && item.id.length > 0) ? true : false,
-            this.spotifyService.getAlbumForID(item.id).pipe(
+            this.spotifyService.getMediaByID(item.id, item.category).pipe(
               map(currentItem => {  // If the user entered an user-defined artist or album name, overwrite values from spotify
                 if (item.artist?.length > 0) {
                   currentItem.artist = item.artist;
@@ -168,5 +175,11 @@ export class MediaService {
           }));
       })
     );
+  }
+
+  // Choose which media category should be displayed in the app
+  setCategory(category: string) {
+    this.category = category;
+    this.publishCachedMedia();
   }
 }

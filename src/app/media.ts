@@ -5,4 +5,5 @@ export interface Media {
     id?: string;
     cover?: string;
     type: string;
+    category: string;
 }

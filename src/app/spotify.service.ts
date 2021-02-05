@@ -21,40 +21,34 @@ export class SpotifyService {
     this.spotifyApi = new SpotifyWebApi();
   }
 
-  getAlbumsForQuery(query: string): Observable<Media[]> {
+  getMediaByQuery(query: string, category: string): Observable<Media[]> {
+    let fetch: any;
+
+    switch (category) {
+      default:
+        fetch = this.spotifyApi.searchAlbums;
+    }
+
     const albums = defer(() => this.spotifyApi.searchAlbums(query, { limit: 1, offset: 0, market: 'DE' })).pipe(
       retryWhen(errors => {
-        return errors.pipe(
-          flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
-          tap(_ => {
-            if (!this.refreshingToken) {
-              this.refreshToken();
-              this.refreshingToken = true;
-            }
-          }),
-          delay(500),
-          take(10)
-        );
+        return this.errorHandler(errors);
       }),
       map((response: SpotifyAlbumsResponse) => response.albums.total),
       mergeMap(count => range(0, Math.ceil(count / 50))),
       mergeMap(multiplier => defer(() => this.spotifyApi.searchAlbums(query, { limit: 50, offset: 50 * multiplier, market: 'DE' })).pipe(
         retryWhen(errors => {
-          return errors.pipe(
-            flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
-            tap(_ => {
-              if (!this.refreshingToken) {
-                this.refreshToken();
-                this.refreshingToken = true;
-              }
-            }),
-            delay(500),
-            take(10)
-          );
+          return this.errorHandler(errors);
         }),
         map((response: SpotifyAlbumsResponse) => {
           return response.albums.items.map(item => {
-            const media: Media = { id: item.id, artist: item.artists[0].name, title: item.name, cover: item.images[0].url, type: 'spotify'};
+            const media: Media = {
+              id: item.id,
+              artist: item.artists[0].name,
+              title: item.name,
+              cover: item.images[0].url,
+              type: 'spotify',
+              category
+            };
             return media;
           });
         })
@@ -67,23 +61,27 @@ export class SpotifyService {
   }
 
   // Only used for Unique ID entries with "type: spotify" in the database.
-  getAlbumForID(id: string): Observable<Media> {
-    const album = defer(() => this.spotifyApi.getAlbum(id, { limit: 1, offset: 0, market: 'DE' })).pipe(
+  getMediaByID(id: string, category: string): Observable<Media> {
+    let fetch: any;
+
+    switch (category) {
+      default:
+        fetch = this.spotifyApi.getAlbum;
+    }
+
+    const album = defer(() => fetch(id, { limit: 1, offset: 0, market: 'DE' })).pipe(
       retryWhen(errors => {
-        return errors.pipe(
-          flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
-          tap(_ => {
-            if (!this.refreshingToken) {
-              this.refreshToken();
-              this.refreshingToken = true;
-            }
-          }),
-          delay(500),
-          take(10)
-        );
+        return this.errorHandler(errors);
       }),
       map((response: SpotifyAlbumsResponseItem) => {
-        const media: Media = { id: response.id, artist: response.artists[0].name, title: response.name, cover: response.images[0].url, type: 'spotify'};
+        const media: Media = {
+          id: response.id,
+          artist: response.artists[0].name,
+          title: response.name,
+          cover: response.images[0].url,
+          type: 'spotify',
+          category
+        };
         return media;
       })
     );
@@ -95,17 +93,7 @@ export class SpotifyService {
   getAlbumArtwork(artist: string, title: string): Observable<string> {
     const artwork = defer(() => this.spotifyApi.searchAlbums('album:' + title + ' artist:' + artist, { market: 'DE' })).pipe(
       retryWhen(errors => {
-        return errors.pipe(
-          flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
-          tap(_ => {
-            if (!this.refreshingToken) {
-              this.refreshToken();
-              this.refreshingToken = true;
-            }
-          }),
-          delay(500),
-          take(10)
-        );
+        return this.errorHandler(errors);
       }),
       map((response: SpotifyAlbumsResponse) => {
         return response?.albums?.items?.[0]?.images?.[0]?.url || '';
@@ -122,5 +110,19 @@ export class SpotifyService {
       this.spotifyApi.setAccessToken(token);
       this.refreshingToken = false;
     });
+  }
+
+  errorHandler(errors: Observable<any>) {
+    return errors.pipe(
+      flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
+      tap(_ => {
+        if (!this.refreshingToken) {
+          this.refreshToken();
+          this.refreshingToken = true;
+        }
+      }),
+      delay(500),
+      take(10)
+    );
   }
 }

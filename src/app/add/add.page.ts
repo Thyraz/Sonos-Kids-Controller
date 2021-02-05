@@ -124,7 +124,8 @@ export class AddPage implements OnInit, AfterViewInit {
 
   submit(form: NgForm) {
     const media: Media = {
-      type: this.source
+      type: this.source,
+      category: 'audiobook'
     };
 
     if (this.source === 'spotify') {
