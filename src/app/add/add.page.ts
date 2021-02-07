@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
+import { NavController, IonSelect } from '@ionic/angular';
 import { MediaService } from '../media.service';
 import { Media } from '../media';
 import Keyboard from 'simple-keyboard';
@@ -15,14 +16,24 @@ import { NgForm } from '@angular/forms';
   ]
 })
 export class AddPage implements OnInit, AfterViewInit {
+  @ViewChild('select', { static: false }) select: IonSelect;
 
   source = 'spotify';
+  category = 'audiobook';
   keyboard: Keyboard;
   selectedInputElem: any;
   valid = false;
 
+  categoryIcons = {
+    audiobook: 'book-outline',
+    music: 'musical-notes-outline',
+    playlist: 'document-text-outline',
+    radio: 'radio-outline'
+  };
+
   constructor(
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    private navController: NavController
   ) { }
 
   ngOnInit() {
@@ -76,6 +87,14 @@ export class AddPage implements OnInit, AfterViewInit {
     this.selectedInputElem = document.querySelector('ion-input:first-child');
   }
 
+  cancelButtonPressed() {
+    this.navController.back();
+  }
+
+  categoryButtonPressed(event: any) {
+    this.select.open(event);
+  }
+
   focusChanged(event: any) {
     this.selectedInputElem = event.target;
 
@@ -125,7 +144,7 @@ export class AddPage implements OnInit, AfterViewInit {
   submit(form: NgForm) {
     const media: Media = {
       type: this.source,
-      category: 'audiobook'
+      category: this.category
     };
 
     if (this.source === 'spotify') {
@@ -176,6 +195,8 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('applemusic_cover');
 
     this.validate();
+
+    this.navController.back();
   }
 
   validate() {

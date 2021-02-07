@@ -73,7 +73,7 @@ export class HomePage implements OnInit {
 
   categoryChanged(event: any) {
     this.category = event.detail.value;
-    console.log('Category changed to ' + this.category);
+    this.mediaService.setCategory(this.category);
   }
 
   coverClicked(clickedArtist: Artist) {

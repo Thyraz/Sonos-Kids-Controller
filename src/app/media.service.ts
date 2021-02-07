@@ -14,7 +14,7 @@ export class MediaService {
 
   private category = 'audiobook';
 
-  private media: Media[] = null;
+  private media: Media[];
   private mediaSubject = new Subject<Media[]>();
 
   private rawMediaSubject = new Subject<Media[]>();
@@ -180,6 +180,7 @@ export class MediaService {
   // Choose which media category should be displayed in the app
   setCategory(category: string) {
     this.category = category;
+    this.media = undefined;
     this.publishCachedMedia();
   }
 }

@@ -1,11 +1,19 @@
 <ion-header>
     <ion-toolbar color="light">
+        <ion-select #select interface="popover" [(ngModel)]="category" cancelText="Cancel" okText="Ok">
+            <ion-select-option value="audiobook">Audiobook / Radio Play</ion-select-option>
+            <ion-select-option value="music">Music Album</ion-select-option>
+            <ion-select-option value="playlist">Playlist</ion-select-option>
+            <ion-select-option value="radio">Radio Channel</ion-select-option>
+        </ion-select>
         <ion-buttons slot="start">
-            <ion-back-button icon="arrow-back-outline" defaultHref="/edit"></ion-back-button>
+            <ion-button (click)="categoryButtonPressed($event)">
+                <ion-icon slot="start" name="{{this.categoryIcons[this.category]}}" color="primary"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-segment value="{{this.source}}" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="library">
-                <ion-label>Local Library</ion-label>
+                <ion-label>Library</ion-label>
             </ion-segment-button>
             <ion-segment-button value="spotify">
                 <ion-label>Spotify</ion-label>
@@ -51,10 +59,17 @@
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -101,10 +116,17 @@
                     </ion-row>
 
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -149,10 +171,17 @@
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -199,9 +228,20 @@
                     <ion-row>
                         <ion-col size="12">
                             <div>
-                                <div class="add-button">
-                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
-                                </div>
+                                <ion-col size="6">
+                                    <div>
+                                        <div class="add-button">
+                                            <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                        </div>
+                                    </div>
+                                </ion-col>
+                                <ion-col size="6">
+                                    <div>
+                                        <div class="cancel-button">
+                                            <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
+                                        </div>
+                                    </div>
+                                </ion-col>
                             </div>
                         </ion-col>
                     </ion-row>
