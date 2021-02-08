@@ -21,8 +21,9 @@
 <img src="https://user-images.githubusercontent.com/170099/89948825-14431f80-dc27-11ea-809a-607260fed229.png" width="800" height="480"><br>
 
 ## About Sonos-Kids-Controller
-This software can be used to create a touch-based Sonos controller for your kids.\
-(When they start listening to more audio books than you can manage with your RFID based Toniebox clone you build for them when they were smaller.)
+This software can be used to create a touch-based Sonos controller for your kids.
+
+It can also be used with Spotify Connect compatible devices instead of Sonos if you use [this software](https://github.com/amueller-tech/spotifycontroller) instead of the node-sonos-http-api discribed later in this document.
 
 *Sonos-Kids-Controller uses __TTS__ (text to speech) when you click on texts in the UI, so your kids don't have to aks you anymore about the name of a specific episode.*
 
