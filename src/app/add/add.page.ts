@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
-import { NavController, IonSelect } from '@ionic/angular';
+import { NavController, IonSelect, IonInput, IonSegment } from '@ionic/angular';
 import { MediaService } from '../media.service';
 import { Media } from '../media';
 import Keyboard from 'simple-keyboard';
@@ -16,7 +16,33 @@ import { NgForm } from '@angular/forms';
   ]
 })
 export class AddPage implements OnInit, AfterViewInit {
+  @ViewChild('segment', { static: false }) segment: IonSegment;
   @ViewChild('select', { static: false }) select: IonSelect;
+
+  @ViewChild('library_segment', { static: false }) librarySegment: IonSelect;
+  @ViewChild('spotify_segment', { static: false }) spotifySegment: IonSelect;
+  @ViewChild('amazonmusic_segment', { static: false }) amazonmusicSegment: IonSelect;
+  @ViewChild('applemusic_segment', { static: false }) applemusicSegment: IonSelect;
+  @ViewChild('tunein_segment', { static: false }) tuneinSegment: IonSelect;
+
+  @ViewChild('library_artist', { static: false }) libraryArtist: IonInput;
+  @ViewChild('library_title', { static: false }) libraryTitle: IonInput;
+  @ViewChild('library_cover', { static: false }) libraryCover: IonInput;
+  @ViewChild('spotify_artist', { static: false }) spotifyArtist: IonInput;
+  @ViewChild('spotify_id', { static: false }) spotifyID: IonInput;
+  @ViewChild('spotify_title', { static: false }) spotifyTitle: IonInput;
+  @ViewChild('spotify_query', { static: false }) spotifyQuery: IonInput;
+  @ViewChild('amazonmusic_artist', { static: false }) amazonmusicArtist: IonInput;
+  @ViewChild('amazonmusic_id', { static: false }) amazonmusicID: IonInput;
+  @ViewChild('amazonmusic_title', { static: false }) amazonmusicTitle: IonInput;
+  @ViewChild('amazonmusic_cover', { static: false }) amazonmusicCover: IonInput;
+  @ViewChild('applemusic_artist', { static: false }) applemusicArtist: IonInput;
+  @ViewChild('applemusic_id', { static: false }) applemusicID: IonInput;
+  @ViewChild('applemusic_title', { static: false }) applemusicTitle: IonInput;
+  @ViewChild('applemusic_cover', { static: false }) applemusicCover: IonInput;
+  @ViewChild('tunein_title', { static: false }) tuneinTitle: IonInput;
+  @ViewChild('tunein_id', { static: false }) tuneinID: IonInput;
+  @ViewChild('tunein_cover', { static: false }) tuneinCover: IonInput;
 
   source = 'spotify';
   category = 'audiobook';
@@ -40,6 +66,8 @@ export class AddPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.tuneinSegment.disabled = true;
+
     this.keyboard = new Keyboard({
       onChange: input => {
         this.selectedInputElem.value = input;
@@ -95,6 +123,16 @@ export class AddPage implements OnInit, AfterViewInit {
     this.select.open(event);
   }
 
+  categoryChanged() {
+    if (this.category === 'radio' && this.source !== 'tunein') {
+      this.source = 'tunein';
+    } else if (this.category !== 'radio' && this.source === 'tunein') {
+      this.source = 'spotify';
+    }
+
+    this.validate();
+  }
+
   focusChanged(event: any) {
     this.selectedInputElem = event.target;
 
@@ -138,7 +176,9 @@ export class AddPage implements OnInit, AfterViewInit {
 
   segmentChanged(event: any) {
     this.source = event.detail.value;
-    this.validate();
+    window.setTimeout(() => { // wait for new elements to be visible before altering them
+      this.validate();
+    }, 10);
   }
 
   submit(form: NgForm) {
@@ -169,6 +209,11 @@ export class AddPage implements OnInit, AfterViewInit {
       if (form.form.value.applemusic_title?.length) { media.title = form.form.value.applemusic_title; }
       if (form.form.value.applemusic_cover?.length) { media.cover = form.form.value.applemusic_cover; }
       if (form.form.value.applemusic_id?.length) { media.id = form.form.value.applemusic_id; }
+
+    } else if (this.source === 'tunein') {
+      if (form.form.value.tunein_title?.length) { media.title = form.form.value.tunein_title; }
+      if (form.form.value.tunein_cover?.length) { media.cover = form.form.value.tunein_cover; }
+      if (form.form.value.tunein_id?.length) { media.id = form.form.value.tunein_id; }
     }
 
     this.mediaService.addRawMedia(media);
@@ -194,12 +239,48 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('applemusic_id');
     this.keyboard.clearInput('applemusic_cover');
 
+    this.keyboard.clearInput('tunein_title');
+    this.keyboard.clearInput('tunein_id');
+    this.keyboard.clearInput('tunein_cover');
+
     this.validate();
 
     this.navController.back();
   }
 
   validate() {
+    if (this.librarySegment) { this.librarySegment.disabled = false; }
+    if (this.spotifySegment) { this.spotifySegment.disabled = false; }
+    if (this.amazonmusicSegment) { this.amazonmusicSegment.disabled = false; }
+    if (this.applemusicSegment) { this.applemusicSegment.disabled = false; }
+    if (this.tuneinSegment) { this.tuneinSegment.disabled = false; }
+
+    if (this.libraryArtist) { this.libraryArtist.disabled = false; }
+    if (this.spotifyArtist) { this.spotifyArtist.disabled = false; }
+    if (this.spotifyQuery) { this.spotifyQuery.disabled = false; }
+    if (this.amazonmusicArtist) { this.amazonmusicArtist.disabled = false; }
+    if (this.applemusicArtist) { this.applemusicArtist.disabled = false; }
+
+    switch (this.category) {
+      case 'audiobook':
+      case 'music':
+        if (this.tuneinSegment) { this.tuneinSegment.disabled = true; }
+        break;
+      case 'playlist':
+        if (this.tuneinSegment) { this.tuneinSegment.disabled = true; }
+        if (this.libraryArtist) { this.libraryArtist.disabled = true; }
+        if (this.spotifyArtist) { this.spotifyArtist.disabled = true; }
+        if (this.spotifyQuery) { this.spotifyQuery.disabled = true; }
+        if (this.amazonmusicArtist) { this.amazonmusicArtist.disabled = true; }
+        if (this.applemusicArtist) { this.applemusicArtist.disabled = true; }
+        break;
+      case 'radio':
+        if (this.librarySegment) { this.librarySegment.disabled = true; }
+        if (this.spotifySegment) { this.spotifySegment.disabled = true; }
+        if (this.amazonmusicSegment) { this.amazonmusicSegment.disabled = true; }
+        if (this.applemusicSegment) { this.applemusicSegment.disabled = true; }
+    }
+
     if (this.source === 'spotify') {
       const artist = this.keyboard.getInput('spotify_artist');
       const title = this.keyboard.getInput('spotify_title');
@@ -207,11 +288,15 @@ export class AddPage implements OnInit, AfterViewInit {
       const query = this.keyboard.getInput('spotify_query');
 
       this.valid = (
-        (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0))
+        (this.category === 'audiobook' || this.category === 'music') && (
+          (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0))
+          ||
+          (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0))
+          ||
+          (id?.length > 0 && !(query?.length > 0))
+        )
         ||
-        (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0))
-        ||
-        (id?.length > 0 && !(query?.length > 0))
+        this.category === 'playlist' && id?.length > 0
       );
     } else if (this.source === 'library') {
       const artist = this.keyboard.getInput('library_artist');
@@ -226,7 +311,11 @@ export class AddPage implements OnInit, AfterViewInit {
       const id = this.keyboard.getInput('amazonmusic_id');
 
       this.valid = (
-        artist?.length > 0 && title?.length > 0 && id?.length > 0
+        (this.category === 'audiobook' || this.category === 'music') && (
+          artist?.length > 0 && title?.length > 0 && id?.length > 0
+        )
+        ||
+        this.category === 'playlist' && title?.length > 0 && id?.length > 0
       );
     } else if (this.source === 'applemusic') {
       const artist = this.keyboard.getInput('applemusic_artist');
@@ -234,7 +323,19 @@ export class AddPage implements OnInit, AfterViewInit {
       const id = this.keyboard.getInput('applemusic_id');
 
       this.valid = (
-        artist?.length > 0 && title?.length > 0 && id?.length > 0
+        (this.category === 'audiobook' || this.category === 'music') && (
+          artist?.length > 0 && title?.length > 0 && id?.length > 0
+        )
+        ||
+        this.category === 'playlist' && title?.length > 0 && id?.length > 0
+      );
+    } else if (this.source === 'tunein') {
+      const artist = this.keyboard.getInput('tunein_artist');
+      const title = this.keyboard.getInput('tunein_title');
+      const id = this.keyboard.getInput('tunein_id');
+
+      this.valid = (
+        title?.length > 0 && id?.length > 0
       );
     }
   }

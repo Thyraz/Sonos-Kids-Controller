@@ -14,7 +14,8 @@ import { Media } from '../media';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  @ViewChild('slider', { static: false }) slider: IonSlides;
+  @ViewChild('artist_slider', { static: false }) artistSlider: IonSlides;
+  @ViewChild('media_slider', { static: false }) mediaSlider: IonSlides;
 
   category =  'audiobook';
 
@@ -24,6 +25,8 @@ export class HomePage implements OnInit {
   activityIndicatorVisible = false;
   editButtonclickCount = 0;
   editClickTimer = 0;
+
+  needsUpdate = false;
 
   slideOptions = {
     initialSlide: 0,
@@ -49,6 +52,17 @@ export class HomePage implements OnInit {
     this.mediaService.setCategory('audiobook');
 
     // Subscribe
+    this.mediaService.getMedia().subscribe(media => {
+      this.media = media;
+
+      this.media.forEach(currentMedia => {
+        this.artworkService.getArtwork(currentMedia).subscribe(url => {
+          this.covers[currentMedia.title] = url;
+        });
+      });
+      this.mediaSlider?.update();
+    });
+
     this.mediaService.getArtists().subscribe(artists => {
       this.artists = artists;
 
@@ -57,11 +71,16 @@ export class HomePage implements OnInit {
           this.covers[artist.name] = url;
         });
       });
-      this.slider.update();
+      this.artistSlider?.update();
     });
 
-    // Retreive data through subscription above
-    this.mediaService.publishCachedMedia();
+    this.update();
+  }
+
+  ionViewWillEnter() {
+    if (this.needsUpdate) {
+      this.update();
+    }
   }
 
   ionViewDidLeave() {
@@ -74,9 +93,19 @@ export class HomePage implements OnInit {
   categoryChanged(event: any) {
     this.category = event.detail.value;
     this.mediaService.setCategory(this.category);
+    this.update();
   }
 
-  coverClicked(clickedArtist: Artist) {
+  update() {
+    if (this.category === 'audiobook' || this.category === 'music') {
+      this.mediaService.publishArtists();
+    } else {
+      this.mediaService.publishMedia();
+    }
+    this.needsUpdate = false;
+  }
+
+  artistCoverClicked(clickedArtist: Artist) {
     this.activityIndicatorService.create().then(indicator => {
       this.activityIndicatorVisible = true;
       indicator.present().then(() => {
@@ -98,16 +127,21 @@ export class HomePage implements OnInit {
     });
   }
 
-  slideDidChange() {
-    // console{}.log('Slide did change');
+  mediaCoverClicked(clickedMedia: Media) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        media: clickedMedia
+      }
+    };
+    this.router.navigate(['/player'], navigationExtras);
   }
 
-  slidePrev() {
-    this.slider.slidePrev();
-  }
-
-  slideNext() {
-    this.slider.slideNext();
+  mediaNameClicked(clickedMedia: Media) {
+    this.playerService.getConfig().subscribe(config => {
+      if (config.tts == null || config.tts.enabled === true) {
+        this.playerService.say(clickedMedia.title);
+      }
+    });
   }
 
   editButtonPressed() {
@@ -122,6 +156,7 @@ export class HomePage implements OnInit {
     } else {
       this.router.navigate(['/edit']);
       this.editButtonclickCount = 0;
+      this.needsUpdate = true;
     }
   }
 }

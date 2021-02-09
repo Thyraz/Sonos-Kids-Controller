@@ -55,10 +55,11 @@ export class MedialistPage implements OnInit {
           this.covers[currentMedia.title] = url;
         });
       });
+      this.slider.update();
     });
 
     // Retreive data through subscription above
-    this.mediaService.publishCachedMedia();
+    this.mediaService.publishArtistMedia();
   }
 
   coverClicked(clickedMedia: Media) {

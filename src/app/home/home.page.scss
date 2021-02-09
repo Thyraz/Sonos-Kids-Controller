@@ -4,6 +4,9 @@ ion-toolbar {
         width: 70px !important;
         font-size: 20px !important;
     }
+    ion-icon {
+        font-size: 28px;
+    }
 }
 
 ion-card {
@@ -15,7 +18,7 @@ ion-card {
     height: 240px;
     border-radius: 120px;
     border: 6px solid var(--ion-color-dark);
-    margin-top: 18px;
+    margin-top: 32px;
 }
 
 .title-card {
@@ -26,6 +29,20 @@ ion-card {
         --background: #262626;
     }
     padding-bottom: 35px;
+}
+
+ion-row.media-card {
+    padding-top: 35px;
+    padding-bottom: 42px;
+
+    ion-card {
+        width: 230px;
+        --background: #262626;
+
+        ion-card-title {
+            padding-bottom: 5px;
+        }
+    }
 }
 
 .truncate-text {
