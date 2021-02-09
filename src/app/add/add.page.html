@@ -1,20 +1,31 @@
 <ion-header>
     <ion-toolbar color="light">
+        <ion-select #select interface="popover" [(ngModel)]="category" (ionChange)="categoryChanged()" cancelText="Cancel" okText="Ok">
+            <ion-select-option value="audiobook">Radio Play / Audio Book</ion-select-option>
+            <ion-select-option value="music">Music</ion-select-option>
+            <ion-select-option value="playlist">Playlist</ion-select-option>
+            <ion-select-option value="radio">Radio</ion-select-option>
+        </ion-select>
         <ion-buttons slot="start">
-            <ion-back-button icon="arrow-back-outline" defaultHref="/edit"></ion-back-button>
+            <ion-button (click)="categoryButtonPressed($event)">
+                <ion-icon slot="start" name="{{this.categoryIcons[this.category]}}" color="primary"></ion-icon>
+            </ion-button>
         </ion-buttons>
-        <ion-segment value="{{this.source}}" (ionChange)="segmentChanged($event)">
-            <ion-segment-button value="library">
-                <ion-label>Local Library</ion-label>
+        <ion-segment #segment value="{{this.source}}" (ionChange)="segmentChanged($event)">
+            <ion-segment-button #library_segment value="library">
+                <ion-label>Library</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="spotify">
+            <ion-segment-button #spotify_segment value="spotify">
                 <ion-label>Spotify</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="amazonmusic">
+            <ion-segment-button #amazonmusic_segment value="amazonmusic">
                 <ion-label>Amazon</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="applemusic">
+            <ion-segment-button #applemusic_segment value="applemusic">
                 <ion-label>Apple</ion-label>
+            </ion-segment-button>
+            <ion-segment-button #tunein_segment value="tunein">
+                <ion-label>TuneIn</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
@@ -29,14 +40,14 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="library_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #library_artist name="library_artist" type="text" placeholder="Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="library_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #library_title name="library_title" type="text" placeholder="Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -45,16 +56,23 @@
                         <ion-col size="12">
                             <div>
                                 <ion-item>
-                                    <ion-input name="library_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #library_cover name="library_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -70,14 +88,14 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="spotify_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #spotify_artist name="spotify_artist" type="text" placeholder="Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="spotify_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #spotify_id name="spotify_id" type="text" placeholder="Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -87,24 +105,31 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="spotify_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #spotify_title name="spotify_title" type="text" placeholder="Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="spotify_query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #spotify_query name="spotify_query" type="text" placeholder="Search Query" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                     </ion-row>
 
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -120,14 +145,14 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="amazonmusic_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #amazonmusic_artist name="amazonmusic_artist" type="text" placeholder="Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="amazonmusic_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #amazonmusic_id name="amazonmusic_id" type="text" placeholder="Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -136,23 +161,30 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="amazonmusic_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #amazonmusic_title name="amazonmusic_title" type="text" placeholder="Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="amazonmusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #amazonmusic_cover name="amazonmusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col size="12">
+                        <ion-col size="6">
                             <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>
@@ -168,14 +200,14 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="applemusic_artist" type="text" placeholder="Album Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #applemusic_artist name="applemusic_artist" type="text" placeholder="Artist" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="applemusic_id" type="text" placeholder="Album Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #applemusic_id name="applemusic_id" type="text" placeholder="Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -184,14 +216,52 @@
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="applemusic_title" type="text" placeholder="Album Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #applemusic_title name="applemusic_title" type="text" placeholder="Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
                         <ion-col size="6">
                             <div>
                                 <ion-item>
-                                    <ion-input name="applemusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    <ion-input #applemusic_cover name="applemusic_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <div class="add-button">
+                                    <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </div>
+        <div *ngSwitchCase="'tunein'" class="top">
+            <form #libraryForm="ngForm" (ngSubmit)="submit(libraryForm)">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input #tunein_title name="tunein_title" type="text" placeholder="Title" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-item>
+                                    <ion-input #tunein_id name="tunein_id" type="text" placeholder="Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -199,8 +269,24 @@
                     <ion-row>
                         <ion-col size="12">
                             <div>
+                                <ion-item>
+                                    <ion-input #tunein_cover name="tunein_cover" type="text" placeholder="Cover Artwork URL" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <div>
                                 <div class="add-button">
                                     <ion-button size="large" type="submit" expand="block" [disabled]="!valid">Add</ion-button>
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <div class="cancel-button">
+                                    <ion-button size="large" color="danger" (click)="cancelButtonPressed()" expand="block">Cancel</ion-button>
                                 </div>
                             </div>
                         </ion-col>

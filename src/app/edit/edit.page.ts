@@ -29,10 +29,6 @@ export class EditPage implements OnInit {
     this.mediaService.updateRawMedia();
   }
 
-  ionViewWillLeave() {
-    this.mediaService.updateMedia();
-  }
-
   async deleteButtonPressed(index: number) {
     const alert = await this.alertController.create({
       cssClass: 'alert',

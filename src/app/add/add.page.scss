@@ -13,13 +13,16 @@ ion-toolbar {
         font-size: 18px;
         --indicator-color: red !important;
     }
+    ion-select {
+        display: none;
+    }
 }
 
 ion-item {
     font-size: 18px;
 }
 
-.add-button {
+.add-button, .cancel-button {
     margin-top: -4px;
 }
 

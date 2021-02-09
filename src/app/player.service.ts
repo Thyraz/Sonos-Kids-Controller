@@ -55,27 +55,46 @@ export class PlayerService {
 
     switch (media.type) {
       case 'applemusic': {
-        url = 'applemusic/now/album:' + encodeURIComponent(media.id);
+        if (media.category === 'playlist') {
+          url = 'applemusic/now/playlist:' + encodeURIComponent(media.id);
+        } else {
+          url = 'applemusic/now/album:' + encodeURIComponent(media.id);
+        }
         break;
       }
       case 'amazonmusic': {
-        url = 'amazonmusic/now/album:' + encodeURIComponent(media.id);
+        if (media.category === 'playlist') {
+          url = 'amazonmusic/now/playlist:' + encodeURIComponent(media.id);
+        } else {
+          url = 'amazonmusic/now/album:' + encodeURIComponent(media.id);
+        }
         break;
       }
       case 'library': {
         if (!media.id) {
           media.id = media.title;
         }
-        url = 'musicsearch/library/album/' + encodeURIComponent(media.id);
+        if (media.category === 'playlist') {
+          url = 'playlist/' + encodeURIComponent(media.id);
+        } else {
+          url = 'musicsearch/library/album/' + encodeURIComponent(media.id);
+        }
         break;
       }
       case 'spotify': {
-        // Prefer media.id, as the user can overwrite the artist name with a user-defined string when using an id
-        if (media.id) {
-          url = 'spotify/now/spotify:album:' + encodeURIComponent(media.id);
+        if (media.category === 'playlist') {
+          url = 'spotify/now/spotify:user:spotify:playlist:' + encodeURIComponent(media.id);
         } else {
-          url = 'musicsearch/spotify/album/artist:"' + encodeURIComponent(media.artist) + '" album:"' + encodeURIComponent(media.title) + '"';
+          if (media.id) {
+            url = 'spotify/now/spotify:album:' + encodeURIComponent(media.id);
+          } else {
+            url = 'musicsearch/spotify/album/artist:"' + encodeURIComponent(media.artist) + '" album:"' + encodeURIComponent(media.title) + '"';
+          }
         }
+        break;
+      }
+      case 'tunein': {
+        url = 'tunein/play/' + encodeURIComponent(media.id);
         break;
       }
     }

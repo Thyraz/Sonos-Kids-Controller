@@ -14,10 +14,11 @@ export class MediaService {
 
   private category = 'audiobook';
 
-  private media: Media[] = null;
-  private mediaSubject = new Subject<Media[]>();
-
   private rawMediaSubject = new Subject<Media[]>();
+
+  private artistSubject = new Subject<Media[]>();
+  private mediaSubject = new Subject<Media[]>();
+  private artistMediaSubject = new Subject<Media[]>();
 
   constructor(
     private http: HttpClient,
@@ -28,7 +29,7 @@ export class MediaService {
   // Handling of RAW media entries from data.json
   // --------------------------------------------
 
-  getRawMediaObservable(): Subject<Media[]> {
+  getRawMediaObservable() {
     return this.rawMediaSubject;
   }
 
@@ -58,19 +59,11 @@ export class MediaService {
     });
   }
 
-  // ------------------------------------------------------------------------------------------
-  // Handling of displayed media (Queries from RAW media expanded to single artists and albums)
-  // ------------------------------------------------------------------------------------------
-
-  getMediaObservable(): Subject<Media[]> {
-    return this.mediaSubject;
-  }
-
-  // Get the media data from the server
-  updateMedia() {
+  // Get the media data for the current category from the server
+  private updateMedia() {
     const url = (environment.production) ? '../api/data' : 'http://localhost:8200/api/data';
 
-    this.http.get<Media[]>(url).pipe(
+    return this.http.get<Media[]>(url).pipe(
       map(items => { // Filter to get only items for the chosen category
         items.forEach(item => item.category = (item.category === undefined) ? 'audiobook' : item.category); // default category
         items = items.filter(item => item.category === this.category);
@@ -110,24 +103,30 @@ export class MediaService {
       mergeMap(items => from(items)), // seperate arrays to single observables
       mergeAll(), // merge everything together
       toArray() // convert to array
-    ).subscribe(media => {
-      this.media = media;
+    );
+  }
+
+  publishArtists() {
+    this.updateMedia().subscribe(media => {
+      this.artistSubject.next(media);
+    });
+  }
+
+  publishMedia() {
+    this.updateMedia().subscribe(media => {
       this.mediaSubject.next(media);
     });
   }
 
-  // Publish cached media or get new data if no chached media is available
-  publishCachedMedia() {
-    if (this.media) {
-      this.mediaSubject.next(this.media);
-    } else {
-      this.updateMedia();
-    }
+  publishArtistMedia() {
+    this.updateMedia().subscribe(media => {
+      this.artistMediaSubject.next(media);
+    });
   }
 
-  // Get all artists
+  // Get all artists for the current category
   getArtists(): Observable<Artist[]> {
-    return this.getMediaObservable().pipe(
+    return this.artistSubject.pipe(
       map((media: Media[]) => {
         // Create temporary object with artists as keys and albumCounts as values
         const mediaCounts = media.reduce((tempCounts, currentMedia) => {
@@ -163,9 +162,9 @@ export class MediaService {
     );
   }
 
-  // Collect albums from a given artist
+  // Collect albums from a given artist in the current category
   getMediaFromArtist(artist: Artist): Observable<Media[]> {
-    return this.getMediaObservable().pipe(
+    return this.artistMediaSubject.pipe(
       map((media: Media[]) => {
         return media
           .filter(currentMedia => currentMedia.artist === artist.name)
@@ -177,9 +176,21 @@ export class MediaService {
     );
   }
 
-  // Choose which media category should be displayed in the app
-  setCategory(category: string) {
-    this.category = category;
-    this.publishCachedMedia();
+  // Get all media entries for the current category
+  getMedia(): Observable<Media[]> {
+    return this.mediaSubject.pipe(
+      map((media: Media[]) => {
+        return media
+          .sort((a, b) => a.title.localeCompare(b.title, undefined, {
+            numeric: true,
+            sensitivity: 'base'
+          }));
+      })
+    );
   }
+
+    // Choose which media category should be displayed in the app
+    setCategory(category: string) {
+      this.category = category;
+    }
 }

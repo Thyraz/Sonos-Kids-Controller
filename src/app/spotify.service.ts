@@ -65,6 +65,9 @@ export class SpotifyService {
     let fetch: any;
 
     switch (category) {
+      case 'playlist':
+        fetch = this.spotifyApi.getPlaylist;
+        break;
       default:
         fetch = this.spotifyApi.getAlbum;
     }
@@ -76,7 +79,7 @@ export class SpotifyService {
       map((response: SpotifyAlbumsResponseItem) => {
         const media: Media = {
           id: response.id,
-          artist: response.artists[0].name,
+          artist: response.artists?.[0]?.name,
           title: response.name,
           cover: response.images[0].url,
           type: 'spotify',
