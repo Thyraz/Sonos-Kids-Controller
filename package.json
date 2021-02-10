@@ -1,15 +1,13 @@
 {
     "name": "sonos-kids-controller",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "https://ionicframework.com/",
+    "version": "1.0.0",
+    "author": "Tobias Wiedenmann",
+    "homepage": "https://github.com/Thyraz/Sonos-Kids-Controller",
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
-        "build": "ng build",
-        "test": "ng test",
-        "lint": "ng lint",
-        "e2e": "ng e2e"
+        "build": "ionic build --prod",
+        "deploy": "ionic build --prod"
     },
     "private": true,
     "dependencies": {
@@ -57,5 +55,5 @@
         "tslint": "~6.1.0",
         "typescript": "~3.8.3"
     },
-    "description": "An Ionic project"
+    "description": "Software for self made touchscreen jukeboxes for kids"
 }

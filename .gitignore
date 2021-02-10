@@ -29,6 +29,7 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+/deploy
 
 server/config/data.json
 config.json
