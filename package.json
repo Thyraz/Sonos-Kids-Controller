@@ -1,6 +1,6 @@
 {
     "name": "sonos-kids-controller",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "Tobias Wiedenmann",
     "homepage": "https://github.com/Thyraz/Sonos-Kids-Controller",
     "scripts": {
