@@ -323,3 +323,8 @@ If you see a bubble in Chromium after some time, about Chromium not beeing up to
 ```
 sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHROMIUM_FLAGS=\"\$\{CHROMIUM_FLAGS\} --check-for-update-interval=31536000\" | sudo tee /etc/chromium-browser/customizations/01-disable-update-check
 ```
+
+## Docker
+An easy and fast way to deploy Sonos-Kids-Controller is using docker. Using docker avoids the compilation on small hardware. This repository contains a Dockerfile to build a container image. 
+
+Docker image is provided [here](https://github.com/stepman0/docker-sonos-kids-controller).
