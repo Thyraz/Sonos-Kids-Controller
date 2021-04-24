@@ -63,7 +63,13 @@
                     <ion-row class="media-card">
                         <ion-col size="12">
                             <ion-card class="media-card">
+                            <div *ngIf="covers[currentMedia.title] != null; then coverExist else coverEmpty"></div>
+                              <ng-template #coverEmpty>
+                                <img (click)="mediaCoverClicked(currentMedia)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Face-smile.svg/500px-Face-smile.svg.png">
+                              </ng-template>
+                              <ng-template #coverExist>
                                 <img (click)="mediaCoverClicked(currentMedia)" draggable="false" style="-moz-user-select: none;" ondragstart="return false;" src="{{covers[currentMedia.title]}}">
+                              </ng-template>
                                 <ion-card-header (click)="mediaNameClicked(currentMedia)">
                                     <ion-card-title class="ion-text-nowrap truncate-text">{{currentMedia.title}}</ion-card-title>
                                 </ion-card-header>

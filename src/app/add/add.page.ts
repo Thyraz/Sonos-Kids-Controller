@@ -303,7 +303,11 @@ export class AddPage implements OnInit, AfterViewInit {
       const title = this.keyboard.getInput('library_title');
 
       this.valid = (
-        title?.length > 0 && artist?.length > 0
+        (this.category === 'audiobook' || this.category === 'music') && (
+          title?.length > 0 && artist?.length > 0
+        )
+        ||
+        this.category === 'playlist' && title?.length > 0
       );
     } else if (this.source === 'amazonmusic') {
       const artist = this.keyboard.getInput('amazonmusic_artist');
