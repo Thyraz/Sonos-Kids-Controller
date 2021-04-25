@@ -30,6 +30,7 @@ export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('library_cover', { static: false }) libraryCover: IonInput;
   @ViewChild('spotify_artist', { static: false }) spotifyArtist: IonInput;
   @ViewChild('spotify_id', { static: false }) spotifyID: IonInput;
+  @ViewChild('spotify_artistid', { static: false }) spotifyArtistID: IonInput;
   @ViewChild('spotify_title', { static: false }) spotifyTitle: IonInput;
   @ViewChild('spotify_query', { static: false }) spotifyQuery: IonInput;
   @ViewChild('amazonmusic_artist', { static: false }) amazonmusicArtist: IonInput;
@@ -45,6 +46,7 @@ export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('tunein_cover', { static: false }) tuneinCover: IonInput;
 
   source = 'spotify';
+  spotifysearchid = 'albumid';
   category = 'audiobook';
   keyboard: Keyboard;
   selectedInputElem: any;
@@ -180,6 +182,13 @@ export class AddPage implements OnInit, AfterViewInit {
       this.validate();
     }, 10);
   }
+  
+  spotifysearchidChanged(event, value) {
+    this.spotifysearchid = value;
+    window.setTimeout(() => { // wait for new elements to be visible before altering them
+      this.validate();
+    }, 10);
+  }
 
   submit(form: NgForm) {
     const media: Media = {
@@ -192,6 +201,7 @@ export class AddPage implements OnInit, AfterViewInit {
       if (form.form.value.spotify_title?.length) { media.title = form.form.value.spotify_title; }
       if (form.form.value.spotify_query?.length) { media.query = form.form.value.spotify_query; }
       if (form.form.value.spotify_id?.length) { media.id = form.form.value.spotify_id; }
+      if (form.form.value.spotify_artistid?.length) { media.artistid = form.form.value.spotify_artistid; }
 
     } else if (this.source === 'library') {
       if (form.form.value.library_artist?.length) { media.artist = form.form.value.library_artist; }
@@ -223,6 +233,7 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('spotify_artist');
     this.keyboard.clearInput('spotify_title');
     this.keyboard.clearInput('spotify_id');
+    this.keyboard.clearInput('spotify_artistid');
     this.keyboard.clearInput('spotify_query');
 
     this.keyboard.clearInput('library_artist');
@@ -285,15 +296,18 @@ export class AddPage implements OnInit, AfterViewInit {
       const artist = this.keyboard.getInput('spotify_artist');
       const title = this.keyboard.getInput('spotify_title');
       const id = this.keyboard.getInput('spotify_id');
+      const artistid = this.keyboard.getInput('spotify_artistid');
       const query = this.keyboard.getInput('spotify_query');
 
       this.valid = (
         (this.category === 'audiobook' || this.category === 'music') && (
-          (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0))
+          (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0) && !(artistid?.length > 0))
           ||
-          (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0))
+          (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0) && !(artistid?.length > 0))
           ||
           (id?.length > 0 && !(query?.length > 0))
+          ||
+          (artistid?.length > 0 && !(query?.length > 0))
         )
         ||
         this.category === 'playlist' && id?.length > 0

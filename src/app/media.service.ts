@@ -72,8 +72,8 @@ export class MediaService {
       mergeMap(items => from(items)), // parallel calls for each item
       map((item) => // check if current item is a single album or a query for multiple items
         iif(
-          () => (item.query && item.query.length > 0) ? true : false,
-          this.spotifyService.getMediaByQuery(item.query, item.category).pipe(
+          () => ((item.query && item.query.length > 0) || (item.artistid && item.artistid.length > 0)) ? true : false,
+          this.spotifyService.getMediaByQuery(item.query, item.artistid, item.category).pipe(
             map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
               if (item.artist?.length > 0) {
                 items.forEach(currentItem => {

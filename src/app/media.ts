@@ -3,6 +3,7 @@ export interface Media {
     title?: string;
     query?: string;
     id?: string;
+    artistid?: string;
     cover?: string;
     type: string;
     category: string;

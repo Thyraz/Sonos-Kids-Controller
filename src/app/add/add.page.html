@@ -92,11 +92,31 @@
                                 </ion-item>
                             </div>
                         </ion-col>
-                        <ion-col size="6">
+                        <ion-col size="5.5">
                             <div>
                                 <ion-item>
-                                    <ion-input #spotify_id name="spotify_id" type="text" placeholder="Unique ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                  <div [ngSwitch]="spotifysearchid">
+                                    <div *ngSwitchCase="'albumid'">
+                                      <ion-input #spotify_id name="spotify_id" type="text" placeholder="Unique Album ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    </div>
+                                    <div *ngSwitchCase="'artistid'">
+                                      <ion-input #spotify_id name="spotify_artistid" type="text" placeholder="Unique Artist ID" (ionInput)="inputChanged($event)" (ionFocus)="focusChanged($event)" ngModel></ion-input>
+                                    </div>
+                                  </div>
                                 </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col size=".5">
+                            <div>
+                                  <ion-fab vertical="center" horizontal="center" slot="fixed">
+                                      <ion-fab-button size="small">
+                                          <ion-icon name="arrow-back-circle"></ion-icon>
+                                      </ion-fab-button>
+                                      <ion-fab-list side="bottom">
+                                          <ion-fab-button size="small" data-desc="Album ID" value="albumid" (click)="spotifysearchidChanged($event, 'albumid')"><ion-text>ID</ion-text></ion-fab-button>
+                                          <ion-fab-button size="small" data-desc="Artist ID" value="artistid" (click)="spotifysearchidChanged($event, 'artistid')"><ion-text>ID</ion-text></ion-fab-button>
+                                      </ion-fab-list>
+                                  </ion-fab>
                             </div>
                         </ion-col>
                     </ion-row>
