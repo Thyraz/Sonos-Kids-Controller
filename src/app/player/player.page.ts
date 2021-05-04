@@ -38,7 +38,10 @@ export class PlayerPage implements OnInit {
   ionViewWillEnter() {
     if (this.media) {
       this.playerService.sendCmd(PlayerCmds.CLEARQUEUE);
-      this.playerService.playMedia(this.media);
+
+      window.setTimeout(() => {
+        this.playerService.playMedia(this.media);
+      }, 1000);
     }
   }
 
