@@ -81,7 +81,7 @@ export class SpotifyService {
           id: response.id,
           artist: response.artists?.[0]?.name,
           title: response.name,
-          cover: response.images[0].url,
+          cover: response?.images[0]?.url,
           type: 'spotify',
           category
         };
