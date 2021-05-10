@@ -85,9 +85,6 @@ export class SpotifyService {
           type: 'spotify',
           category
         };
-        if (media.cover == null) {
-          media.cover = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Face-smile.svg/500px-Face-smile.svg.png';
-        }
         return media;
       })
     );

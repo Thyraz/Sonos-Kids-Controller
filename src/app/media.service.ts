@@ -102,7 +102,15 @@ export class MediaService {
       ),
       mergeMap(items => from(items)), // seperate arrays to single observables
       mergeAll(), // merge everything together
-      toArray() // convert to array
+      toArray(), // convert to array
+      map(media => { // add dummy image for missing covers
+        return media.map(currentMedia => {
+          if (!currentMedia.cover) {
+            currentMedia.cover = '../assets/images/nocover.png';
+          }
+          return currentMedia;
+        });
+      })
     );
   }
 
