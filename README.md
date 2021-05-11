@@ -8,7 +8,8 @@
 [Adding Content](#adding-content)\
 [Autostart](#autostart)\
 [Update](#update)\
-[Hardware Player](#hardware-player)
+[Hardware Player](#hardware-player)\
+[Alternative Installation using Docker](#docker)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
 
@@ -325,6 +326,8 @@ sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHR
 ```
 
 ## Docker
-An easy and fast way to deploy Sonos-Kids-Controller is using docker. Using docker avoids the compilation on small hardware. This repository contains a Dockerfile to build a container image. 
+There is now also an easy way to setup this software using Docker.
+This avoids the compilation on small hardware.
 
-Docker image is provided [here](https://github.com/stepman0/docker-sonos-kids-controller).
+The image is maintained by [stepman0](https://github.com/stepman0)\
+Get it [here](https://github.com/stepman0/docker-sonos-kids-controller).
