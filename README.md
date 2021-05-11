@@ -8,7 +8,8 @@
 [Adding Content](#adding-content)\
 [Autostart](#autostart)\
 [Update](#update)\
-[Hardware Player](#hardware-player)
+[Hardware Player](#hardware-player)\
+[Alternative Installation using Docker](#docker)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
 
@@ -323,3 +324,10 @@ If you see a bubble in Chromium after some time, about Chromium not beeing up to
 ```
 sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHROMIUM_FLAGS=\"\$\{CHROMIUM_FLAGS\} --check-for-update-interval=31536000\" | sudo tee /etc/chromium-browser/customizations/01-disable-update-check
 ```
+
+## Docker
+There is now also an easy way to setup this software using Docker.
+This avoids the compilation on small hardware.
+
+The image is maintained by [stepman0](https://github.com/stepman0)\
+Get it [here](https://github.com/stepman0/docker-sonos-kids-controller).
