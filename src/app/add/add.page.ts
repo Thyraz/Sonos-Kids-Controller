@@ -18,6 +18,7 @@ import { NgForm } from '@angular/forms';
 export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('segment', { static: false }) segment: IonSegment;
   @ViewChild('select', { static: false }) select: IonSelect;
+  @ViewChild('searchTypeSelect', { static: false }) searchTypeSelect: IonSelect;
 
   @ViewChild('library_segment', { static: false }) librarySegment: IonSelect;
   @ViewChild('spotify_segment', { static: false }) spotifySegment: IonSelect;
@@ -30,6 +31,7 @@ export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('library_cover', { static: false }) libraryCover: IonInput;
   @ViewChild('spotify_artist', { static: false }) spotifyArtist: IonInput;
   @ViewChild('spotify_id', { static: false }) spotifyID: IonInput;
+  @ViewChild('spotify_artistid', { static: false }) spotifyArtistID: IonInput;
   @ViewChild('spotify_title', { static: false }) spotifyTitle: IonInput;
   @ViewChild('spotify_query', { static: false }) spotifyQuery: IonInput;
   @ViewChild('amazonmusic_artist', { static: false }) amazonmusicArtist: IonInput;
@@ -46,6 +48,7 @@ export class AddPage implements OnInit, AfterViewInit {
 
   source = 'spotify';
   category = 'audiobook';
+  searchType = 'media_id';
   keyboard: Keyboard;
   selectedInputElem: any;
   valid = false;
@@ -133,6 +136,10 @@ export class AddPage implements OnInit, AfterViewInit {
     this.validate();
   }
 
+  searchTypeChanged() {
+    this.validate();
+  }
+
   focusChanged(event: any) {
     this.selectedInputElem = event.target;
 
@@ -192,6 +199,7 @@ export class AddPage implements OnInit, AfterViewInit {
       if (form.form.value.spotify_title?.length) { media.title = form.form.value.spotify_title; }
       if (form.form.value.spotify_query?.length) { media.query = form.form.value.spotify_query; }
       if (form.form.value.spotify_id?.length) { media.id = form.form.value.spotify_id; }
+      if (form.form.value.spotify_artistid?.length) { media.artistid = form.form.value.spotify_artistid; }
 
     } else if (this.source === 'library') {
       if (form.form.value.library_artist?.length) { media.artist = form.form.value.library_artist; }
@@ -223,6 +231,7 @@ export class AddPage implements OnInit, AfterViewInit {
     this.keyboard.clearInput('spotify_artist');
     this.keyboard.clearInput('spotify_title');
     this.keyboard.clearInput('spotify_id');
+    this.keyboard.clearInput('spotify_artistid');
     this.keyboard.clearInput('spotify_query');
 
     this.keyboard.clearInput('library_artist');
@@ -261,6 +270,15 @@ export class AddPage implements OnInit, AfterViewInit {
     if (this.amazonmusicArtist) { this.amazonmusicArtist.disabled = false; }
     if (this.applemusicArtist) { this.applemusicArtist.disabled = false; }
 
+    if (this.searchTypeSelect) {
+      if (this.category === 'playlist') {
+        this.searchTypeSelect.disabled = true;
+        this.searchType = 'media_id';
+      } else {
+        this.searchTypeSelect.disabled = false;
+      }
+    }
+
     switch (this.category) {
       case 'audiobook':
       case 'music':
@@ -285,15 +303,18 @@ export class AddPage implements OnInit, AfterViewInit {
       const artist = this.keyboard.getInput('spotify_artist');
       const title = this.keyboard.getInput('spotify_title');
       const id = this.keyboard.getInput('spotify_id');
+      const artistid = this.keyboard.getInput('spotify_artistid');
       const query = this.keyboard.getInput('spotify_query');
 
       this.valid = (
         (this.category === 'audiobook' || this.category === 'music') && (
-          (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0))
+          (title?.length > 0 && artist?.length > 0 && !(query?.length > 0) && !(id?.length > 0) && !(artistid?.length > 0))
           ||
-          (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0))
+          (query?.length > 0 && !(title?.length > 0) && !(id?.length > 0) && !(artistid?.length > 0))
           ||
           (id?.length > 0 && !(query?.length > 0))
+          ||
+          (artistid?.length > 0 && !(query?.length > 0))
         )
         ||
         this.category === 'playlist' && id?.length > 0

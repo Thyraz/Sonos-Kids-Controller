@@ -39,6 +39,10 @@ ion-item {
     background-color: rgba(220, 220, 220, 1.0);
 }
 
+.item .dimmed-text {
+    opacity: 0.5;
+}
+
 // Onscreen Keyboard
 .simple-keyboard {
     max-width: 800px;

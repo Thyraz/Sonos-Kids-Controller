@@ -20,3 +20,8 @@ export interface SpotifyAlbumsResponse {
         items: SpotifyAlbumsResponseItem[];
     };
 }
+
+export interface SpotifyArtistsAlbumsResponse {
+      total: number;
+      items: SpotifyAlbumsResponseItem[];
+}

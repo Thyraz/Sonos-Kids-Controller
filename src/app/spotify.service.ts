@@ -3,7 +3,7 @@ import { Observable, defer, throwError, of, range } from 'rxjs';
 import { retryWhen, flatMap, tap, delay, take, map, mergeMap, mergeAll, toArray } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { SpotifyAlbumsResponse, SpotifyAlbumsResponseItem } from './spotify';
+import { SpotifyAlbumsResponse, SpotifyAlbumsResponseItem, SpotifyArtistsAlbumsResponse } from './spotify';
 import { Media } from './media';
 
 declare const require: any;
@@ -22,13 +22,6 @@ export class SpotifyService {
   }
 
   getMediaByQuery(query: string, category: string): Observable<Media[]> {
-    let fetch: any;
-
-    switch (category) {
-      default:
-        fetch = this.spotifyApi.searchAlbums;
-    }
-
     const albums = defer(() => this.spotifyApi.searchAlbums(query, { limit: 1, offset: 0, market: 'DE' })).pipe(
       retryWhen(errors => {
         return this.errorHandler(errors);
@@ -60,7 +53,38 @@ export class SpotifyService {
     return albums;
   }
 
-  // Only used for Unique ID entries with "type: spotify" in the database.
+  getMediaByArtistID(id: string, category: string): Observable<Media[]> {
+    const albums = defer(() => this.spotifyApi.getArtistAlbums(id, { include_groups: 'album', limit: 1, offset: 0, market: 'DE' })).pipe(
+      retryWhen(errors => {
+        return this.errorHandler(errors);
+      }),
+      map((response: SpotifyArtistsAlbumsResponse) => response.total),
+      mergeMap(count => range(0, Math.ceil(count / 50))),
+      mergeMap(multiplier => defer(() => this.spotifyApi.getArtistAlbums(id, { include_groups: 'album', limit: 50, offset: 50 * multiplier, market: 'DE' })).pipe(
+        retryWhen(errors => {
+          return this.errorHandler(errors);
+        }),
+        map((response: SpotifyArtistsAlbumsResponse) => {
+          return response.items.map(item => {
+            const media: Media = {
+              id: item.id,
+              artist: item.artists[0].name,
+              title: item.name,
+              cover: item.images[0].url,
+              type: 'spotify',
+              category
+            };
+            return media;
+          });
+        })
+      )),
+      mergeAll(),
+      toArray()
+    );
+
+    return albums;
+  }
+
   getMediaByID(id: string, category: string): Observable<Media> {
     let fetch: any;
 
@@ -88,6 +112,7 @@ export class SpotifyService {
         return media;
       })
     );
+
     return album;
   }
 

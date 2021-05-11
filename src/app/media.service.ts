@@ -70,9 +70,9 @@ export class MediaService {
         return items;
       }),
       mergeMap(items => from(items)), // parallel calls for each item
-      map((item) => // check if current item is a single album or a query for multiple items
+      map((item) => // get media for the current item
         iif(
-          () => (item.query && item.query.length > 0) ? true : false,
+          () => (item.query && item.query.length > 0) ? true : false, // Get media by query
           this.spotifyService.getMediaByQuery(item.query, item.category).pipe(
             map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
               if (item.artist?.length > 0) {
@@ -84,21 +84,34 @@ export class MediaService {
             })
           ),
           iif(
-            () => (item.type === 'spotify' && item.id && item.id.length > 0) ? true : false,
-            this.spotifyService.getMediaByID(item.id, item.category).pipe(
-              map(currentItem => {  // If the user entered an user-defined artist or album name, overwrite values from spotify
+            () => (item.artistid && item.artistid.length > 0) ? true : false, // Get media by artist
+            this.spotifyService.getMediaByArtistID(item.artistid, item.category).pipe(
+              map(items => {  // If the user entered an user-defined artist name in addition to a query, overwrite orignal artist from spotify
                 if (item.artist?.length > 0) {
-                  currentItem.artist = item.artist;
+                  items.forEach(currentItem => {
+                    currentItem.artist = item.artist;
+                  });
                 }
-                if (item.title?.length > 0) {
-                  currentItem.title = item.title;
-                }
-                return [currentItem];
+                return items;
               })
             ),
-            of([item]) // return single albums also as array, so we always have the same data type
+            iif(
+              () => (item.type === 'spotify' && item.id && item.id.length > 0) ? true : false, // Get media by album
+              this.spotifyService.getMediaByID(item.id, item.category).pipe(
+                map(currentItem => {  // If the user entered an user-defined artist or album name, overwrite values from spotify
+                  if (item.artist?.length > 0) {
+                    currentItem.artist = item.artist;
+                  }
+                  if (item.title?.length > 0) {
+                    currentItem.title = item.title;
+                  }
+                  return [currentItem];
+                })
+              ),
+              of([item]) // Single album. Also return as array, so we always have the same data type
+            )
           )
-        ),
+        )
       ),
       mergeMap(items => from(items)), // seperate arrays to single observables
       mergeAll(), // merge everything together
