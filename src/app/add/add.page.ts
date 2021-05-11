@@ -18,6 +18,7 @@ import { NgForm } from '@angular/forms';
 export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('segment', { static: false }) segment: IonSegment;
   @ViewChild('select', { static: false }) select: IonSelect;
+  @ViewChild('searchTypeSelect', { static: false }) searchTypeSelect: IonSelect;
 
   @ViewChild('library_segment', { static: false }) librarySegment: IonSelect;
   @ViewChild('spotify_segment', { static: false }) spotifySegment: IonSelect;
@@ -46,8 +47,8 @@ export class AddPage implements OnInit, AfterViewInit {
   @ViewChild('tunein_cover', { static: false }) tuneinCover: IonInput;
 
   source = 'spotify';
-  spotifysearchid = 'albumid';
   category = 'audiobook';
+  searchType = 'media_id';
   keyboard: Keyboard;
   selectedInputElem: any;
   valid = false;
@@ -135,6 +136,10 @@ export class AddPage implements OnInit, AfterViewInit {
     this.validate();
   }
 
+  searchTypeChanged() {
+    this.validate();
+  }
+
   focusChanged(event: any) {
     this.selectedInputElem = event.target;
 
@@ -178,13 +183,6 @@ export class AddPage implements OnInit, AfterViewInit {
 
   segmentChanged(event: any) {
     this.source = event.detail.value;
-    window.setTimeout(() => { // wait for new elements to be visible before altering them
-      this.validate();
-    }, 10);
-  }
-  
-  spotifysearchidChanged(event, value) {
-    this.spotifysearchid = value;
     window.setTimeout(() => { // wait for new elements to be visible before altering them
       this.validate();
     }, 10);
@@ -271,6 +269,15 @@ export class AddPage implements OnInit, AfterViewInit {
     if (this.spotifyQuery) { this.spotifyQuery.disabled = false; }
     if (this.amazonmusicArtist) { this.amazonmusicArtist.disabled = false; }
     if (this.applemusicArtist) { this.applemusicArtist.disabled = false; }
+
+    if (this.searchTypeSelect) {
+      if (this.category === 'playlist') {
+        this.searchTypeSelect.disabled = true;
+        this.searchType = 'media_id';
+      } else {
+        this.searchTypeSelect.disabled = false;
+      }
+    }
 
     switch (this.category) {
       case 'audiobook':
