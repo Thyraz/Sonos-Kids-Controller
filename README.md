@@ -9,6 +9,7 @@
 [Autostart](#autostart)\
 [Update](#update)\
 [Hardware Player](#hardware-player)\
+[Raspberry Pi optimization](#raspi-optimization)\
 [Alternative Installation using Docker](#docker)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
@@ -324,6 +325,29 @@ If you see a bubble in Chromium after some time, about Chromium not beeing up to
 ```
 sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHROMIUM_FLAGS=\"\$\{CHROMIUM_FLAGS\} --check-for-update-interval=31536000\" | sudo tee /etc/chromium-browser/customizations/01-disable-update-check
 ```
+
+## Raspberry Pi optimization
+
+You may perform the following changes to Rasperry Pi OS AT YOUR OWN RISK
+
+#### Disable boot up messages
+
+According to the guide on the site https://florianmuller.com/polish-your-raspberry-pi-clean-boot-splash-screen-video-noconsole-zram you can disable the boot up messages by adding the following text to the file __/boot/cmdline.txt__ (no linefeed, no double space)
+```
+ loglevel=0 plymouth.enable=0 vt.global_cursor_default=0 plymouth.ignore-serial-consoles splash fastboot noatime nodiratime noram
+```
+
+#### Log to ramdisk 
+
+You may add the folling lines to the file __/etc/fstab___ to write temporary files and log files to ram. Attention, they get lost with every reboot.
+
+```
+tmpfs    /tmp    tmpfs    defaults,noatime,nosuid,size=100m    0 0
+tmpfs    /var/tmp    tmpfs    defaults,noatime,nosuid,size=25m    0 0
+tmpfs    /var/log    tmpfs    defaults,noatime,nosuid,mode=0755,size=25m    0 0
+```
+
+This will speed up the boot up process and helps to improve the live time of the SD card.
 
 ## Docker
 There is now also an easy way to setup this software using Docker.
