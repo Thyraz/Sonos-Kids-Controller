@@ -9,7 +9,7 @@
 [Autostart](#autostart)\
 [Update](#update)\
 [Hardware Player](#hardware-player)\
-[Raspberry Pi optimization](#raspi-optimization)\
+[Raspberry Pi optimization](#raspberry-pi-optimization)\
 [Alternative Installation using Docker](#docker)
 
 <img src="https://user-images.githubusercontent.com/170099/89946592-7863e480-dc23-11ea-9634-3fd8ff55852b.jpg" width="800" height="450"><br>
