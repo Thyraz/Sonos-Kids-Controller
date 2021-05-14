@@ -339,7 +339,7 @@ According to the guide on the site https://florianmuller.com/polish-your-raspber
 
 #### Log to ramdisk 
 
-You may add the folling lines to the file __/etc/fstab___ to write temporary files and log files to ram. Attention, they get lost with every reboot.
+You may add the folling lines to the file __/etc/fstab___ to write temporary files and log files to ram. Attention: they get lost with every reboot.
 
 ```
 tmpfs    /tmp    tmpfs    defaults,noatime,nosuid,size=100m    0 0
@@ -347,7 +347,7 @@ tmpfs    /var/tmp    tmpfs    defaults,noatime,nosuid,size=25m    0 0
 tmpfs    /var/log    tmpfs    defaults,noatime,nosuid,mode=0755,size=25m    0 0
 ```
 
-This will speed up the boot up process and helps to improve the live time of the SD card.
+This will speed up the boot up process and helps to improve the lifetime of the SD card.
 
 ## Docker
 There is now also an easy way to setup this software using Docker.
