@@ -328,18 +328,19 @@ sudo touch /etc/chromium-browser/customizations/01-disable-update-check;echo CHR
 
 ## Raspberry Pi optimization
 
-You may perform the following changes to Rasperry Pi OS AT YOUR OWN RISK
+You may perform the following changes to Rasperry Pi OS AT YOUR OWN RISK.
 
 #### Disable boot up messages
 
-According to the guide on the site https://florianmuller.com/polish-your-raspberry-pi-clean-boot-splash-screen-video-noconsole-zram you can disable the boot up messages by adding the following text to the file __/boot/cmdline.txt__ (no linefeed, no double space)
+According to the guide on the site https://florianmuller.com/polish-your-raspberry-pi-clean-boot-splash-screen-video-noconsole-zram you can disable the boot up messages by adding the following text to the file __/boot/cmdline.txt__ (no linefeed, no double space):
+
 ```
  loglevel=0 plymouth.enable=0 vt.global_cursor_default=0 plymouth.ignore-serial-consoles splash fastboot noatime nodiratime noram
 ```
 
 #### Log to ramdisk 
 
-You may add the folling lines to the file __/etc/fstab___ to write temporary files and log files to ram. Attention: they get lost with every reboot.
+You may add the folling lines to the file __/etc/fstab__ to write temporary files and log files to ram. Attention: they get lost with every reboot.
 
 ```
 tmpfs    /tmp    tmpfs    defaults,noatime,nosuid,size=100m    0 0
@@ -348,6 +349,51 @@ tmpfs    /var/log    tmpfs    defaults,noatime,nosuid,mode=0755,size=25m    0 0
 ```
 
 This will speed up the boot up process and helps to improve the lifetime of the SD card.
+
+#### Fixed IP-Adress
+
+a fixed IP Adress will speed up the boot process by about 3-5 seconds. Add your details to __/etc/dhcpcd.conf__. For example:
+
+```
+interface wlan0
+static ip_address=192.168.0.4/24    
+static routers=192.168.0.254
+static domain_name_servers=192.168.0.254 8.8.8.8
+```
+
+#### Overclocking CPU
+
+You may consider overclock your hardware by add the following lines to __/boot/config.txt. THIS MAY HARM YOUR HARDWARE!
+
+Example for Raspberry 3B:
+```
+# Overclock CPU
+arm_freq=1200
+over_voltage=4
+temp_limit=75
+core_freq=500
+
+# Overclock GPU
+h264_freq=333
+avoid_pwm_pll=1
+gpu_mem=320
+v3d_freq=500
+
+# Overclock RAM
+sdram_freq=588
+sdram_schmoo=0x02000020
+over_voltage_sdram_p=6
+over_voltage_sdram_i=4
+over_voltage_sdram_c=4
+```
+
+#### Overclocking sd card
+
+If you have a suitable SD Card you may consider overclock the SD card reader by add the following lines to __/boot/config.txt. THIS MAY HARM YOUR HARDWARE!
+
+```
+dtparam=sd_overclock=100
+```
 
 ## Docker
 There is now also an easy way to setup this software using Docker.
