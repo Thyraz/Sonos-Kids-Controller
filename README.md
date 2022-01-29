@@ -219,7 +219,7 @@ Here's a list of what I bought for my player:
 * [Capacitive 5 inch touchscreen](https://www.amazon.de/gp/product/B07YCBWRQP/)
 * [Flat HDMI cable](https://www.amazon.de/gp/product/B07R9RXWM5/)
 * [Tilted micro USB cable](https://www.amazon.de/gp/product/B01N26RAL6/)\
-(use a cutter knive to remove some of the isolation of the tilted connector to save some more height)
+(use a cutter knive to remove some of the isolation of the tilted connector to save some more height) or use this [Double tilted USB cable](https://www.amazon.de/gp/product/B01MYFEGTU/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1) cable which has on both side a tilted connector
 * [Small kitchen storage box as case](https://www.amazon.de/gp/product/B0841PZZ2C/) (ATTENTION: you need the mid sized box: 15.8cm x 12cm)
 * The bottom part of a raspberry case like [this one](https://www.amazon.de/schwarz-Gehäuse-Raspberry-neueste-Kühlkörper/dp/B00ZHG7AP0/) where you can tighten the raspberry without the need to drill holes in the backside of the jukebox
 * Tesa Powerstrips to fix the raspberry inside the jukebox
