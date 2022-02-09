@@ -142,7 +142,7 @@ export class SpotifyService {
 
   errorHandler(errors: Observable<any>) {
     return errors.pipe(
-      flatMap((error) => (error.status !== 401) ? throwError(error) : of(error)),
+      flatMap((error) => (error.status !== 401 && error.status !== 429) ? throwError(error) : of(error)),
       tap(_ => {
         if (!this.refreshingToken) {
           this.refreshToken();
