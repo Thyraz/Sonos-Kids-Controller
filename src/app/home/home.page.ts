@@ -33,11 +33,11 @@ export class HomePage implements OnInit {
     slidesPerView: 3,
     autoplay: false,
     loop: false,
-    freeMode: true,
-    freeModeSticky: true,
-    freeModeMomentumBounce: false,
-    freeModeMomentumRatio: 1.0,
-    freeModeMomentumVelocityRatio: 1.0
+    // freeMode: true,
+    // freeModeSticky: true,
+    // freeModeMomentumBounce: false,
+    // freeModeMomentumRatio: 1.0,
+    // freeModeMomentumVelocityRatio: 1.0
   };
 
   constructor(
@@ -61,6 +61,13 @@ export class HomePage implements OnInit {
         });
       });
       this.mediaSlider?.update();
+
+      // Workaround as the scrollbar handle isn't visible after the immediate update
+      // Seems like a size calculation issue, as resizing the browser window helps
+      // Better fix for this? 
+      window.setTimeout(() => {
+        this.mediaSlider?.update();
+      }, 1000);
     });
 
     this.mediaService.getArtists().subscribe(artists => {
@@ -72,6 +79,13 @@ export class HomePage implements OnInit {
         });
       });
       this.artistSlider?.update();
+
+      // Workaround as the scrollbar handle isn't visible after the immediate update
+      // Seems like a size calculation issue, as resizing the browser window helps
+      // Better fix for this? 
+      window.setTimeout(() => {
+        this.artistSlider?.update();
+      }, 1000);
     });
 
     this.update();
