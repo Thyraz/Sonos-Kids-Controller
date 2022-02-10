@@ -33,11 +33,11 @@ export class HomePage implements OnInit {
     slidesPerView: 3,
     autoplay: false,
     loop: false,
-    // freeMode: true,
-    // freeModeSticky: true,
-    // freeModeMomentumBounce: false,
-    // freeModeMomentumRatio: 1.0,
-    // freeModeMomentumVelocityRatio: 1.0
+    freeMode: true,
+    freeModeSticky: true,
+    freeModeMomentumBounce: false,
+    freeModeMomentumRatio: 1.0,
+    freeModeMomentumVelocityRatio: 1.0
   };
 
   constructor(
