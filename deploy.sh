@@ -6,6 +6,9 @@ rm -rf deploy
 # build personal web app
 ionic build --prod
 
+# Pause execution to see if the build process worked
+read -p "Press Enter to resume ..."
+
 # copy everything to deploy directory
 mkdir deploy
 cp -Rp www deploy/
