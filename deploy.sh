@@ -13,7 +13,7 @@ mkdir deploy/server
 mkdir deploy/server/config
 cp -p server/config/config-example.json  deploy/server/config/
 cp -p server.js deploy/
-cp -p package.json deploy/
+cp -p package-deploy.json deploy/package.json
 cp -p README.md deploy/
 
 # archive
