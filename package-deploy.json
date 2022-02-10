@@ -9,6 +9,9 @@
     "private": true,
     "dependencies": {
       "rxjs": "~6.6.0",
+      "cors": "^2.8.5",
+      "express": "^4.17.2",
+      "jsonfile": "^6.1.0",
       "simple-keyboard": "^3.4.46",
       "spotify-web-api-js": "^1.5.2",
       "spotify-web-api-node": "^5.0.2",
