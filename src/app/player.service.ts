@@ -118,7 +118,7 @@ export class PlayerService {
     this.getConfig().subscribe(config => {
 
       let protocol = "http";
-      if(config.useHttps == null || config.useHttps === true) {
+      if(config.useHttps === true) {
           protocol = "https";
       }
 
