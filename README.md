@@ -104,15 +104,15 @@ Point the node-sonos-http-api section to the adress and the port where the servi
 UseHttps can be used to specify whether the specified address and port expects an https connection or not. 
 The rooms are the Sonos room names that you want to be allowed as target.
 
-Room selection isn't implemented yet, so only the first room will be used at the moment.
-
 The spotify section is only needed when you want to use Spotify Premium as source.
 The id and the secret are the same values as entered in the node-sonos-http-api configuration as described [here.](https://github.com/Thyraz/node-sonos-http-api#note-for-spotify-users)
 
 ## Adding Content
 There's a hidden button in the root view on the right side of the top navigation bar.
 If you click there, you should see an overlay lighting up.
-Click this button quickly 10 times to open the library editor.
+Click this button quickly 10 times to open the settings menu where you find
+* a library editor and
+* a room selection
 
 Then click the "+" button on the top right to add a new entry.
 
