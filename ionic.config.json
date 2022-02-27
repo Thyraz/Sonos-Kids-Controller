@@ -1,5 +1,8 @@
 {
-    "name": "sonos-kids-controller",
-    "integrations": {},
-    "type": "angular"
+  "name": "sonos-kids-controller",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
 }
