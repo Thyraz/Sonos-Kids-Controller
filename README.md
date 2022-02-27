@@ -88,6 +88,7 @@ Now the user interface should appear
     "node-sonos-http-api": {
         "server": "127.0.0.1",
         "port": "5005",
+        "useHttps": false,
         "rooms": [
             "Livingroom",
             "Kitchen"
@@ -100,6 +101,7 @@ Now the user interface should appear
 }
 ```
 Point the node-sonos-http-api section to the adress and the port where the service is running.
+UseHttps can be used to specify whether the specified address and port expects an https connection or not. 
 The rooms are the Sonos room names that you want to be allowed as target.
 
 Room selection isn't implemented yet, so only the first room will be used at the moment.
