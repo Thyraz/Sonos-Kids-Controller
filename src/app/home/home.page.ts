@@ -168,7 +168,7 @@ export class HomePage implements OnInit {
         this.optionsButtonclickCount = 0;
       }, 500);
     } else {
-      this.router.navigate(['/options']);
+      this.router.navigate(['/settings']);
       this.optionsButtonclickCount = 0;
       this.needsUpdate = true;
     }
