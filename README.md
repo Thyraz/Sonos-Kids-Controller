@@ -112,7 +112,7 @@ There's a hidden button in the root view on the right side of the top navigation
 If you click there, you should see an overlay lighting up.
 Click this button quickly 10 times to open the settings menu where you find
 * a library editor and
-* a room selection
+* a room selection (hint: the app will reminder your choice)
 
 Then click the "+" button on the top right to add a new entry.
 
