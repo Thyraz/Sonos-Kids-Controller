@@ -11,8 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MediaService } from './media.service';
-import { Drivers } from '@ionic/storage';
-import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,10 +19,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     BrowserModule,
     IonicModule.forRoot({
       mode: 'md'
-    }),
-    IonicStorageModule.forRoot({
-      name: '__sonosKidsController.db',
-      driverOrder: ['sqlite', 'indexeddb', 'websql']
     }),
     AppRoutingModule,
     HttpClientModule,
