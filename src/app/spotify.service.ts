@@ -68,7 +68,7 @@ export class SpotifyService {
           return response.items.map(item => {
             const media: Media = {
               id: item.id,
-              artist: item.artists[0].name,
+              artist: item.artists.find(value => value.id === id).name,
               title: item.name,
               cover: item.images[0].url,
               type: 'spotify',
