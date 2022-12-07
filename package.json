@@ -21,7 +21,7 @@
       "@ionic-native/status-bar": "^5.36.0",
       "@ionic/angular": "^6.0.0",
       "cors": "^2.8.5",        
-      "express": "^4.17.2",
+      "express": "^4.18.2",
       "jsonfile": "^6.1.0",        
       "rxjs": "~6.6.0",
       "simple-keyboard": "^3.4.46",
