@@ -74,3 +74,7 @@ ion-toolbar {
 .alert-message {
     font-size: 18px !important;
 }
+
+ion-popover [popover]:not(:popover-open):not(dialog[open]) {
+    display: contents;
+}
