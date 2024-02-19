@@ -23,8 +23,8 @@ export class HomePage implements OnInit {
   media: Media[] = [];
   covers = {};
   activityIndicatorVisible = false;
-  editButtonclickCount = 0;
-  editClickTimer = 0;
+  optionsButtonclickCount = 0;
+  optionsClickTimer = 0;
 
   needsUpdate = false;
 
@@ -158,18 +158,18 @@ export class HomePage implements OnInit {
     });
   }
 
-  editButtonPressed() {
-    window.clearTimeout(this.editClickTimer);
+  optionsButtonPressed() {
+    window.clearTimeout(this.optionsClickTimer);
 
-    if (this.editButtonclickCount < 9) {
-      this.editButtonclickCount++;
+    if (this.optionsButtonclickCount < 9) {
+      this.optionsButtonclickCount++;
 
-      this.editClickTimer = window.setTimeout(() => {
-        this.editButtonclickCount = 0;
+      this.optionsClickTimer = window.setTimeout(() => {
+        this.optionsButtonclickCount = 0;
       }, 500);
     } else {
-      this.router.navigate(['/edit']);
-      this.editButtonclickCount = 0;
+      this.router.navigate(['/settings']);
+      this.optionsButtonclickCount = 0;
       this.needsUpdate = true;
     }
   }

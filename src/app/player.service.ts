@@ -5,6 +5,7 @@ import { SonosApiConfig } from './sonos-api';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { publishReplay, refCount } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 export enum PlayerCmds {
   PLAY = 'play',
@@ -24,7 +25,7 @@ export class PlayerService {
 
   private config: Observable<SonosApiConfig> = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   getConfig() {
     // Observable with caching:
@@ -114,10 +115,24 @@ export class PlayerService {
     });
   }
 
-  private sendRequest(url: string) {
-    this.getConfig().subscribe(config => {
-      const baseUrl = 'http://' + config.server + ':' + config.port + '/' + config.rooms[0] + '/';
-      this.http.get(baseUrl + url).subscribe();
+ private async sendRequest(url: string) {
+ 
+  // get active room
+  let activeRoom = 0;
+  await this.storageService.getObject('activeRoom').then(content => {
+    activeRoom = Number(content);
+  })
+ 
+  await this.getConfig().subscribe(config => {
+
+    // get protocol
+    let protocol = "http";
+    if(config.useHttps === true) {
+        protocol = "https";
+    }
+
+    const baseUrl = protocol + '://' + config.server + ':' + config.port + '/' + config.rooms[activeRoom] + '/';
+    this.http.get(baseUrl + url).subscribe();
     });
   }
 }

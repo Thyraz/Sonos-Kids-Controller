@@ -22,7 +22,7 @@ import { MediaService } from './media.service';
     }),
     AppRoutingModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
   ],
   providers: [
     MediaService,

@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button icon="arrow-back-outline" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Settings</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="center-buttons">
+    <ion-col size="12">
+      <ion-row class="button-controls">
+        <ion-col size="6" class="ion-text-center">
+          <ion-button color="light" class="button-icon" (click)="addButtonPressed()">
+            <ion-icon slot="icon-only" name="musical-notes-outline" class="large-icon"></ion-icon>
+            <label>Edit library</label>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button color="light" class="button-icon" (click)="selectRoomAlert()">
+            <ion-icon slot="icon-only" name="share-outline" class="large-icon"></ion-icon>
+            <label>Select room</label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-grid>
+</ion-content>
