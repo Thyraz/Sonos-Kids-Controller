@@ -5,6 +5,7 @@ export interface SpotifyAlbumsResponseImage {
 
 export interface SpotifyAlbumsResponseArtist {
     name: string;
+    id: string;
 }
 
 export interface SpotifyAlbumsResponseItem {
